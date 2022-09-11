@@ -1,0 +1,9 @@
+/#doc
+*.doc
+.vscode
+node_modules
+
+.eslintcache
+gulpfile.js
+.env*
+*.config.php
