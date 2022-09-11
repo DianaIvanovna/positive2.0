@@ -14,3 +14,18 @@
 - Предварительная авторизация: user / 4444
 - Админка сайта: pozitiv.uni-studio.ru/wp-admin/ vN116h6gRuAz / SK99NYCaGV7R  / noreply@uni-studio.ru
 - FTP: pozitiv.uni-studio.ru / glamyrrkru_poztv / tYZEP3bOuz6g
+
+
+## Структура папок
+- docs              - документация по проекту
+- public_html       - корень сайта
+-- wp-content       
+--- themes
+---- pozitiv        - папка темы
+----- css           - место для css
+----- js            - место для js
+----- img           - место для картинок
+----- fonts         - место для шрифтов
+----- index.php     - индексный файл (обязателен)
+----- functions.php - файл с функциями (обязателен)
+- src
