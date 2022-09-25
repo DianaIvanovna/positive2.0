@@ -3,6 +3,7 @@
 
 ## Оглавление
 - [Описание методов API](docs/api-methods.md)
+- [Описание структур](docs/api-structures.md)
 
 
 ## Ссылки

@@ -1,6 +1,6 @@
 <?php
 
-require_once __DIR__ . '/api/functions-api.php';    // Функции инициализации API
+require_once __DIR__ . '/system/functions-pozitiv.php';    // Функции инициализации API
 
 
 /* 
@@ -33,6 +33,8 @@ require_once __DIR__ . '/api/functions-api.php';    // Функции иници
 //             'type' => 'text',)
 //     );
 // });
+
+add_theme_support('post-thumbnails', ['tour'] ); 
 
 // Настроим ширину Gutenberg в Админке
 add_action( 'after_setup_theme', 'GutenbergCSS' ); 
