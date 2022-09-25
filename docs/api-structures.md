@@ -31,6 +31,30 @@
 - emailOwner        - Почта заказчика
 - firstNameOwner    - Имя заказчика
 - lastNameOwner     - Фамилия заказчика
-- data              - Данные заказа, список туристов
+- data              - Данные заказа: список туристов, данные туристов, допуслуги для туристов
+                        {
+                            tourists: [
+                                {
+                                    firstName: 'dfsdfdfs',
+                                    lastName: 'dfsdfdfs',
+                                    middleName: 'dfsdfdfs',
+                                    passportSeries:
+                                    passportNumber:
+                                    passportDateIssue:
+                                    passportWhoIssue:
+                                    passportCodeDivision: 
+                                    birthday:
+                                    services: [
+                                        {
+                                            id:
+                                            quantity:
+                                        }
+                                    ]
+                                }
+                            ]
+
+                        }
+
+
 
 

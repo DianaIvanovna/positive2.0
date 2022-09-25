@@ -67,24 +67,55 @@ class TourAPIController extends WP_REST_Controller {
 
                         while ($resTrip->have_posts()) {
                             $resTrip->the_post();
+
                             $arTrip = [
                                 'id'            => $resTrip->post->ID,
-                                'dateStart'     => '',
-                                'dateEnd'       => '',
-                                'touristLimit'  => '',
-                                'cost'          => '',
-                                'prepayment'    => '',
+                                'dateStart'     => get_field('dateStart', $resTrip->post->ID),
+                                'dateEnd'       => get_field('dateEnd', $resTrip->post->ID),
+                                'touristLimit'  => get_field('touristLimit', $resTrip->post->ID),
+                                'cost'          => get_field('cost', $resTrip->post->ID),
                             ];
+
+                            //=== Добавим информацию по допуслугам
+                            $services = get_field('services', $resTrip->post->ID);
+                            if (is_numeric($services) || (is_array($services) && count($services))) {
+
+                                if (is_numeric($services)) {
+                                    $argsServ = [
+                                        'post_type' => 'service',
+                                        'p'         => $services
+                                    ];
+                                } elseif (is_array($services)) {
+                                    $argsServ = [
+                                        'post_type' => 'service',
+                                        'post__in'  => $services
+                                    ];
+                                }
+
+                                $resServ = new WP_Query($argsServ);
+
+                                $arServs = [];
+                                while ($resServ->have_posts()) {
+                                    $resServ->the_post();
+
+                                    $arServs[] = [
+                                        'id'            => $resServ->post->ID,
+                                        'name'          => $resServ->post->post_title,
+                                        'description'   => $resServ->post->post_content,
+                                        'cost'          => get_field('cost', $resServ->post->ID),
+                                        'prepayment'    => get_field('prepayment', $resServ->post->ID),
+                                    ];
+                                }
+                            }
+
+                            $arTrip['services'] = $arServs;
 
                             $arTrips[] = $arTrip;
                         }
-
                     }
-
                 }
 
                 $arTour['trips'] = $arTrips;
-
                 $out[] = $arTour;
             }
             wp_reset_postdata();
