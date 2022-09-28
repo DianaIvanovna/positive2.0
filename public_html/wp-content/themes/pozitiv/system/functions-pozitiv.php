@@ -184,6 +184,27 @@ add_action( 'rest_api_init', function(){
         ]
     );
 
+    // Маршрут заказов
+    $res = register_rest_route(
+        POZITIV_API_NAMESPACE,
+        '/order/(?P<action>[a-z]+)/',
+        [
+            'methods'   => 'POST',
+            'callback'  => 'EndpointOrder',
+            'args'      => [
+                'paramName'     =>  [
+                    'default'               => null,            // значение параметра по умолчанию
+                    'required'              => null,            // является ли параметр обязательным. Может быть только true
+                    'validate_callback'     => 'function_name', // функция проверки значения параметра. Должна вернуть true/false
+                    'sanitize_callback'     => 'function_name', // функция очистки значения параметра. Должна вернуть очищенное значение
+                ]
+            ],
+            'permission_callback' => function ( $request ) {
+                return true;
+            }
+        ]
+    );
+
 
     // Маршрут Поездка
     // register_rest_route(
@@ -297,22 +318,33 @@ function EndpointTour(WP_REST_Request $request) {
     $tourProcessor = new TourAPIController();
     return $tourProcessor->Init($request);
 }
-// function EndpointTrip(WP_REST_Request $request) { }
-// function EndpointOrder(WP_REST_Request $request) { }
-// function EndpointUser(WP_REST_Request $request) { }
-// function EndpointPayment(WP_REST_Request $request) { }
-// function EndpointService(WP_REST_Request $request) { }
 
-// функция обработчик конечной точки (маршрута)
-function my_awesome_func( WP_REST_Request $request ){
-
-	$posts = get_posts( [
-		'author' => (int) $request['id'],
-	] );
-
-	if ( empty( $posts ) ) {
-		return new WP_Error( 'no_author_posts', 'Записей не найдено', [ 'status' => 404 ] );
-	}
-
-	return $posts;
+function EndpointOrder(WP_REST_Request $request) { 
+    require_once __DIR__ . '/classes/OrderAPIController.class.php';
+    $tourProcessor = new OrderAPIController();
+    return $tourProcessor->Init($request);
 }
+
+
+
+
+add_action(
+    'admin_menu', 
+    function(){
+        add_menu_page(
+            'Позитив - Заказы', // тайтл страницы
+            'Заказы', // текст ссылки в меню
+            'manage_options', // права пользователя, необходимые для доступа к странице
+            'pozitiv_orders', // ярлык страницы
+            'PozitivOrderPage', // функция, которая выводит содержимое страницы
+            'dashicons-palmtree', // иконка, в данном случае из Dashicons
+            20 // позиция в меню
+        );
+    },
+    25
+);
+ 
+function true_slider_page_callback(){
+	echo 'привет';
+}
+

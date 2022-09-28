@@ -62,6 +62,23 @@
         </details>
 
 
+        <!-- заказ -->
+        <details>
+            <summary>Заказ</summary>
+
+            <!-- создать заказ -->
+            <div class="form-wrapper">
+                <form action="/wp-json/pozitiv/v1/order/create/" method="POST">
+                    <p><input type="tel" name="phoneOwner" placeholder="телефон"></p>
+                    <p><input type="email" name="emailOwner" placeholder="e-mail"></p>
+                    <p><input type="text" name="firstNameOwner" placeholder="Имя"></p>
+                    <p><input type="text" name="lastNameOwner" placeholder="Фамилия"></p>
+                    <p><textarea name="tourists" placeholder="json-туристов"></textarea></p>
+                    <button type="submit">отправить</button>
+                </form>
+            </div>
+        </details>
+
 
         <script>
             jQuery('.field-disabler').click(function(){
