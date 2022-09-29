@@ -314,24 +314,26 @@ add_action( 'rest_api_init', function(){
 
 
 function EndpointTour(WP_REST_Request $request) {
-    require_once __DIR__ . '/classes/TourAPIController.class.php';
+    require_once __DIR__ . '/api/TourAPIController.class.php';
     $tourProcessor = new TourAPIController();
     return $tourProcessor->Init($request);
 }
 
 function EndpointOrder(WP_REST_Request $request) { 
-    require_once __DIR__ . '/classes/OrderAPIController.class.php';
+    require_once __DIR__ . '/api/OrderAPIController.class.php';
     $tourProcessor = new OrderAPIController();
     return $tourProcessor->Init($request);
 }
 
-
-
-
+/**
+ * Добавим меню Заказы в админку
+ */
 add_action(
     'admin_menu', 
     function(){
-        add_menu_page(
+        
+        //= Зарегистрируем страницу Заказов
+        $pageOrder = add_menu_page(
             'Позитив - Заказы', // тайтл страницы
             'Заказы', // текст ссылки в меню
             'manage_options', // права пользователя, необходимые для доступа к странице
@@ -340,11 +342,43 @@ add_action(
             'dashicons-palmtree', // иконка, в данном случае из Dashicons
             20 // позиция в меню
         );
+
+        //= Подключим скрипты и стили к странице Заказов
+        add_action('load-' . $pageOrder, function(){
+            wp_enqueue_style( 'pozitiv-admin', get_template_directory_uri() . '/assets/styles/pozitiv-admin.min.css' );
+            wp_enqueue_style( 'pozitiv-orders', get_template_directory_uri() . '/assets/styles/pozitiv-admin-orders.min.css' );
+            // wp_enqueue_script('less', get_template_directory_uri() . '/assets/scripts/vendor/less.min.js');
+
+            //== Добавим класс странице Заказов
+            add_filter( 'admin_body_class', function() { return 'pozitiv-admin pozitiv-admin--orders'; });
+        });
     },
     25
 );
+
+
  
-function true_slider_page_callback(){
-	echo 'привет';
+function PozitivOrderPage(){
+    
+
+	echo '
+        <h1>Управление заказами</h1>
+
+        <div class="pozitiv-admin__table-wrapper">
+            <table class="pozitiv-admin__table">
+                <thead>
+                    <tr>
+                        <th>ID</th>
+                        <th>Дата</th>
+                        <th>Клиент</th>
+                        <th>Туристы</th>
+                        <th>Статус</th>
+                        <th>Сумма</th>
+                        <th>Оплачено</th>
+                    </tr>
+                </thead>
+            </table>
+        </div>
+    ';
 }
 
