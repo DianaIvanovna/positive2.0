@@ -2,4 +2,6 @@
 
 class PozitivModel {
     
+    function __construct() {
+    }
 }

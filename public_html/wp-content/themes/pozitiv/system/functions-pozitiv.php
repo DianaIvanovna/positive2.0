@@ -1,7 +1,7 @@
 <?php
 
 /**
- * 
+ *
  */
 
 // Добавим типы данных
@@ -156,6 +156,15 @@ function cptui_register_my_cpts() {
     );
 }
 add_action( 'init', 'cptui_register_my_cpts' );
+
+// Добавление роли для пользователей позитива
+// $result = add_role(
+//     'pozitiv_user',
+//     'Пользователь pozitiv',
+// 	[
+// 		'read'         => true,
+//     ]
+// );
 
 
 // Создание маршрутов
@@ -319,7 +328,7 @@ function EndpointTour(WP_REST_Request $request) {
     return $tourProcessor->Init($request);
 }
 
-function EndpointOrder(WP_REST_Request $request) { 
+function EndpointOrder(WP_REST_Request $request) {
     require_once __DIR__ . '/api/OrderAPIController.class.php';
     $tourProcessor = new OrderAPIController();
     return $tourProcessor->Init($request);
@@ -329,9 +338,9 @@ function EndpointOrder(WP_REST_Request $request) {
  * Добавим меню Заказы в админку
  */
 add_action(
-    'admin_menu', 
+    'admin_menu',
     function(){
-        
+
         //= Зарегистрируем страницу Заказов
         $pageOrder = add_menu_page(
             'Позитив - Заказы', // тайтл страницы
@@ -357,10 +366,8 @@ add_action(
 );
 
 
- 
-function PozitivOrderPage(){
-    
 
+function PozitivOrderPage(){
 	echo '
         <h1>Управление заказами</h1>
 
@@ -381,4 +388,3 @@ function PozitivOrderPage(){
         </div>
     ';
 }
-
