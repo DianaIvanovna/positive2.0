@@ -32,28 +32,30 @@
 - firstNameOwner    - Имя заказчика
 - lastNameOwner     - Фамилия заказчика
 - data              - Данные заказа: список туристов, данные туристов, допуслуги для туристов
-                        {
-                            tourists: [
-                                {
-                                    firstName: 'dfsdfdfs',
-                                    lastName: 'dfsdfdfs',
-                                    middleName: 'dfsdfdfs',
-                                    passportSeries:
-                                    passportNumber:
-                                    passportDateIssue:
-                                    passportWhoIssue:
-                                    passportCodeDivision: 
-                                    birthday:
-                                    services: [
-                                        {
-                                            id:
-                                            quantity:
-                                        }
-                                    ]
-                                }
-                            ]
+```JSON
+{
+    "tourists": [
+        {
+            "firstName": "dfsdfdfs",
+            "lastName": "dfsdfdfs",
+            "middleName": "dfsdfdfs",
+            "passportSeries": "432432423",
+            "passportNumber": "32131",
+            "passportDateIssue": "01.01.2001",
+            "passportWhoIssue": "dfsdfdsfasdasd",
+            "passportCodeDivision":  "333-444",
+            "birthday": "01.01.1999",
+            "services": [
+                {
+                    "id": 123,
+                    "quantity": 1
+                }
+            ]
+        }
+    ]
 
-                        }
+}
+```
 
 
 
