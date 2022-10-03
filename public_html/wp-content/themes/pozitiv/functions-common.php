@@ -1,7 +1,10 @@
 <?php
 
 /**
- * Вернет очищенный от лишних символов номер телефона
+ * Вернет очищенный от лишних символов номер телефона или 
+ * false если не удалось преобразовать телефон к стандартному виду
+ * 
+ * @return false | string
  */
 function GetCleanPhone($phoneString) {
     if (empty($phoneString)) {
@@ -57,4 +60,23 @@ function GetCleanPhone($phoneString) {
     }
 
     return false;
+}
+
+
+/**
+ * Сгенерирует случайную буквенно-цифровую строку заданной длинны
+ * @param int $length=6
+ * @return string
+ */
+function GetRandomString(int $length = 6) {
+
+    $chars = 'qazxswedcvfrtgbnhyujmkiolp1234567890QAZXSWEDCVFRTGBNHYUJMKIOLP';
+    $size = strlen($chars) - 1;
+    $password = '';
+
+    while($length--) {
+        $password .= $chars[random_int(0, $size)];
+    }
+
+    return $password;
 }
