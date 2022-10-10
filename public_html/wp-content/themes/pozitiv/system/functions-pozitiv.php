@@ -355,7 +355,7 @@ add_action(
         //= Подключим скрипты и стили к странице Заказов
         add_action('load-' . $pageOrder, function(){
             wp_enqueue_style( 'pozitiv-admin', get_template_directory_uri() . '/assets/styles/pozitiv-admin.min.css' );
-            wp_enqueue_style( 'pozitiv-orders', get_template_directory_uri() . '/assets/styles/pozitiv-admin-orders.min.css' );
+            wp_enqueue_style( 'order-page-admin', get_template_directory_uri() . '/assets/styles/orders-pages-admin.min.css' );
             // wp_enqueue_script('less', get_template_directory_uri() . '/assets/scripts/vendor/less.min.js');
 
             //== Добавим класс странице Заказов
@@ -368,6 +368,10 @@ add_action(
 
 
 function PozitivOrderPage(){
+    require_once __DIR__ . '/models/orderModel.class.php';
+
+    $orderModel = new OrderModel();
+    $orders = $orderModel->GetAll();
 	echo '
         <h1>Управление заказами</h1>
 
@@ -376,15 +380,67 @@ function PozitivOrderPage(){
                 <thead>
                     <tr>
                         <th>ID</th>
-                        <th>Дата</th>
+                        <th>Дата создания</th>
                         <th>Клиент</th>
                         <th>Туристы</th>
-                        <th>Статус</th>
                         <th>Сумма</th>
-                        <th>Оплачено</th>
+                        <th>Статус</th>
                     </tr>
                 </thead>
+                <tbody>
+    ';
+
+    foreach ($orders as $order) {
+
+        //== Колонки ID, даты создания, имя заказчика
+        echo "
+            <tr>
+                <td>{$order->id}</td>
+                <td>{$order->dateCreate}</td>
+                <td>{$order->lastNameOwner} {$order->firstNameOwner}</td>
+        ";
+
+        //== Колонка туристов
+        $dataOrder = json_decode($order->data);
+        echo '<td>';
+        foreach ($dataOrder->tourists as $tourist) {
+            echo $tourist->name . '<br/>';
+        }
+        echo '</td>';
+
+        //== Колонка Суммы
+        echo '<td>&nbsp;</td>';
+
+
+        //== Колонка статуса
+        switch ($order->status) {
+            case 'created': 
+                $orderStatusLabel = 'Создан';
+                break;
+            case 'payed': 
+                $orderStatusLabel = 'Оплачен';
+                break;
+            case 'confirmed': 
+                $orderStatusLabel = 'Подтвержден';
+                break;
+            case 'canceled': 
+                $orderStatusLabel = 'Отменен';
+                break;
+            default:
+                $orderStatusLabel = '-ОШИБКА-';
+                break;
+        }
+        echo "<td>{$orderStatusLabel}</td>";
+
+        echo '</tr>';
+    }
+
+    echo '
+                </tbody>
             </table>
         </div>
     ';
+
+    
+
 }

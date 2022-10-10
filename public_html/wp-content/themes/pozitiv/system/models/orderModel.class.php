@@ -22,7 +22,8 @@ class OrderModel extends PozitivModel {
 	            'emailOwner'        => $arOrder['emailOwner'],
 	            'firstNameOwner'    => $arOrder['firstNameOwner'],
 	            'lastNameOwner'     => $arOrder['lastNameOwner'],
-	            'data'              => $arOrder['data']
+	            'data'              => $arOrder['data'],
+                'history'           => $arOrder['history'],
             ]
         );
 
@@ -32,6 +33,21 @@ class OrderModel extends PozitivModel {
 
         $arOrder['id'] = $wpdb->insert_id;
         return $arOrder;
+    }
+
+
+    /**
+     * Вернет все заказы в системе
+     */
+    public function GetAll() {
+        global $wpdb;
+
+        return $wpdb->get_results(
+            'SELECT * FROM `pozitiv_orders` ORDER BY id DESC',
+            'OBJECT'
+        );
+
+
     }
 
 
