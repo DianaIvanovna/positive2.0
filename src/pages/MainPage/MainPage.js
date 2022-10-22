@@ -13,6 +13,7 @@ import Footer from "../../components/Footer/Footer";
 
 import {dataTripSummer, dataTripWinter, dataFooterSummer, dataFooterWinter, dataPositiveIsSummer, dataPositiveIsWinter} from "./data";
 import {useOnScreen} from "../../utils/useOnScreen";
+import GoUp from "../../components/GoUp/GoUp";
 
 const MainPage = props => {
     const [season, setSeason] = useState(null);
@@ -50,7 +51,7 @@ const MainPage = props => {
 
     return (
         <div className="main">
-            <Header />
+            <Header season={season} />
             <div className="main__contant">
                 <WelcomeSection data={dataWelcomeSection} />
 
@@ -93,6 +94,7 @@ const MainPage = props => {
                 </div>
                 {/* footer end  */}
             </div>
+            <GoUp />
         </div>
     );
 };

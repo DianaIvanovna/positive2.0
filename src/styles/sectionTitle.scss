@@ -1,0 +1,22 @@
+@import "../variables.scss";
+.sectionTitle {
+    @include titleFont;
+    font-size: 48px;
+    line-height: 115.75%;
+    letter-spacing: 0.02em;
+    text-transform: uppercase;
+
+    color: $mainColor;
+    margin: 0px;
+}
+@media screen and (max-width: 850px) {
+    .sectionTitle {
+        font-size: 32px;
+    }
+}
+
+@media screen and (max-width: 450px) {
+    .sectionTitle {
+        font-size: 28px;
+    }
+}

@@ -14,12 +14,9 @@ const WelcomeSection = ({data, ...props}) => {
             <div className="background-container">
                 <picture className={`welcome__back-img ${data.className}`}>
                     <source media="(min-width: 1600px)" srcSet={data.photos[0]} type="image/webp" />
-
                     <source media="(min-width: 1040px)" srcSet={data.photos[1]} type="image/webp" />
-
                     <source srcSet={data.photos[2]} type="image/webp" />
-
-                    <img width="1980px" height="800px" src={data.photos[3]} alt="фоновая картинка туристы" />
+                    <img width="1980px" height="800px" src={data.photos[3]} srcSet={data.slug} alt="фоновая картинка туристы" />
                 </picture>
             </div>
             <div className="pageContent">

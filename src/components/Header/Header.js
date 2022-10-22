@@ -1,6 +1,6 @@
 import React, {useEffect, useState} from "react";
 import "./Header.scss";
-import {NavLink} from "react-router-dom";
+import {NavLink, withRouter} from "react-router-dom";
 
 import logoWebp from "../../../public_html/wp-content/themes/pozitiv/img/logo/logo-big_a1b.webp";
 import logo from "../../../public_html/wp-content/themes/pozitiv/img/logo/logo-big.png";
@@ -11,7 +11,7 @@ import viber from "../../../public_html/wp-content/themes/pozitiv/img/soc-icon/v
 import menuButton from "../../../public_html/wp-content/themes/pozitiv/img/Icon/menu-button.svg";
 // import instagram from "../../../public_html/wp-content/themes/pozitiv/img/soc-icon/instagram.svg";
 
-const Header = () => {
+const Header = ({season = "winter", ...props}) => {
     const [showScroll, setShowScroll] = useState(false);
     const [mobile, setMobile] = useState(false);
 
@@ -22,6 +22,23 @@ const Header = () => {
             setShowScroll(true);
         }
     };
+
+    // const scrollTo = event => {
+    //     event.preventDefault();
+    //     setMobile(false);
+
+    //     const link = event.target.getAttribute("data-href");
+    //     const anchor = event.target.getAttribute("data-anchor");
+
+    //     if (link && anchor) {
+    //         //   this.router.navigate( [link], {
+    //         //     queryParams: {
+    //         //       'season': this.season,
+    //         //     },
+    //         //     fragment: anchor
+    //         //   });
+    //     }
+    // };
 
     useEffect(() => {
         document.addEventListener("scroll", scrollHandler);
@@ -44,16 +61,21 @@ const Header = () => {
 
             <header className="header">
                 <div className="header__container">
-                    <picture className="header__logo">
+                    <picture
+                        className="header__logo"
+                        onClick={() => {
+                            props.history.push("/");
+                        }}
+                    >
                         <source srcSet={logoWebp} type="image/webp" />
                         <img width="106px" height="106px" src={logo} alt="логтип positive" />
                     </picture>
 
                     <nav className="header__nav">
-                        <NavLink className="header__link" exact to="/trips">
+                        <NavLink className="header__link" exact to={`/trips?season=${season}`}>
                             Наши поездки
                         </NavLink>
-                        <NavLink className="header__link" exact to="/rent">
+                        <NavLink className="header__link" exact to={`/rent?season=${season}`}>
                             Прокат снаряжения
                         </NavLink>
                         <NavLink className="header__link" exact to="/trips">
@@ -130,4 +152,4 @@ const Header = () => {
     );
 };
 
-export default Header;
+export default withRouter(Header);

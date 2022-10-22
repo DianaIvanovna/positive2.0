@@ -1,0 +1,14 @@
+.goUp {
+    position: fixed;
+    bottom: 24px;
+    right: 24px;
+    width: 36px;
+    height: 36px;
+    border-radius: 36px;
+    background: #2c2c2c;
+    z-index: 8;
+    transform: rotate(-90deg);
+    &:hover {
+        cursor: pointer;
+    }
+}

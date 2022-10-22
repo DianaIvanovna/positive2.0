@@ -1,0 +1,237 @@
+@import "../../styles/page.scss";
+.equipmentRental__background-container {
+    position: absolute;
+    top: -70px;
+    right: -100px;
+    z-index: -1;
+    picture {
+        img {
+            object-fit: contain;
+        }
+    }
+}
+
+.equipmentRental__background-container_summer {
+    position: absolute;
+    top: 10%;
+    left: 0;
+    width: 100%;
+    height: 80%;
+    z-index: -1;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    picture {
+        width: 100%;
+
+        // height: 100vh;
+        img {
+            object-fit: cover;
+            object-position: left center;
+            width: 100%;
+            height: 100%;
+            // object-fit: cover;
+            // object-position: left bottom;
+        }
+    }
+
+    @media screen and (max-width: 1040px) {
+        justify-content: space-evenly;
+        picture {
+            img {
+                height: 150%;
+                object-position: 50% bottom;
+            }
+        }
+    }
+    @media screen and (max-width: 650px) {
+        justify-content: space-between;
+        picture {
+            img {
+                height: 300%;
+                object-position: 60% center;
+            }
+        }
+    }
+}
+
+.equipmentContainer__img {
+    position: absolute;
+    bottom: 0px;
+    left: 0px;
+    z-index: -1;
+    width: 50%;
+    img {
+        width: 100%;
+        height: 100%;
+        object-fit: contain;
+    }
+}
+@media screen and (max-width: 900px) {
+    .equipmentContainer__img {
+        width: 70%;
+        left: -20%;
+    }
+}
+@media screen and (max-width: 500px) {
+    .equipmentContainer__img {
+        width: 90%;
+        left: -20%;
+    }
+}
+
+.main-second {
+    position: relative;
+    .main__contant {
+        position: relative;
+        top: 106px;
+    }
+    @media screen and (max-width: 450px) {
+        .main__contant {
+            top: 80px;
+        }
+    }
+}
+.main_rent {
+    overflow-x: hidden;
+}
+
+.page {
+    width: 100%;
+    position: relative;
+}
+
+.page_rent {
+    overflow: visible;
+}
+
+.background-container {
+    width: 100%;
+    height: calc(100vh - 106px);
+    min-height: 550px;
+    position: absolute;
+    top: 0px;
+    left: 0px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    @media screen and (max-width: 800px) {
+        & {
+            min-height: 400px;
+        }
+    }
+    .page__background {
+        @media screen and (min-width: 320px) {
+            & {
+                position: relative;
+                height: 100%;
+                right: 22%;
+                top: 10%;
+                object-fit: cover;
+                z-index: -1;
+            }
+        }
+        @media screen and (min-width: 425px) {
+            & {
+                min-width: 100%;
+                right: 0px;
+            }
+        }
+
+        @media screen and (min-width: 1024px) {
+            & {
+                width: 150%;
+            }
+        }
+        @media screen and (min-width: 1280px) {
+            & {
+                width: 100%;
+            }
+        }
+        @media screen and (max-width: 450px) {
+            & {
+                height: calc(100vh - 80px);
+            }
+        }
+    }
+}
+.page__background_footer {
+    width: 100%;
+    height: 100%;
+    position: absolute;
+    bottom: 0px;
+    left: 0px;
+    z-index: -1;
+    box-sizing: border-box;
+    img {
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
+        object-position: left;
+    }
+
+    @media screen and (max-width: 1040px) {
+        height: 650px;
+    }
+    @media screen and (max-width: 800px) {
+        height: 500px;
+    }
+}
+.page__background_footer-winter {
+    img {
+        object-position: 40% 0px;
+    }
+}
+
+.positive-is__background {
+    position: absolute;
+    top: 0px;
+    left: 0px;
+    z-index: -1;
+
+    opacity: 0.3;
+    width: 100%;
+    top: 0px;
+    max-height: 900px;
+    overflow: hidden;
+
+    img {
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
+    }
+
+    @media screen and (max-width: 1280px) {
+        & {
+            height: 800px;
+        }
+    }
+    @media screen and (max-width: 650px) {
+        & {
+            height: 800px;
+        }
+    }
+}
+.pageContent {
+    display: flex;
+    flex-direction: column;
+    max-width: 1140px;
+    margin: 0px auto;
+}
+@media screen and (max-width: 1280px) {
+    .page {
+        box-sizing: border-box;
+        padding: 0px 80px;
+    }
+}
+@media screen and (max-width: 1040px) {
+    .page {
+        padding: 0px 40px;
+    }
+}
+
+@media screen and (max-width: 500px) {
+    .page {
+        padding: 0px 20px;
+    }
+}
