@@ -1,0 +1,188 @@
+@import "../../variables.scss";
+
+@keyframes text {
+    0% {
+        transform: scale(0.7);
+        opacity: 0;
+    }
+    50% {
+        transform: scale(0.7);
+        opacity: 0;
+    }
+    100% {
+        transform: scale(1);
+        opacity: 1;
+    }
+}
+
+.home-page {
+    width: 100%;
+    height: 100%;
+    display: flex;
+    box-sizing: border-box;
+    position: relative;
+    overflow: hidden;
+
+    &__container {
+        width: 50%;
+        height: 100%;
+        box-sizing: border-box;
+        position: relative;
+        overflow: hidden;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+
+        &:hover {
+            cursor: pointer;
+
+            .home-page__img {
+                img {
+                    filter: none;
+                    transition: filter 0.5s ease-in-out;
+                }
+            }
+            .home-page__title {
+                color: $highlightColor;
+            }
+        }
+    }
+
+    &__title {
+        @include titleFont;
+        font-size: 48px;
+        line-height: 150%;
+        text-transform: uppercase;
+        text-align: center;
+
+        color: $mainColor;
+
+        margin: 0;
+        transition: color 0.6s ease-in-out;
+        @media screen and (max-width: 600px) {
+            font-size: 28px;
+        }
+    }
+
+    &__title-container {
+        position: relative;
+        width: 80%;
+        &::before {
+            content: "";
+            display: block;
+            position: absolute;
+            top: -10%;
+            left: 0;
+            width: 100%;
+            height: 110%;
+            z-index: -1;
+
+            background: #fff;
+            opacity: 0.8;
+            filter: blur(42px);
+        }
+
+        @media screen and (max-width: 600px) {
+            width: 100%;
+        }
+        animation: text 2.5s ease-in;
+    }
+
+    &__text {
+        @include mainFontValue(normal, normal, 24px, 120%);
+        text-align: center;
+        margin: 0;
+
+        @media screen and (max-width: 600px) {
+            @include mainFontValue(normal, normal, 14px, 120%);
+            margin: 0 10px;
+        }
+    }
+
+    &__img {
+        position: absolute;
+        top: 0;
+        left: 0;
+        z-index: -1;
+        width: 100%;
+        height: 100%;
+
+        img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            object-position: 15% 0%;
+            -webkit-filter: grayscale(100%);
+            -moz-filter: grayscale(100%);
+            -ms-filter: grayscale(100%);
+            -o-filter: grayscale(100%);
+            filter: grayscale(100%);
+            filter: gray; /* IE 6-9 */
+            transition: filter 0.5s ease-in-out;
+        }
+    }
+    &__img_summer {
+        img {
+            object-position: 100% 0%;
+        }
+    }
+
+    &__logo {
+        position: absolute;
+        width: 186px;
+        height: 186px;
+        top: calc(50% - 93px);
+        left: calc(50% - 93px);
+
+        picture {
+            img {
+                width: 100%;
+                height: 100%;
+            }
+        }
+
+        @media screen and (max-width: 1200px) {
+            & {
+                position: absolute;
+                width: 110px;
+                height: 110px;
+                top: calc(50% - 55px);
+                left: calc(50% - 55px);
+            }
+        }
+    }
+
+    @media screen and (max-width: 1040px) {
+        flex-direction: column;
+
+        &__container {
+            width: 100%;
+            height: 50%;
+            &:hover {
+                .home-page__img {
+                    img {
+                        filter: none;
+                        transition: none;
+                    }
+                }
+            }
+        }
+
+        &__img {
+            img {
+                filter: none;
+                width: 100%;
+                height: 100%;
+                object-fit: cover;
+                object-position: 0% 20%;
+            }
+        }
+
+        &__img_summer {
+            img {
+                object-position: 0% 85%;
+            }
+        }
+    }
+}

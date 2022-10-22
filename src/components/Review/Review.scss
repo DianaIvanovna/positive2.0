@@ -1,0 +1,225 @@
+@import "../../variables.scss";
+/* autoprefixer grid: autoplace */
+.review__header {
+    margin-top: 40px;
+    display: flex;
+    align-items: center;
+    margin-bottom: 45px;
+}
+.forlink {
+    position: relative;
+    top: -106px;
+    @media screen and (max-width: 450px) {
+        & {
+            top: -80px;
+        }
+    }
+}
+.review__title {
+    @include titleFont;
+    font-size: 48px;
+    line-height: 115.75%;
+    letter-spacing: 0.02em;
+    text-transform: uppercase;
+
+    color: $mainColor;
+    // margin-left: 23px;
+}
+
+.review__container {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.review__background {
+    position: relative;
+
+    max-width: 925px;
+    padding: 10px;
+    width: 100%;
+    border-radius: 10px;
+    box-sizing: border-box;
+
+    background: white;
+    overflow: hidden;
+    &::before {
+        content: url("../../../public_html/wp-content/themes/pozitiv/img/Icon/t-1.svg");
+        position: absolute;
+        left: calc(50% - 81px);
+        top: -35px;
+        z-index: 3;
+    }
+}
+.review__content {
+    max-width: 925px;
+    width: 100%;
+    box-sizing: border-box;
+
+    background: white;
+    border: 1px solid #f1a22c;
+    border-radius: 10px;
+    overflow: hidden;
+
+    display: grid;
+    grid-template-columns: 200px auto;
+    justify-content: center;
+    // align-items: center;
+    grid-template-areas:
+        "avatar name"
+        "avatar text"
+        "avatar link";
+
+    padding: 45px 20px;
+    position: relative;
+    &::before {
+        content: url("../../../public_html/wp-content/themes/pozitiv/img/Icon/t-2.svg");
+        position: absolute;
+        left: calc(50% - 81px);
+        top: -45px;
+        z-index: 1;
+    }
+}
+
+.review__avatar {
+    width: 165px;
+    height: 165px;
+
+    grid-area: avatar;
+    align-self: center;
+    img {
+        width: 100%;
+        height: 100%;
+        border-radius: 50%;
+        object-fit: cover;
+        margin-right: 30px;
+    }
+}
+.review__name {
+    @include mainFont;
+    font-weight: bold;
+    font-size: 24px;
+    line-height: 115.75%;
+    align-self: center;
+
+    color: $mainColor;
+    margin-bottom: 10px;
+
+    grid-area: name;
+}
+.review__text {
+    @include mainFont;
+    font-size: 14px;
+    line-height: 115.75%;
+    max-width: 555px;
+    align-self: center;
+
+    color: $secondaryColor;
+    grid-area: text;
+}
+.review__link {
+    display: inline-flex;
+    align-items: center;
+    text-decoration: none;
+    @include mainFont;
+    font-size: 16px;
+    line-height: 115.75%;
+    color: #4a76a8;
+    align-self: center; //!!!
+    .review__icon {
+        margin-right: 10px;
+    }
+    grid-area: link;
+}
+
+.review__button {
+    background: none;
+    border: none;
+}
+.review__button_active {
+    path {
+        fill: #f1a22c;
+    }
+}
+
+.review__dashes {
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    .review__hr {
+        margin-left: 5px;
+        &:hover {
+            cursor: pointer;
+        }
+    }
+    .review__hr_active {
+        rect {
+            fill: #f1a22c;
+        }
+    }
+    margin: 0px auto 100px;
+}
+
+@media screen and (max-width: 700px) {
+    .review__title {
+        font-size: 32px;
+    }
+    .review__header {
+        padding: 0px;
+        margin: 20px 0px;
+    }
+    .review__content {
+        grid-template-columns: 120px auto;
+        grid-template-areas:
+            "avatar name"
+            "avatar text"
+            "avatar link";
+
+        .review__avatar {
+            width: 100px;
+            height: 100px;
+        }
+        .review__name {
+            font-size: 18px;
+            line-height: 115.75%;
+        }
+        .review__text {
+            font-size: 12px;
+        }
+        .review__link {
+            font-size: 12px;
+            line-height: 115.75%;
+        }
+    }
+    .review__img {
+        width: 104px;
+    }
+    .review__dashes {
+        margin: 0px auto 50px;
+    }
+}
+@media screen and (max-width: 600px) {
+    .review__button {
+        display: none;
+    }
+}
+@media screen and (max-width: 450px) {
+    .review__content {
+        grid-template-areas:
+            "avatar name"
+            "text text"
+            "link link";
+    }
+    .review__title {
+        font-size: 28px;
+    }
+    .review__header {
+        margin: 20px 0px;
+    }
+    .review__img {
+        width: 80px;
+    }
+    .review__dashes {
+        margin: 0px auto 30px;
+    }
+}

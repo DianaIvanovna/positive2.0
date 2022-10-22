@@ -1,0 +1,123 @@
+/* You can add global styles to this file, and also import other style files */
+/* autoprefixer grid: autoplace */
+@import url("./styles/fonts.scss");
+@import url("./styles/normalize.scss");
+@import "./variables.scss";
+html,
+body {
+    height: 100%;
+}
+body {
+    margin: 0px;
+    font-family: Roboto, "Helvetica Neue", sans-serif;
+}
+
+.anim__title {
+    transform: translate(-20%, 20%) scale(0.8);
+    opacity: 0;
+    transition: all 500ms ease-in;
+}
+.anim__title_active {
+    transform: translate(0%, 0%) scale(1);
+    opacity: 1;
+}
+
+#root {
+    width: 100%;
+    height: 100%;
+}
+
+/* autoprefixer grid: autoplace */
+.main {
+    position: relative;
+    width: 100%;
+    height: 100%;
+    .main__contant {
+        position: relative;
+        top: 106px;
+    }
+    @media screen and (max-width: 450px) {
+        .main__contant {
+            top: 80px;
+        }
+    }
+}
+.page {
+    width: 100%;
+    position: relative;
+    // overflow: hidden;
+}
+.page__background {
+    width: 100%;
+    position: absolute;
+    top: 0px;
+    left: 0px;
+    z-index: -1;
+}
+.page__background_footer {
+    width: 100%;
+    position: absolute;
+    bottom: 0px;
+    left: 0px;
+    z-index: -1;
+}
+.positive-is__background {
+    opacity: 0.3;
+    width: 100%;
+
+    overflow: hidden;
+    object-fit: cover;
+
+    @media screen and (max-width: 1280px) {
+        & {
+            height: 800px;
+        }
+    }
+    @media screen and (max-width: 650px) {
+        & {
+            height: 800px;
+        }
+    }
+    @media screen and (max-width: 450px) {
+        & {
+            height: 1400px;
+        }
+    }
+}
+.pageContent {
+    display: flex;
+    flex-direction: column;
+    max-width: 1140px;
+    margin: 0px auto;
+}
+
+@media screen and (max-width: 1280px) {
+    .page {
+        box-sizing: border-box;
+        padding: 0px 80px;
+    }
+}
+@media screen and (max-width: 1040px) {
+    .page {
+        padding: 0px 40px;
+    }
+    .page__background {
+        top: 100px;
+        left: 0px;
+    }
+}
+@media screen and (max-width: 650px) {
+    .page__background {
+        top: 170px;
+        left: 0px;
+    }
+}
+@media screen and (max-width: 500px) {
+    .page__background {
+        top: 230px;
+        left: 0px;
+    }
+    .page {
+        padding: 0px 20px;
+    }
+}

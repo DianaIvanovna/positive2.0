@@ -1,0 +1,329 @@
+@import "../../variables.scss";
+/* autoprefixer grid: autoplace */
+
+.footer__offer {
+    text-decoration: underline;
+    font-size: 18px;
+    &:hover {
+        cursor: pointer;
+    }
+}
+.footer__img-pay {
+    width: 150px;
+    object-fit: contain;
+}
+.footer {
+    position: relative;
+    min-height: 350px;
+}
+.footer__container {
+    display: flex;
+    align-items: flex-start;
+    justify-content: space-between;
+    margin-bottom: 40px;
+}
+
+.footer__logo {
+    width: 106px;
+    height: 106px;
+    img {
+        &:focus {
+            outline: none;
+        }
+        &:hover {
+            cursor: pointer;
+        }
+    }
+}
+
+.footer__info {
+    display: flex;
+    margin-bottom: 40px;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.footer__bankDetails {
+    position: relative;
+    margin-left: 20px;
+    p {
+        position: relative;
+        z-index: 2;
+        @include mainFont;
+        font-size: 14px;
+        line-height: 16px;
+        color: #3a3a3a;
+        margin: 0;
+
+        @media screen and (max-width: 500px) {
+            font-size: 12px;
+            line-height: 14px;
+        }
+    }
+
+    &::before {
+        content: "";
+        display: block;
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 110%;
+        z-index: 1;
+
+        background: #fff;
+        opacity: 0.8;
+        filter: blur(42px);
+    }
+}
+
+.footer__header {
+    margin: 40px 0px 0px;
+    display: flex;
+    align-items: center;
+}
+.footer__title {
+    @include titleFont;
+    font-size: 48px;
+    line-height: 115.75%;
+    letter-spacing: 0.02em;
+    text-transform: uppercase;
+
+    color: $mainColor;
+    margin: 0px;
+}
+.footer__subtitle {
+    @include mainFont;
+    font-size: 14.1737px;
+    line-height: 170.5%;
+    color: #3a3a3a;
+    margin-top: 32px;
+}
+.footer__link {
+    display: block;
+    @include mainFont;
+    font-size: 18px;
+    line-height: 21px;
+    color: #737373;
+    text-decoration: none;
+    margin-right: 15px;
+    margin-bottom: 16px;
+    &:hover {
+        color: $highlightColor;
+    }
+}
+.footer__icon {
+    width: 30px;
+    &:hover {
+        transform: translate(0%, -10%);
+    }
+}
+.footer__links {
+    list-style: none;
+    display: flex;
+    padding: 0px;
+}
+
+.footer__container-message {
+    display: block;
+    margin-right: 15px;
+    margin-bottom: 16px;
+    .footer__message {
+        @include mainFont;
+        font-size: 18px;
+        line-height: 21px;
+        color: #737373;
+        text-decoration: none;
+        &:hover {
+            color: $highlightColor;
+        }
+    }
+}
+.footer__nav {
+    margin-top: 40px;
+}
+
+.footer__form {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+
+    max-width: 458px;
+    width: 100%;
+    background: rgb(255, 255, 255, 0.8);
+    box-shadow: 0px 4px 34px rgba(0, 0, 0, 0.07);
+    border-radius: 10px;
+    padding: 35px;
+    box-sizing: border-box;
+}
+
+.form__title {
+    @include mainFont;
+    font-weight: bold;
+    font-size: 36px;
+    line-height: 44px;
+    margin: 0px 0px 0px;
+
+    color: #414141;
+}
+.form__subtitle {
+    @include mainFont;
+    font-size: 18px;
+    line-height: 21px;
+    text-align: center;
+    max-width: 311px;
+    color: #737373;
+    margin: 0px 0px 20px;
+}
+.form__input {
+    @include mainFont;
+    font-size: 18px;
+    line-height: 21px;
+    color: #414141;
+    text-align: center;
+
+    max-width: 319.22px;
+    width: 100%;
+    height: 75.91px;
+    background: #f8f8f8;
+    border-radius: 118.997px;
+    border: none;
+    margin-bottom: 25px;
+    &:focus {
+        outline: none;
+    } // убрала рамку при нажатии
+    &.ng-valid {
+        box-shadow: 0px 2px 10px rgb(241, 162, 44);
+    }
+}
+
+.form__text {
+    @include mainFont;
+    font-size: 13px;
+    line-height: 130.5%;
+    text-align: center;
+    max-width: 250px;
+
+    color: #8c8c8c;
+}
+.form__button {
+    max-width: 317px;
+    width: 100%;
+    height: 77.57px;
+    border: none;
+    background: linear-gradient(184.46deg, $highlightColor 3.39%, $highlightColor 96.19%);
+    box-shadow: 0px 2.75659px 0px $highlightColor;
+    border-radius: 90px;
+    margin-bottom: 20px;
+
+    @include mainFont;
+    font-size: 14.2642px;
+    line-height: 17px;
+    text-align: center;
+    letter-spacing: 0.09em;
+
+    color: #ffffff;
+    text-shadow: 0px -1.2183px 2.4366px #c17b11;
+    &:focus {
+        outline: none;
+    } // убрала рамку при нажатии
+    &:hover {
+        cursor: pointer;
+        background: linear-gradient(184.46deg, rgb(187, 71, 35) 3.39%, #ecb21d 96.19%);
+    }
+    &:disabled {
+        background: linear-gradient(184.46deg, #e7ecf2 3.39%, #e7ecf2 96.19%);
+        box-shadow: 0px 2.75659px 0px #e7ecf2;
+        text-shadow: 0px -1.2183px 2.4366px #e7ecf2;
+    }
+}
+
+@media screen and (max-width: 800px) {
+    .footer__title {
+        width: 100%;
+        text-align: center;
+    }
+
+    .footer__container {
+        flex-direction: column;
+        align-items: center;
+        margin-top: 20px;
+        margin-bottom: 80px;
+        .footer__form {
+            margin: 0 auto;
+        }
+        .footer__nav {
+            margin: 0;
+        }
+    }
+}
+
+@media screen and (max-width: 700px) {
+    .footer__title {
+        font-size: 32px;
+    }
+    .footer__header {
+        margin: 20px 0px 0px;
+    }
+    .footer__button {
+        width: 250px;
+        height: 70px;
+    }
+    .form__title {
+        font-size: 28px;
+        line-height: 32px;
+    }
+    .form__subtitle {
+        font-size: 16px;
+        line-height: 18px;
+    }
+    .form__input {
+        font-size: 16px;
+        line-height: 18px;
+        height: 60px;
+    }
+    .form__button {
+        font-size: 16px;
+        line-height: 18px;
+        height: 60px;
+    }
+}
+@media screen and (max-width: 500px) {
+    .footer__title {
+        font-size: 28px;
+    }
+    .footer__img {
+        width: 80px;
+    }
+    .footer__button {
+        width: 180px;
+        height: 40px;
+    }
+    .form__title {
+        font-size: 24px;
+        line-height: 38px;
+    }
+    .form__subtitle {
+        font-size: 14px;
+        line-height: 16px;
+    }
+    .form__input {
+        font-size: 14px;
+        line-height: 16px;
+        height: 55px;
+    }
+    .form__button {
+        font-size: 14px;
+        line-height: 16px;
+        height: 55px;
+    }
+    .footer__logo {
+        width: 80px;
+        height: 80px;
+        img {
+            width: 80px;
+            height: 80px;
+        }
+    }
+}
