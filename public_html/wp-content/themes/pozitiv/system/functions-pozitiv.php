@@ -51,7 +51,7 @@ function cptui_register_my_cpts() {
             'rewrite' => false,
             'query_var' => true,
             'menu_icon' => 'dashicons-palmtree',
-            'supports' => [ 'title', 'editor', 'thumbnail' ],
+            'supports' => [ 'title', 'editor', 'thumbnail', 'page-attributes' ],
             'taxonomies' => [ 'category' ],
             'show_in_graphql' => false,
         ]

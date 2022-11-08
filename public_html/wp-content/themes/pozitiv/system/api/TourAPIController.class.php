@@ -43,85 +43,106 @@ class TourAPIController extends WP_REST_Controller {
 
         //= Соберем данные по турам
         $out = [];
-        if ($res->have_posts()) {
-            while ($res->have_posts()) {
-                $res->the_post();
+        while ($res->have_posts()) {
+            $res->the_post();
 
-                $arTour = [
-                    'id'            => get_the_ID(),
-                    'name'          => get_the_title(),
-                    'description'   => get_the_content(),
-                    'image'         => get_the_post_thumbnail_url(get_the_ID()),
-                ];
 
-                //== Прицепим данные о поездках
-                $trips = get_field('trips');
-                $arTrips = [];
-                if (count($trips)) {
-                    foreach ($trips as $tripID) {
+            //== Соберем массив фотографий тура
+            $arImages = [];
+            for ($i = 1; $i <= 5; $i++) {
+                $curImage = get_field('image' . $i);
+                if (!empty($curImage)) {
+                    $arImages[] = $curImage;
+                }
+            }
+            global $post;
+            
 
-                        $resTrip = new WP_Query([
-                            'post_type'     => 'trip',
-                            'p'             => $tripID
-                        ]);
+            //== Соберем массив ответа
+            $arTour = [
+                'id'                => get_the_ID(),
+                'nameWP'            => get_the_title(),
+                'name'              => get_field('name'),
+                'description'       => get_the_content(),
+                'descriptionShort'  => get_field('descriptionShort'),
+                'season'            => get_field('season'),
+                'duration'          => get_field('duration'),
+                'place'             => get_field('place'),
+                'plan'              => get_field('plan'),
+                'planPicture'       => get_field('planPicture'),
+                'video'             => get_field('video'),
+                'images'            => $arImages,
+                'thumbnail'         => get_the_post_thumbnail_url(get_the_ID()),
+                'order'             => $post->menu_order,
+            ];
 
-                        while ($resTrip->have_posts()) {
-                            $resTrip->the_post();
+            //== Прицепим данные о поездках
+            $trips = get_field('trips');
+            $arTrips = [];
+            if (count($trips)) {
+                foreach ($trips as $tripID) {
 
-                            $arTrip = [
-                                'id'            => $resTrip->post->ID,
-                                'dateStart'     => get_field('dateStart', $resTrip->post->ID),
-                                'dateEnd'       => get_field('dateEnd', $resTrip->post->ID),
-                                'touristLimit'  => get_field('touristLimit', $resTrip->post->ID),
-                                'cost'          => get_field('cost', $resTrip->post->ID),
-                            ];
+                    $resTrip = new WP_Query([
+                        'post_type'     => 'trip',
+                        'p'             => $tripID
+                    ]);
 
-                            //=== Добавим информацию по допуслугам
-                            $services = get_field('services', $resTrip->post->ID);
-                            if (is_numeric($services) || (is_array($services) && count($services))) {
+                    while ($resTrip->have_posts()) {
+                        $resTrip->the_post();
 
-                                if (is_numeric($services)) {
-                                    $argsServ = [
-                                        'post_type' => 'service',
-                                        'p'         => $services
-                                    ];
-                                } elseif (is_array($services)) {
-                                    $argsServ = [
-                                        'post_type' => 'service',
-                                        'post__in'  => $services
-                                    ];
-                                }
+                        $arTrip = [
+                            'id'            => $resTrip->post->ID,
+                            'dateStart'     => get_field('dateStart', $resTrip->post->ID),
+                            'dateEnd'       => get_field('dateEnd', $resTrip->post->ID),
+                            'touristLimit'  => get_field('touristLimit', $resTrip->post->ID),
+                            'cost'          => get_field('cost', $resTrip->post->ID),
+                        ];
 
-                                $resServ = new WP_Query($argsServ);
+                        //=== Добавим информацию по допуслугам
+                        $services = get_field('services', $resTrip->post->ID);
+                        if (is_numeric($services) || (is_array($services) && count($services))) {
 
-                                $arServs = [];
-                                while ($resServ->have_posts()) {
-                                    $resServ->the_post();
-
-                                    $arServs[] = [
-                                        'id'            => $resServ->post->ID,
-                                        'name'          => $resServ->post->post_title,
-                                        'description'   => $resServ->post->post_content,
-                                        'cost'          => get_field('cost', $resServ->post->ID),
-                                        'prepayment'    => get_field('prepayment', $resServ->post->ID),
-                                    ];
-                                }
+                            if (is_numeric($services)) {
+                                $argsServ = [
+                                    'post_type' => 'service',
+                                    'p'         => $services
+                                ];
+                            } elseif (is_array($services)) {
+                                $argsServ = [
+                                    'post_type' => 'service',
+                                    'post__in'  => $services
+                                ];
                             }
 
-                            $arTrip['services'] = $arServs;
+                            $resServ = new WP_Query($argsServ);
 
-                            $arTrips[] = $arTrip;
+                            $arServs = [];
+                            while ($resServ->have_posts()) {
+                                $resServ->the_post();
+
+                                $arServs[] = [
+                                    'id'            => $resServ->post->ID,
+                                    'name'          => $resServ->post->post_title,
+                                    'description'   => $resServ->post->post_content,
+                                    'cost'          => get_field('cost', $resServ->post->ID),
+                                    'prepayment'    => get_field('prepayment', $resServ->post->ID),
+                                ];
+                            }
                         }
+
+                        $arTrip['services'] = $arServs;
+
+                        $arTrips[] = $arTrip;
                     }
                 }
-
-                $arTour['trips'] = $arTrips;
-                $out[] = $arTour;
             }
-            wp_reset_postdata();
-        }
 
-        $out['number'] = count($out);
+            $arTour['trips'] = $arTrips;
+            $out[] = $arTour;
+        }
+        wp_reset_postdata();
+
+        $out['numberTours'] = count($out);
 
         return $out;
     }
