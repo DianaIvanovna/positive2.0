@@ -76,6 +76,7 @@ class OrderAPIController extends WP_REST_Controller {
 
         //= Создать заказ
         $orderModel = new OrderModel();
+        $curTimestamp = time();
         $arOrder = $orderModel->Create(
             [
                 'idUserOwner'       => $objWPUser->ID,
@@ -83,7 +84,19 @@ class OrderAPIController extends WP_REST_Controller {
                 'emailOwner'        => $emailOwner,
                 'firstNameOwner'    => $this->sourceRequest->get_param('firstNameOwner'),
                 'lastNameOwner'     => $this->sourceRequest->get_param('lastNameOwner'),
-                'data'              => $this->sourceRequest->get_param('data'),
+                'data'              => json_encode(json_decode($this->sourceRequest->get_param('data'), true)),
+                'history'           => json_encode([
+                    $curTimestamp => [
+                        'message'       => 'заказ создан пользователем',
+                        'order'         => [
+                            'phoneOwner'        => $phoneClean,
+                            'emailOwner'        => $emailOwner,
+                            'firstNameOwner'    => $this->sourceRequest->get_param('firstNameOwner'),
+                            'lastNameOwner'     => $this->sourceRequest->get_param('lastNameOwner'),
+                            'data'              => json_decode($this->sourceRequest->get_param('data'), true),
+                        ]
+                    ]
+                ])
             ]
         );
 
