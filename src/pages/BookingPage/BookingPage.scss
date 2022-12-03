@@ -1,0 +1,108 @@
+@import "../../variables.scss";
+
+.booking-page {
+    &__background {
+        min-height: calc(100vh - 106px);
+    }
+
+    &__header {
+        width: 100%;
+        border: 1px solid red;
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+
+        margin-bottom: 60px;
+    }
+
+    &__title {
+        display: flex;
+        align-items: center;
+        @include titleFont;
+        font-size: 48px;
+        line-height: 115.75%;
+        letter-spacing: 0.02em;
+        text-transform: uppercase;
+
+        color: $mainColor;
+        margin: 0px;
+
+        animation: TitleAnim 1s ease-in;
+    }
+
+    &__link-button {
+        position: relative;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        &:hover {
+            cursor: pointer;
+        }
+    }
+    &__arrow {
+        width: 51px;
+        height: 51px;
+    }
+    &__step-container {
+        display: flex;
+        flex-direction: column;
+
+        &--active-2 {
+
+        }
+    }
+
+    &__step-content {
+        display: flex;
+    }
+
+    &__line {
+        width: 20px;
+        height: 2px;
+        background-color: #fff2de;
+        width: 100%;
+        margin-top: 16px;
+        position: relative;
+    }
+
+    &__point {
+        width: 69px;
+        height: 2px;
+        position: absolute;
+        top: 0;
+        left: 0;
+        background: #f1a22c;
+    }
+
+    &__step-item {
+        margin-right: 48px;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+    }
+    &__step-item:last-of-type {
+        margin-right: 0;
+    }
+    &__step {
+        @include mainFont;
+        font-size: 10px;
+        line-height: 115.75%;
+        color: $highlightColor;
+        width: 69px;
+        height: 24px;
+        box-sizing: border-box;
+        border: 1px solid #f1a22c;
+        border-radius: 3px;
+
+        display: flex;
+        align-items: center;
+        justify-content: center;
+    }
+    &__step-name {
+        @include mainFont;
+        font-weight: 500;
+        font-size: 12px;
+        line-height: 115.75%;
+        color: #978f83;
+    }
+}

@@ -2,6 +2,7 @@
 import React, {useEffect, useRef, useState} from "react";
 import "./MainPage.scss";
 import {withRouter} from "react-router";
+import {useDispatch} from "react-redux";
 
 import Header from "../../components/Header/Header";
 import WelcomeSection from "../../components/WelcomeSection/WelcomeSection";
@@ -10,12 +11,16 @@ import PositiveIs from "../../components/PositiveIs/PositiveIs";
 import Review from "../../components/Review/Review";
 import Photogallery from "../../components/Photogallery/Photogallery";
 import Footer from "../../components/Footer/Footer";
+import TripContainer from "./modules/TripContainer/TripContainer";
 
 import {dataTripSummer, dataTripWinter, dataFooterSummer, dataFooterWinter, dataPositiveIsSummer, dataPositiveIsWinter} from "./data";
 import {useOnScreen} from "../../utils/useOnScreen";
 import GoUp from "../../components/GoUp/GoUp";
 
+import {getTours} from "../../store/action/tourAction";
+
 const MainPage = props => {
+    const dispath = useDispatch();
     const [season, setSeason] = useState(null);
     const [dataWelcomeSection, setDataWelcomeSection] = useState(null);
     const [dataFooter, setDataFooter] = useState(null);
@@ -26,6 +31,11 @@ const MainPage = props => {
     const isOnScreen = useOnScreen([lazyImage, lazyImage2], [dataWelcomeSection, dataFooter]);
 
     // console.log("lazyImage!", lazyImage);
+
+    useEffect(() => {
+        dispath(getTours());
+        // eslint-disable-next-line react-hooks/exhaustive-deps
+    }, []);
 
     useEffect(() => {
         //props.location.pathname
@@ -57,6 +67,7 @@ const MainPage = props => {
 
                 <div className="page">
                     <div className="pageContent">
+                        <TripContainer />
                         <Photogallery season={season} />
                     </div>
                 </div>

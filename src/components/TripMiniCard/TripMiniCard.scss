@@ -1,0 +1,118 @@
+@import "../../variables.scss";
+@keyframes button-light {
+    60% {
+        transform: translateX(-4em) skewX(-45deg);
+    }
+    100% {
+        transform: translateX(50em) skewX(-45deg);
+        animation-delay: 5s;
+    }
+}
+
+.trip {
+    width: 100%;
+    max-width: 350px;
+    box-sizing: border-box;
+    padding: 15px;
+    background: #ffffff;
+    box-shadow: 0px 4px 34px rgba(0, 0, 0, 0.07);
+    border-radius: 12px;
+
+    display: flex;
+    flex-direction: column;
+
+    &__img {
+        width: 100%;
+        height: 300px;
+        object-fit: cover;
+    }
+    &__title {
+        @include mainFont;
+        font-size: 28px;
+        font-weight: bold;
+        line-height: 115.75%;
+
+        color: $mainColor;
+        margin: 20px 0 15px;
+
+        @media screen and (max-width: 700px) {
+            font-size: 24px;
+        }
+    }
+
+    &__footer {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        @media screen and (max-width: 1140px) {
+            flex-direction: column;
+            .trip__button {
+                width: 100%;
+                margin-bottom: 10px;
+            }
+            .trip__price {
+                width: max-content;
+                display: inline-block;
+                font-size: 18px;
+                margin-right: 5px;
+            }
+            .trip__price-value {
+                width: max-content;
+                display: inline-block;
+            }
+        }
+    }
+
+    &__button {
+        width: 130px;
+        height: 51px;
+        background: linear-gradient(180deg, $highlightColor 0%, #eebe55 100%);
+        box-shadow: 0px 3.22136px 0px #c17b11;
+        border-radius: 5.84204px;
+        border: none;
+        position: relative;
+        overflow: hidden;
+
+        @include mainFont;
+        font-size: 11.862px;
+        line-height: 148.67%;
+        text-align: center;
+        letter-spacing: 0.17em;
+        color: #ffffff;
+        text-shadow: 0px -1.48275px 0.741375px rgba(109, 109, 109, 0.25);
+        &:hover {
+            background: linear-gradient(184.46deg, rgb(187, 71, 35) 3.39%, #ecb21d 96.19%);
+            cursor: pointer;
+        }
+        &:focus {
+            outline: none;
+        } // убрала рамку при нажатии
+        &::before {
+            content: "";
+            position: absolute;
+            top: 0;
+            left: 0;
+            background-color: rgba(#fff, 0.5);
+            width: 2em;
+            height: 50px;
+            transform: translateX(-4em) skewX(-45deg);
+            animation: button-light 6s infinite;
+        }
+    }
+
+    &__price {
+        @include mainFont;
+        font-size: 14px;
+        line-height: 115.75%;
+        color: #a8a8a8;
+        margin: 0px;
+    }
+    &__price-value {
+        @include mainFont;
+        font-weight: 700;
+        font-size: 28px;
+        line-height: 115.75%;
+        color: #241534;
+        margin: 0px;
+    }
+}

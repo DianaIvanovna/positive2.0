@@ -1,0 +1,119 @@
+@import "../../variables.scss";
+
+.promocode {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+
+    &__input {
+        // width: 215px;
+        width: 50%;
+        height: 48px;
+        display: flex;
+        background: #ffffff;
+        border: 1px solid #e99a24;
+        border-radius: 8px;
+        position: relative;
+        padding: 14px 19px;
+        box-sizing: border-box;
+        margin-right: 6px;
+
+        svg {
+            position: absolute;
+            right: 14px;
+            top: 15px;
+        }
+
+        input {
+            border: none;
+            background: none;
+            @include mainFont;
+            font-weight: 500;
+            font-size: 14px;
+            line-height: 140%;
+
+            color: #919191;
+
+            ::-webkit-input-placeholder {
+                /* WebKit, Blink, Edge */
+                @include mainFont;
+                font-weight: 500;
+                font-size: 14px;
+                line-height: 140%;
+
+                color: #919191;
+            }
+            :-moz-placeholder {
+                /* Mozilla Firefox 4 to 18 */
+                @include mainFont;
+                font-weight: 500;
+                font-size: 14px;
+                line-height: 140%;
+
+                color: #919191;
+            }
+            ::-moz-placeholder {
+                /* Mozilla Firefox 19+ */
+                @include mainFont;
+                font-weight: 500;
+                font-size: 14px;
+                line-height: 140%;
+
+                color: #919191;
+            }
+            :-ms-input-placeholder {
+                /* Internet Explorer 10-11 */
+                @include mainFont;
+                font-weight: 500;
+                font-size: 14px;
+                line-height: 140%;
+
+                color: #919191;
+            }
+            ::-ms-input-placeholder {
+                /* Microsoft Edge */
+                @include mainFont;
+                font-weight: 500;
+                font-size: 14px;
+                line-height: 140%;
+
+                color: #919191;
+            }
+
+            ::placeholder {
+                /* Most modern browsers support this now. */
+                @include mainFont;
+                font-weight: 500;
+                font-size: 14px;
+                line-height: 140%;
+
+                color: #919191;
+            }
+        }
+    }
+
+    &__button {
+        @include mainFont;
+        font-weight: 600;
+        font-size: 14.2642px;
+        line-height: 17px;
+        height: 48px;
+        /* identical to box height */
+
+        text-align: center;
+        letter-spacing: 0.09em;
+        text-transform: uppercase;
+
+        color: #f1a22c;
+
+        padding: 16px;
+        // width: 213px;
+        width: 50%;
+
+        background: #fffbf4;
+        border: 1px solid #e99a24;
+        border-radius: 8px;
+        box-shadow: none;
+        box-sizing: border-box;
+    }
+}

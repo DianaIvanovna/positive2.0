@@ -1,0 +1,29 @@
+@import "../../variables.scss";
+
+.bonus-container {
+    &__button {
+        @include mainFont;
+        font-weight: 600;
+        font-size: 14.2642px;
+        line-height: 17px;
+        height: 48px;
+        /* identical to box height */
+
+        text-align: center;
+        letter-spacing: 0.09em;
+        text-transform: uppercase;
+
+        color: #f1a22c;
+
+        padding: 16px;
+        width: 100%;
+
+        background: #fffbf4;
+        border: 1px solid #e99a24;
+        border-radius: 8px;
+        box-shadow: none;
+        box-sizing: border-box;
+
+        margin-bottom: 16px;
+    }
+}

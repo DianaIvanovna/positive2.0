@@ -1,0 +1,191 @@
+@import "../../../../variables.scss";
+
+.day-calendar {
+    outline: none;
+
+    .DayPicker-Caption {
+        height: 30px;
+    }
+    position: relative;
+
+    background: #ffffff;
+    border: 1px solid #f1a22c;
+    border-radius: 12px;
+    padding: 13px 50px;
+    box-sizing: border-box;
+    height: 60px;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin-bottom: 30px;
+    .DayPicker-Caption {
+        height: auto;
+    }
+    .DayPicker-Caption div {
+        // @include fontText(normal, 600, 16px, 20px); arrowCalendar
+        font-family: "Gilroy";
+        font-style: normal;
+        font-weight: 600;
+        font-size: 20px;
+        line-height: 100%;
+        /* or 23px */
+
+        letter-spacing: 0.05em;
+
+        color: #404040;
+        text-align: center;
+
+        display: flex;
+        align-items: center;
+        justify-content: center;
+    }
+
+    .DayPicker-NavButton {
+        // position: absolute;
+        // top: 30px;
+        // left: 60px;
+        // right: 0;
+        // margin: 0;
+        position: static;
+        display: block;
+        background-image: url("../../../../../public_html/wp-content/themes/pozitiv/img/Icon/arrowCalendar.svg");
+        width: 36px;
+        height: 36px;
+    }
+
+    .DayPicker-NavBar {
+        width: 100%;
+        position: absolute;
+        top: 0;
+        left: 0;
+
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        padding: 13px 12px;
+        box-sizing: border-box;
+    }
+
+    .DayPicker-NavButton--prev {
+        transform: rotate(180deg);
+    }
+
+    .DayPicker-Weekday {
+        display: none;
+    }
+
+    .DayPicker-Day {
+        display: none;
+    }
+}
+
+.booking-step-1 {
+    width: 100%;
+    max-width: 515px;
+    background: #fffefd;
+    border: 1px solid #f0eae0;
+    border-radius: 12px;
+    padding: 38px 29px;
+    box-sizing: border-box;
+
+    &__title {
+        @include mainFont;
+        font-size: 20px;
+        line-height: 115.75%;
+        /* or 23px */
+
+        letter-spacing: 0.05em;
+        text-transform: uppercase;
+
+        color: #383838;
+        text-align: center;
+        margin: 0;
+        margin-bottom: 30px;
+    }
+
+    &__button {
+        button {
+            @include mainFont;
+            font-weight: 600;
+            font-size: 14.2642px;
+            line-height: 17px;
+            text-align: center;
+            letter-spacing: 0.09em;
+            text-transform: uppercase;
+
+            color: #ffffff;
+
+            text-shadow: 0px -1.2183px 2.4366px #c17b11;
+        }
+        margin: 0 auto;
+    }
+
+    &__icon {
+        background: #ffeaca;
+        border-radius: 50%;
+        width: 32px;
+        height: 32px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        margin-right: 18px;
+
+        svg {
+            width: 18px;
+            height: 18px;
+        }
+    }
+
+    &__date {
+        @include mainFont;
+        font-size: 20px;
+        line-height: 115.75%;
+
+        letter-spacing: 0.05em;
+        text-transform: uppercase;
+        color: #4f4f4f;
+        margin: 0;
+    }
+
+    &__number {
+        @include mainFont;
+        font-size: 16px;
+        line-height: 115.75%;
+        color: #f1a22c;
+        padding: 5px 14px;
+
+        background: #ffeaca;
+        border-radius: 35px;
+        margin-left: 36px;
+
+        flex-shrink: 0;
+    }
+
+    &__line {
+        padding: 16px 23px;
+        background: #fff9f1;
+        border: 1px solid #ffd698;
+        border-radius: 12px;
+
+        display: flex;
+        align-items: center;
+        margin-bottom: 20px;
+
+        &--active {
+            background: #f1a22c;
+            .booking-step-1 {
+                &__icon {
+                    background: #de8f18;
+                }
+                &__number {
+                    color: #ffffff;
+                    background: #de8f18;
+                }
+                &__date {
+                    color: #ffffff;
+                }
+            }
+        }
+    }
+}

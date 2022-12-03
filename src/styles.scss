@@ -61,6 +61,11 @@ body {
     left: 0px;
     z-index: -1;
 }
+.page__background_footer.page__background_footer--center {
+    img {
+        object-position: center center;
+    }
+}
 .positive-is__background {
     opacity: 0.3;
     width: 100%;
