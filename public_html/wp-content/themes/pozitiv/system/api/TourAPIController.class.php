@@ -79,7 +79,7 @@ class TourAPIController extends WP_REST_Controller {
             //== Прицепим данные о поездках
             $trips = get_field('trips');
             $arTrips = [];
-            if (count($trips)) {
+            if (is_array($trips) && count($trips)) {
                 foreach ($trips as $tripID) {
 
                     $resTrip = new WP_Query([
