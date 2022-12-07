@@ -1,0 +1,62 @@
+@import "../../../../variables.scss";
+
+.booking {
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    background: #fffefd;
+    border: 1px solid #f0eae0;
+    border-radius: 12px;
+    padding: 30px 36px;
+
+    box-sizing: border-box;
+    margin-bottom: 30px;
+}
+
+.booking__inputs-container {
+    width: 100%;
+    display: flex;
+    justify-content: space-between;
+    margin-bottom: 20px;
+
+    input {
+        width: calc(33% - 20px);
+    }
+}
+.booking__title-h2 {
+    @include mainFontValue(normal, 600, 22px, 115%);
+    color: #0f0f0f;
+    margin: 0;
+    margin-bottom: 24px;
+}
+.booking__title-h3 {
+    @include mainFontValue(normal, 600, 20px, 140%);
+    color: #343434;
+    margin: 0;
+    margin-bottom: 5px;
+}
+.booking__subtitle {
+    @include mainFontValue(normal, 500, 16px, 140%);
+    color: #565656;
+    margin: 0;
+    margin-bottom: 20px;
+}
+
+.booking__comment-container {
+    width: 100%;
+    display: flex;
+    align-items: stretch;
+    justify-content: space-between;
+}
+.booking__comment-block {
+    width: calc(50% - 10px);
+    max-width: 428px;
+}
+
+.input-textarea {
+    width: 100%;
+    height: 134px;
+    background: #ffffff;
+    border: 1px solid #ffefd8;
+    border-radius: 8px;
+}

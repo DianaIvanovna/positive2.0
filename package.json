@@ -4,7 +4,8 @@
     "description": "Туристический сайт",
     "main": "index.js",
     "scripts": {
-        "dev": "cross-env NODE_ENV=development webpack serve --mode=development  --port  3000 ",
+        "dev": "set NODE_ENV=development&&  webpack serve --mode=development  --port  3000 ",
+        "deploy": "set NODE_ENV=production&& rm -rf ./public_html/wp-content/themes/pozitiv/js && webpack ",
         "lint": "eslint  ./src",
         "lint:fix": "eslint  --fix ./src"
     },
@@ -21,6 +22,7 @@
     "dependencies": {
         "@babel/runtime": "^7.14.6",
         "@glidejs/glide": "^3.4.1",
+        "classnames": "^2.3.2",
         "file-loader": "^6.2.0",
         "formik": "^2.2.9",
         "history": "^5.0.0",
@@ -36,7 +38,7 @@
         "redux-saga": "^1.1.3",
         "redux-thunk": "^2.3.0",
         "style-loader": "^2.0.0",
-        "yup": "^0.32.9"
+        "yup": "^0.32.11"
     },
     "devDependencies": {
         "@babel/core": "^7.14.5",

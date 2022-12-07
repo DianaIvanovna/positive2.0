@@ -1,0 +1,170 @@
+@import "../../../../variables.scss";
+
+.header {
+    width: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+
+    margin-bottom: 60px;
+}
+
+.title-container {
+    display: flex;
+    align-items: center;
+
+    animation: TitleAnim 1s ease-in;
+}
+
+.title {
+    @include titleFont;
+    font-size: 48px;
+    line-height: 115.75%;
+    letter-spacing: 0.02em;
+    text-transform: uppercase;
+
+    color: $mainColor;
+    margin: 0px;
+}
+
+.link-button {
+    position: relative;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    &:hover {
+        cursor: pointer;
+    }
+}
+.arrow {
+    width: 51px;
+    height: 51px;
+}
+
+.step-container {
+    display: flex;
+    flex-direction: column;
+
+    &--2 {
+        .point {
+            width: 66%;
+        }
+    }
+    &--3 {
+        .point {
+            width: 100%;
+        }
+    }
+}
+
+.step-content {
+    display: flex;
+}
+
+.step-item {
+    margin-right: 48px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+.step-item:last-of-type {
+    margin-right: 0;
+}
+.step {
+    @include mainFont;
+    font-size: 10px;
+    line-height: 115.75%;
+    color: $highlightColor;
+    width: 69px;
+    height: 24px;
+    box-sizing: border-box;
+    border: 1px solid #f1a22c;
+    border-radius: 3px;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+.step--active {
+    background: #f1a22c;
+    border: 1px solid #f1a22c;
+    color: #ffffff;
+}
+.step-name {
+    @include mainFont;
+    font-weight: 500;
+    font-size: 12px;
+    line-height: 115.75%;
+    color: #978f83;
+}
+
+.line {
+    width: 20px;
+    height: 2px;
+    background-color: #fff2de;
+    width: 100%;
+    margin-top: 16px;
+    position: relative;
+}
+
+.point {
+    width: 33%;
+    height: 2px;
+    position: absolute;
+    top: 0;
+    left: 0;
+    background: #f1a22c;
+}
+
+@media screen and (min-width: 1040px) and (max-height: 800px) {
+    .header {
+        margin-bottom: 30px;
+    }
+}
+
+@media screen and (max-width: 1040px) {
+    .header {
+        margin-bottom: 30px;
+    }
+}
+
+@media screen and (max-width: 800px) {
+    .header {
+        align-items: flex-start;
+    }
+    .title-container {
+        margin-bottom: 10px;
+    }
+
+    .title {
+        width: 100%;
+        font-size: 32px;
+    }
+    .arrow {
+        width: 32px;
+        height: 32px;
+    }
+    .step-item {
+        margin-right: 20px;
+    }
+}
+@media screen and (max-width: 600px) {
+    .header {
+        flex-direction: column;
+        width: 100%;
+        max-width: 320px;
+        align-self: center;
+    }
+    .step-container {
+        width: 100%;
+    }
+    .step-content {
+        display: flex;
+        justify-content: space-between;
+    }
+    // .title-container {
+    //     width: max-content;
+    //     margin: 0 auto;
+    //     margin-bottom: 10px;
+    // }
+}

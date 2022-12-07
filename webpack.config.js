@@ -12,7 +12,7 @@ module.exports = {
     entry: "./src/index.js",
     output: {
         path: path.resolve(__dirname, "public_html"),
-        filename: "local/templates/positive/bundles/main.js",
+        filename: "wp-content/themes/pozitiv/js/main.js",
         publicPath: "/",
     },
     devServer: {
@@ -25,29 +25,43 @@ module.exports = {
                 use: "babel-loader",
             },
             {
-                // test: /\.s[ac]ss$/i,
                 test: /\.(sc|sa|c)ss$/i,
-                use: ["style-loader", "css-loader", "sass-loader"],
+                use: [
+                    "style-loader",
+
+                    {
+                        loader: "css-loader?modules",
+                        options: {
+                            modules: {
+                                auto: /\.module\.(sc|sa|c)ss$/i,
+                                localIdentName: "[local]--[hash:base64:5]",
+                            },
+                        },
+                    },
+
+                    "sass-loader",
+                ],
             },
+
             {
                 test: /\.(png|jpg|jpeg|svg|gif|pdf|webp)?$/,
                 loader: "file-loader",
                 options: {
-                    outputPath: "./local/templates/positive/bundles/images",
+                    outputPath: "./wp-content/themes/pozitiv/js/images",
                 },
             },
             {
                 test: /\.(?:|eot|ttf|woff|woff2)$/,
                 loader: "file-loader",
                 options: {
-                    outputPath: "./local/templates/positive/bundles/fonts",
+                    outputPath: "./wp-content/themes/pozitiv/js/fonts",
                 },
             },
             {
                 test: /\.(mp3|wav)?$/,
                 loader: "file-loader",
                 options: {
-                    outputPath: "./local/templates/positive/bundles/audio",
+                    outputPath: "./wp-content/themes/pozitiv/js/audio",
                 },
             },
         ],

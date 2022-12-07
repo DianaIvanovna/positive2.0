@@ -1,0 +1,77 @@
+@import "../../variables.scss";
+
+.button {
+    padding: 20px 32px;
+    border: none;
+    max-width: 300px;
+    max-height: 65px;
+    width: 100%;
+    background: linear-gradient(184.46deg, #f1a22c 3.39%, #ecb21d 96.19%);
+    box-shadow: 0px 2.75659px 0px #d58c1f;
+    border-radius: 91.8864px;
+
+    &:focus {
+        outline: none;
+    } // убрала рамку при нажатии
+    &:hover:enabled {
+        cursor: pointer;
+        background: linear-gradient(184.46deg, rgb(187, 71, 35) 3.39%, #ecb21d 96.19%);
+    }
+
+    &:disabled {
+        opacity: 0.5;
+    }
+
+    font-family: Gilroy;
+    font-style: normal;
+    font-weight: 600;
+    font-size: 14.2642px;
+    line-height: 17px;
+    text-align: center;
+    letter-spacing: 0.09em;
+
+    color: #ffffff;
+    text-decoration: none;
+    text-shadow: 0px -1.2183px 2.4366px #c17b11;
+}
+
+.button-second {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    width: 221px;
+    height: 58px;
+    padding: 20px;
+
+    background: #fffefd;
+    border: 2px solid #db8607;
+    border-radius: 91.8864px;
+    box-shadow: none;
+    box-sizing: border-box;
+
+    @include mainFontValue(normal, 600, 14px, 17px);
+    text-transform: uppercase;
+    color: #f1a22c;
+    text-shadow: none;
+
+    svg {
+        width: 24px;
+        height: 24px;
+    }
+
+    &:focus {
+        outline: none;
+    } // убрала рамку при нажатии
+    &:hover {
+        cursor: pointer;
+    }
+}
+
+@media screen and (max-width: 600px) {
+    .button {
+        padding: 20px;
+        max-width: 260px;
+        max-height: 55px;
+    }
+}

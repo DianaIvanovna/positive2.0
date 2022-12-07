@@ -1,4 +1,4 @@
-const url = "https://pozitiv.uni-studio.ru/";
+const url = "https://pozitiv.uni-studio.ru";
 
 export async function fetchFunc(urlMethod, body) {
     const requestOptions = {
