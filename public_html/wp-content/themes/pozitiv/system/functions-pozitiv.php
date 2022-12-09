@@ -369,13 +369,20 @@ add_action(
 
 function PozitivOrderPage(){
     require_once __DIR__ . '/models/orderModel.class.php';
+    require_once __DIR__ . '/pagesAdmin/ordersPageAdmin.class.php';
 
     $orderModel = new OrderModel();
     $orders = $orderModel->GetAll();
-	echo '
-        <h1>Управление заказами</h1>
 
-        <div class="pozitiv-admin__table-wrapper">
+    $objOrdersTable = new OrderTableAdmin($orders);
+
+    
+    
+	echo '<h1>Управление заказами</h1>';
+    
+    $objOrdersTable->display();
+
+    echo '<div class="pozitiv-admin__table-wrapper">
             <table class="pozitiv-admin__table">
                 <thead>
                     <tr>
