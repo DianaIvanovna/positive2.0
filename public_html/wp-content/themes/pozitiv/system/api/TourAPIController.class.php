@@ -138,11 +138,11 @@ class TourAPIController extends WP_REST_Controller {
             }
 
             $arTour['trips'] = $arTrips;
-            $out[] = $arTour;
+            $out['tours'][] = $arTour;
         }
         wp_reset_postdata();
 
-        $out['numberTours'] = count($out);
+        $out['numberTours'] = count($out['tours']);
 
         return $out;
     }

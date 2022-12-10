@@ -370,84 +370,11 @@ add_action(
 function PozitivOrderPage(){
     require_once __DIR__ . '/models/orderModel.class.php';
     require_once __DIR__ . '/pagesAdmin/ordersPageAdmin.class.php';
+    
+	echo '<h1>Управление заказами</h1>';
 
     $orderModel = new OrderModel();
     $orders = $orderModel->GetAll();
-
     $objOrdersTable = new OrderTableAdmin($orders);
-
-    
-    
-	echo '<h1>Управление заказами</h1>';
-    
     $objOrdersTable->display();
-
-    echo '<div class="pozitiv-admin__table-wrapper">
-            <table class="pozitiv-admin__table">
-                <thead>
-                    <tr>
-                        <th>ID</th>
-                        <th>Дата создания</th>
-                        <th>Клиент</th>
-                        <th>Туристы</th>
-                        <th>Сумма</th>
-                        <th>Статус</th>
-                    </tr>
-                </thead>
-                <tbody>
-    ';
-
-    foreach ($orders as $order) {
-
-        //== Колонки ID, даты создания, имя заказчика
-        echo "
-            <tr>
-                <td>{$order->id}</td>
-                <td>{$order->dateCreate}</td>
-                <td>{$order->lastNameOwner} {$order->firstNameOwner}</td>
-        ";
-
-        //== Колонка туристов
-        $dataOrder = json_decode($order->data);
-        echo '<td>';
-        foreach ($dataOrder->tourists as $tourist) {
-            echo $tourist->name . '<br/>';
-        }
-        echo '</td>';
-
-        //== Колонка Суммы
-        echo '<td>&nbsp;</td>';
-
-
-        //== Колонка статуса
-        switch ($order->status) {
-            case 'created': 
-                $orderStatusLabel = 'Создан';
-                break;
-            case 'payed': 
-                $orderStatusLabel = 'Оплачен';
-                break;
-            case 'confirmed': 
-                $orderStatusLabel = 'Подтвержден';
-                break;
-            case 'canceled': 
-                $orderStatusLabel = 'Отменен';
-                break;
-            default:
-                $orderStatusLabel = '-ОШИБКА-';
-                break;
-        }
-        echo "<td>{$orderStatusLabel}</td>";
-
-        echo '</tr>';
-    }
-
-    echo '
-                </tbody>
-            </table>
-        </div>
-    ';
-
-    
-
 }

@@ -6,6 +6,8 @@ class OrdersPageAdmin extends PagesAdmin {
 
     function __construct() {
         parent::__construct();
+
+
     }
 
 
@@ -26,6 +28,15 @@ class OrderTableAdmin extends WP_List_Table {
 
         $this->orders = $orders;
 
+        $this->bulk_action_handler();
+
+		// screen option
+		add_screen_option( 'per_page', array(
+			'label'   => 'Показывать на странице',
+			'default' => 20,
+			'option'  => 'logs_per_page',
+		) );
+
         $this->prepare_items();
     }
 
@@ -42,13 +53,10 @@ class OrderTableAdmin extends WP_List_Table {
 
     function prepare_items() {
 
-        // пагинация
-		$this->set_pagination_args( array(
-			'total_items' => count($this->orders),
-			'per_page'    => 20,
-		) );
-		$cur_page = (int) $this->get_pagenum();
-
+        $columns = $this->get_columns();
+        $hidden = array();
+        $sortable = $this->get_sortable_columns();
+        $this->_column_headers = array($columns, $hidden, $sortable);
         
         $out = [];
         foreach ($this->orders as $order) {
@@ -80,7 +88,7 @@ class OrderTableAdmin extends WP_List_Table {
             }
 
 
-            $out[] = (object)[
+            $out[] = [
                 'id'            => $order->id,
                 'dateCreate'    => $order->dateCreate,
                 'client'        => $order->lastNameOwner . ' ' . $order->firstNameOwner,
@@ -93,13 +101,18 @@ class OrderTableAdmin extends WP_List_Table {
         $this->items = $out;
     }
 
-    protected function column_default( $item, $column_name ) {
-
-        return 'dfsafdasd';
+    function column_default($item, $column_name ) {
+        if (isset($item[$column_name])) {
+            return $item[$column_name];
+        }
     }
 
-    function column_id ($item) {
-        return 'sdasd';
-
+    function get_sortable_columns() {
+        return [
+            'id' => array('booktitle',false),
+            'dateCreate' => array('author',false),
+            'client'   => array('isbn',false)
+        ];
     }
+
 }
