@@ -1,42 +1,27 @@
 /* eslint-disable max-len */
-import React, {useEffect, useRef, useState} from "react";
+import React, {useCallback, useEffect, useRef, useState} from "react";
 import {withRouter} from "react-router";
 import "./TripPage.scss";
 import Header from "../../components/Header/Header";
 import {useDispatch, useSelector} from "react-redux";
-import {getTourPage} from "../../store/action/tourAction";
+// import {getTourPage} from "../../store/action/tourAction";
+import {addBookingTour} from "../../store/action/bookingAction";
 import GoUp from "../../components/GoUp/GoUp";
 
 import logoWebp from "../../../public_html/wp-content/themes/pozitiv/img/logo/logo-big_a1b.webp";
 import logoPng from "../../../public_html/wp-content/themes/pozitiv/img/logo/logo-big.png";
-import icon1 from "../../../public_html/wp-content/themes/pozitiv/img/Icon/Calendar_for_trip.svg";
 import icon2 from "../../../public_html/wp-content/themes/pozitiv/img/Icon/Time Circle.svg";
 import icon3 from "../../../public_html/wp-content/themes/pozitiv/img/Icon/Discovery_for_trip.svg";
 import {dataFooterWinter, dataFooterSummer} from "./data";
 
-import photo from "../../../../photo.png";
 import Footer from "../../components/Footer/Footer";
 import {useOnScreen} from "../../utils/useOnScreen";
-
-const data = {
-    photos: [photo, photo, photo, photo, photo],
-    date: "05.05.05",
-    time: "12:00",
-    place: "la la la place",
-    price: "1000",
-    travelPlan: `День 1
-    6:00 - сбор, ул. Братьев Кашириных 75, магазин Лента
-    6:30 - отправление из Челябинска.
-    10:00 - приезд на поляну в п. Ваняшкино, начало сплава.
-    15:00 - прибытие на оборудованный кемпинг "Барсучий лог", обед, экскурсия на обзорную площадку, отдых.
-    20:00 - ужин, свободное время, посиделки у костра, МЕГА-ТУСИЧ по случаю ЗАКРЫТИЯ СЕЗОНА.
-    00:46 - отбой, ночевка в палатках.`,
-    imgForTravelPlan: photo,
-};
+import {MainButton} from "../../components/MainButton/MainButton";
 
 const TripPage = props => {
     const dispath = useDispatch();
     const [tripPageData] = useSelector(store => [store.tour.tourPage]);
+    const [numberActivePhoto, setNumberActivePhoto] = useState(0);
 
     const [season, setSeason] = useState(null);
     const [dataFooter, setDataFooter] = useState(null);
@@ -45,14 +30,13 @@ const TripPage = props => {
     // eslint-disable-next-line no-unused-vars
     const isOnScreen = useOnScreen([lazyImage], [dataFooter, tripPageData]);
 
-    // eslint-disable-next-line no-console
-    console.log("tripPageData", tripPageData);
-
     useEffect(() => {
-        const formData = new FormData();
-
-        formData.append("ID", 26);
-        dispath(getTourPage(formData));
+        // const query = new URLSearchParams(props.location.search);
+        // const id = query.get("id");
+        // console.log("id", id);
+        // const formData = new FormData();
+        // formData.append("ID", id);
+        // dispath(getTourPage(formData));
         // eslint-disable-next-line react-hooks/exhaustive-deps
     }, []);
 
@@ -73,6 +57,16 @@ const TripPage = props => {
             // setPositiveIs(dataPositiveIsWinter);
         }
     }, [props.location]);
+
+    const goBack = useCallback(() => {
+        props.history.goBack();
+    }, [props.history]);
+
+    const onBooking = useCallback(() => {
+        dispath(addBookingTour(tripPageData));
+
+        props.history.push("/booking");
+    }, [props.history, dispath, tripPageData]);
 
     if (!tripPageData || !dataFooter) {
         return (
@@ -100,16 +94,7 @@ const TripPage = props => {
                         <section className="trip-info">
                             <div className="trip-info__header">
                                 <p className="trip-info__link-button">
-                                    <svg
-                                        //(click)="goBack($event)"
-                                        className="trip-info__arrow"
-                                        alt="стрелка влево"
-                                        width="74"
-                                        height="72"
-                                        viewBox="0 0 74 72"
-                                        fill="none"
-                                        xmlns="http://www.w3.org/2000/svg"
-                                    >
+                                    <svg onClick={goBack} className="trip-info__arrow" alt="стрелка влево" width="74" height="72" viewBox="0 0 74 72" fill="none" xmlns="http://www.w3.org/2000/svg">
                                         <path
                                             fillRule="evenodd"
                                             clipRule="evenodd"
@@ -128,65 +113,68 @@ const TripPage = props => {
                                             width="453px"
                                             height="434px"
                                             // src={tripPageData.images}
-                                            src={data.photos[0]}
+                                            src={tripPageData.images[numberActivePhoto]}
                                             alt="фото поездки"
                                             className="trip-info__img"
                                         />
                                     </div>
-                                    {data.photos.map((item, index) => (
+                                    {tripPageData.images.map((item, index) => (
                                         <img
                                             width="80px"
                                             height="80px"
-                                            //*ngFor="let item of trip.photos; let i = index" (click)="changeActivePhoto(i)"
-                                            // [class.trip-info__img-small_active] ="i===numberActivePhoto"
+                                            onClick={() => {
+                                                setNumberActivePhoto(index);
+                                            }}
                                             src={item}
                                             key={index}
                                             alt="фото поездки"
-                                            className="trip-info__img-small"
+                                            className={`trip-info__img-small ${index === numberActivePhoto ? "trip-info__img-small_active" : ""}`}
                                         />
                                     ))}
                                 </div>
 
                                 <div className="trip-info__discription">
-                                    <p className="trip-info__text" dangerouslySetInnerHTML={{__html: tripPageData.description}}></p>
+                                    <p className="trip-info__text" dangerouslySetInnerHTML={{__html: tripPageData.descriptionShort}}></p>
 
                                     <ul className="trip-info__icons">
-                                        <li>
+                                        {/* <li>
                                             <img width="32px" height="32px" src={icon1} alt="иконка календаря" className="trip-info__icon" />
                                             {data.date}
-                                        </li>
+                                        </li> */}
                                         <li>
                                             <img width="32px" height="32px" src={icon2} alt="иконка часов" className="trip-info__icon" />
-                                            {data.date}
+                                            {tripPageData.duration}
                                         </li>
                                         <li>
                                             <img width="32px" height="32px" src={icon3} alt="иконка компас" className="trip-info__icon" />
-                                            {data.place}
+                                            {tripPageData.place}
                                         </li>
                                     </ul>
                                     <div className="trip-info__reserve">
                                         <div>
                                             <p className="trip-info__price">Цена:</p>
-                                            <p className="trip-info__price-value">{data.price}₽</p>
+                                            <p className="trip-info__price-value"> ??? {tripPageData.price}₽</p>
                                         </div>
-                                        <div className="button__background">
+                                        <MainButton text=" ЗАБРОНИРОВАТЬ" onClick={onBooking} />
+                                        {/* <div className="button__background">
                                             <button
                                                 className="trip-info__button"
+
                                                 // (click)="openPopup(trip.bukzaUrl)"
                                             >
                                                 ЗАБРОНИРОВАТЬ
                                             </button>
-                                        </div>
+                                        </div> */}
                                     </div>
                                 </div>
                             </div>
                             <section className="travel-plan">
                                 <div>
                                     <h3 className="travel-plan__title">План поездки</h3>
-                                    <p className="travel-plan__text" dangerouslySetInnerHTML={{__html: data.travelPlan}}></p>
+                                    <p className="travel-plan__text" dangerouslySetInnerHTML={{__html: tripPageData.plan}}></p>
                                 </div>
                                 <div className="travel-plan__img">
-                                    <img width="650px" height="504px" src={data.imgForTravelPlan} alt="фото поездки" className="" />
+                                    <img width="650px" height="504px" src={tripPageData.planPicture} alt="фото поездки" className="" />
                                     image
                                 </div>
                             </section>

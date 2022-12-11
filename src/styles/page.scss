@@ -1,46 +1,66 @@
-.page{
-  width: 100%;
-  position: relative;
-  overflow: hidden;
-}
-.background-container{
-  width: 100%;
-  height: calc(100vh - 106px);
-  min-height: 550px;
-  position: absolute;
-  top: 0px;
-  left: 0px;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  @media screen and (max-width: 800px){
-    &{
-      min-height: 400px;
-    }
-  }
-}
-.pageContent{
-  display: flex;
-  flex-direction: column;
-  max-width: 1140px;
-  margin: 0px auto;
-}
+// .background-container {
+//     width: 100%;
+//     height: calc(100vh - 106px);
+//     min-height: 550px;
+//     position: absolute;
+//     top: 0px;
+//     left: 0px;
+//     display: flex;
+//     flex-direction: column;
+//     align-items: center;
+//     @media screen and (max-width: 800px) {
+//         & {
+//             min-height: 400px;
+//         }
+//     }
+// }
 
-@media screen and (max-width: 1280px){
-  .page{
-    box-sizing: border-box;
-    padding: 0px 80px;
-  }
-}
-@media screen and (max-width: 1040px){
-  .page{
-    padding: 0px 40px;
-  }
-}
+// .page {
+//     width: 100%;
+//     position: relative;
+//     //overflow: hidden;
+// }
+// .page__background {
+//     width: 100%;
+//     position: absolute;
+//     top: 0px;
+//     left: 0px;
+//     z-index: -1;
+// }
+// .page__background_footer {
+//     width: 100%;
+//     position: absolute;
+//     bottom: 0px;
+//     left: 0px;
+//     z-index: -1;
+// }
+// .page__background_footer.page__background_footer--center {
+//     img {
+//         object-position: center center;
+//     }
+// }
 
-@media screen and (max-width: 500px){
+// .pageContent {
+//     display: flex;
+//     flex-direction: column;
+//     max-width: 1140px;
+//     margin: 0px auto;
+// }
 
-  .page{
-    padding: 0px 20px;
-  }
-}
+// @media screen and (max-width: 1280px) {
+//     .page {
+//         box-sizing: border-box;
+//         padding: 0px 80px;
+//     }
+// }
+// @media screen and (max-width: 1040px) {
+//     .page {
+//         padding: 0px 40px;
+//     }
+// }
+
+// @media screen and (max-width: 500px) {
+//     .page {
+//         padding: 0px 20px;
+//     }
+// }

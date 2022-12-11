@@ -12,10 +12,21 @@ import BookingStep3 from "./modules/BookingStep3/BookingStep3";
 import photo2 from "../../../public_html/wp-content/themes/pozitiv/img/background/booking-background.jpg";
 //import photo2 from "../../../public_html/wp-content/themes/pozitiv/img/background/booking-background-step-3.jpg";
 import {BookingHeader} from "./modules/BookingHeader/BookingHeader";
+import {useSelector} from "react-redux";
+
+const defoltOrder = {
+    id: null,
+    phoneOwner: null,
+    emailOwner: null,
+    firstNameOwner: null,
+    lastNameOwner: null,
+    data: null,
+};
 
 const BookingPage = props => {
     const {pathname} = useLocation();
     const [step, setStep] = useState(1);
+    const [bookingTour] = useSelector(store => [store.booking.bookingTour]);
 
     useEffect(() => {
         if (pathname.includes("step_2")) {
@@ -45,13 +56,19 @@ const BookingPage = props => {
         props.history.goBack();
     }, [props.history]);
 
-    const [order, setOrder] = useState({
-        id: null,
-        phoneOwner: null,
-        emailOwner: null,
-        firstNameOwner: null,
-        lastNameOwner: null,
+    const [order, setOrder] = useState(() => {
+        const localOrder = JSON.parse(localStorage.getItem("order"));
+
+        if (localOrder) {
+            return localOrder;
+        }
+
+        return defoltOrder;
     });
+
+    useEffect(() => {
+        localStorage.setItem("order", JSON.stringify(order));
+    }, [order]);
 
     return (
         <div className="main ">
@@ -63,13 +80,13 @@ const BookingPage = props => {
 
                         <Switch>
                             <Route path="/booking/step_2">
-                                <BookingStep2 onContinue={goToStep3} />
+                                <BookingStep2 onContinue={goToStep3} setOrder={setOrder} order={order} />
                             </Route>
-                            <Route path="/booking/step_3">
+                            <Route path="/booking/step_3" order={order}>
                                 <BookingStep3 />
                             </Route>
                             <Route path="/booking">
-                                <BookingStep1 onContinue={goToStep2} setOrder={setOrder} order={order} />
+                                <BookingStep1 onContinue={goToStep2} setOrder={setOrder} order={order} bookingTour={bookingTour} />
                             </Route>
                         </Switch>
                         {/* {tabs[activeTab]} */}

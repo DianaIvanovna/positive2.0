@@ -44,88 +44,88 @@ main {
         box-shadow: 0 0 0 40px rgba(242, 163, 44, 0);
     }
 }
-.page {
-    width: 100%;
-    position: relative;
-    overflow: hidden;
-}
-.background-container {
-    width: 100%;
-    height: calc(100vh - 106px);
-    min-height: 550px;
-    position: absolute;
-    top: 0px;
-    left: 0px;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    @media screen and (max-width: 800px) {
-        & {
-            min-height: 400px;
-        }
-    }
-    .page__background {
-        @media screen and (min-width: 320px) {
-            & {
-                position: relative;
-                height: 100%;
-                right: 22%;
-                top: 10%;
-                object-fit: cover;
-                z-index: -1;
-            }
-        }
-        @media screen and (min-width: 425px) {
-            & {
-                min-width: 100%;
-                right: 0px;
-            }
-        }
+// .page {
+//     width: 100%;
+//     position: relative;
+//     // overflow: hidden;
+// }
+// .background-container {
+//     width: 100%;
+//     height: calc(100vh - 106px);
+//     min-height: 550px;
+//     position: absolute;
+//     top: 0px;
+//     left: 0px;
+//     display: flex;
+//     flex-direction: column;
+//     align-items: center;
+//     @media screen and (max-width: 800px) {
+//         & {
+//             min-height: 400px;
+//         }
+//     }
+//     .page__background {
+//         @media screen and (min-width: 320px) {
+//             & {
+//                 position: relative;
+//                 height: 100%;
+//                 right: 22%;
+//                 top: 10%;
+//                 object-fit: cover;
+//                 z-index: -1;
+//             }
+//         }
+//         @media screen and (min-width: 425px) {
+//             & {
+//                 min-width: 100%;
+//                 right: 0px;
+//             }
+//         }
 
-        @media screen and (min-width: 1024px) {
-            & {
-                width: 150%;
-            }
-        }
-        @media screen and (min-width: 1280px) {
-            & {
-                width: 100%;
-            }
-        }
-        @media screen and (max-width: 450px) {
-            & {
-                height: calc(100vh - 80px);
-            }
-        }
-    }
-}
-.page__background_footer {
-    width: 100%;
-    height: 100%;
-    position: absolute;
-    bottom: 0px;
-    left: 0px;
-    z-index: -1;
-    box-sizing: border-box;
-    img {
-        width: 100%;
-        height: 100%;
-        object-fit: cover;
-        object-position: left;
-    }
+//         @media screen and (min-width: 1024px) {
+//             & {
+//                 width: 150%;
+//             }
+//         }
+//         @media screen and (min-width: 1280px) {
+//             & {
+//                 width: 100%;
+//             }
+//         }
+//         @media screen and (max-width: 450px) {
+//             & {
+//                 height: calc(100vh - 80px);
+//             }
+//         }
+//     }
+// }
+// .page__background_footer {
+//     width: 100%;
+//     height: 100%;
+//     position: absolute;
+//     bottom: 0px;
+//     left: 0px;
+//     z-index: -1;
+//     box-sizing: border-box;
+//     img {
+//         width: 100%;
+//         height: 100%;
+//         object-fit: cover;
+//         object-position: left;
+//     }
 
-    @media screen and (max-width: 1040px) {
-        height: 650px;
-    }
-    @media screen and (max-width: 800px) {
-        height: 500px;
-    }
-}
-.page__background_footer-winter {
-    img {
-        object-position: 40% 0px;
-    }
-}
+//     @media screen and (max-width: 1040px) {
+//         height: 650px;
+//     }
+//     @media screen and (max-width: 800px) {
+//         height: 500px;
+//     }
+// }
+// .page__background_footer-winter {
+//     img {
+//         object-position: 40% 0px;
+//     }
+// }
 
 .positive-is__background {
     position: absolute;
@@ -156,33 +156,33 @@ main {
         }
     }
 }
-.pageContent {
-    display: flex;
-    flex-direction: column;
-    max-width: 1140px;
-    margin: 0px auto;
-}
-@media screen and (max-width: 1280px) {
-    .page {
-        box-sizing: border-box;
-        padding: 0px 80px;
-    }
-}
-@media screen and (max-width: 1040px) {
-    .page {
-        padding: 0px 40px;
-    }
-}
+// .pageContent {
+//     display: flex;
+//     flex-direction: column;
+//     max-width: 1140px;
+//     margin: 0px auto;
+// }
+// @media screen and (max-width: 1280px) {
+//     .page {
+//         box-sizing: border-box;
+//         padding: 0px 80px;
+//     }
+// }
+// @media screen and (max-width: 1040px) {
+//     .page {
+//         padding: 0px 40px;
+//     }
+// }
 
-@media screen and (max-width: 500px) {
-    .page {
-        padding: 0px 20px;
-    }
-}
+// @media screen and (max-width: 500px) {
+//     .page {
+//         padding: 0px 20px;
+//     }
+// }
 .trip-info {
-    margin-top: 106px;
+    // margin-top: 106px;
     @media screen and (max-width: 450px) {
-        margin-top: 80px;
+        // margin-top: 80px;
     }
 }
 .trip-info__header {
@@ -261,6 +261,8 @@ main {
     box-sizing: border-box;
     border-radius: 5px;
     margin-right: 10px;
+    border: 2px solid transparent;
+    box-sizing: border-box;
     &:last-of-type {
         margin-right: 0px;
     }
@@ -486,7 +488,7 @@ main {
 @media screen and (max-width: 550px) {
     .trip-info__img-small {
         width: calc(100% / 5 - 5px);
-        height: 100%;
+        height: 60px;
         margin-right: 5px;
         box-sizing: border-box;
     }
@@ -527,21 +529,21 @@ main {
     }
 }
 
-@media screen and (max-width: 1280px) {
-    .page {
-        box-sizing: border-box;
-        padding: 0px 80px;
-    }
-}
-@media screen and (max-width: 1040px) {
-    .page {
-        padding: 0px 40px;
-    }
-}
+// @media screen and (max-width: 1280px) {
+//     .page {
+//         box-sizing: border-box;
+//         padding: 0px 80px;
+//     }
+// }
+// @media screen and (max-width: 1040px) {
+//     .page {
+//         padding: 0px 40px;
+//     }
+// }
 @media screen and (max-width: 500px) {
-    .page {
-        padding: 0px 20px;
-    }
+    // .page {
+    //     padding: 0px 20px;
+    // }
     .button__background {
         width: 145px;
         height: 40px;

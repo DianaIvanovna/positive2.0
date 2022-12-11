@@ -6,21 +6,39 @@ import {TouristsInputs} from "./path/TouristsInputs/TouristsInputs";
 import {Input} from "../../../../components/Input/Input";
 import {MainButton} from "../../../../components/MainButton/MainButton";
 
+const initialValuesTourist = order => {
+    if (order?.data) {
+        return order.data;
+    }
+
+    return [
+        {
+            firstName: "",
+            phone: "",
+            emai: "",
+        },
+    ];
+};
+
 const BookingStep2 = props => {
+    // order = {order};
     const formik = useFormik({
         initialValues: {
-            tourists: [
-                {
-                    name: "",
-                    phone: "",
-                    emai: "",
-                },
-            ],
+            tourists: initialValuesTourist(props.order),
             comment: "",
         },
         onSubmit: values => {
-            // eslint-disable-next-line no-console
-            console.log("values", values);
+            props.setOrder(prev => {
+                return {
+                    ...prev,
+                    phoneOwner: values.tourists[0].phone,
+                    emailOwner: values.tourists[0].emai,
+                    firstNameOwner: values.tourists[0].firstName,
+                    lastNameOwner: "",
+                    data: values.tourists,
+                };
+            });
+
             props.onContinue();
         },
     });

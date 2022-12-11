@@ -1,5 +1,15 @@
 @import "../../variables.scss";
 
+@keyframes button-light {
+    60% {
+        transform: translateX(-4em) skewX(-45deg);
+    }
+    100% {
+        transform: translateX(50em) skewX(-45deg);
+        animation-delay: 5s;
+    }
+}
+
 .button {
     padding: 20px 32px;
     border: none;
@@ -9,6 +19,8 @@
     background: linear-gradient(184.46deg, #f1a22c 3.39%, #ecb21d 96.19%);
     box-shadow: 0px 2.75659px 0px #d58c1f;
     border-radius: 91.8864px;
+    position: relative;
+    overflow: hidden;
 
     &:focus {
         outline: none;
@@ -33,6 +45,18 @@
     color: #ffffff;
     text-decoration: none;
     text-shadow: 0px -1.2183px 2.4366px #c17b11;
+
+    &::before {
+        content: "";
+        position: absolute;
+        top: 0;
+        left: 0;
+        background-color: rgba(#fff, 0.5);
+        width: 2em;
+        height: 100%;
+        transform: translateX(-4em) skewX(-45deg);
+        animation: button-light 6s infinite;
+    }
 }
 
 .button-second {
@@ -65,6 +89,43 @@
     } // убрала рамку при нажатии
     &:hover {
         cursor: pointer;
+    }
+}
+
+.button-mini {
+    width: max-content;
+    padding: 14px 24px;
+    background: linear-gradient(180deg, $highlightColor 0%, #eebe55 100%);
+    box-shadow: 0px 3.22136px 0px #c17b11;
+    border-radius: 5.84204px;
+    border: none;
+    position: relative;
+    overflow: hidden;
+
+    @include mainFont;
+    font-size: 11.862px;
+    line-height: 148.67%;
+    text-align: center;
+    letter-spacing: 0.17em;
+    color: #ffffff;
+    text-shadow: 0px -1.48275px 0.741375px rgba(109, 109, 109, 0.25);
+    &:hover {
+        background: linear-gradient(184.46deg, rgb(187, 71, 35) 3.39%, #ecb21d 96.19%);
+        cursor: pointer;
+    }
+    &:focus {
+        outline: none;
+    } // убрала рамку при нажатии
+    &::before {
+        content: "";
+        position: absolute;
+        top: 0;
+        left: 0;
+        background-color: rgba(#fff, 0.5);
+        width: 2em;
+        height: 50px;
+        transform: translateX(-4em) skewX(-45deg);
+        animation: button-light 6s infinite;
     }
 }
 

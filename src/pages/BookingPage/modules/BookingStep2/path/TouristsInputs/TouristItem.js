@@ -5,7 +5,7 @@ import {Input} from "../../../../../../components/Input/Input";
 export const TouristItem = ({index}) => {
     return (
         <div className={bookingStyle["booking__inputs-container"]}>
-            <Input name={`tourists.${index}.name`} placeholder="ФИО*" />
+            <Input name={`tourists.${index}.firstName`} placeholder="ФИО*" />
             <Input name={`tourists.${index}.phone`} placeholder="Телефон*" />
             <Input name={`tourists.${index}.emai`} placeholder="E-mail*" />
         </div>

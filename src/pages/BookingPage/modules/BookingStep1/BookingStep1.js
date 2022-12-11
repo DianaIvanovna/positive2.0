@@ -5,28 +5,7 @@ import DayPicker from "react-day-picker";
 import {MainButton} from "../../../../components/MainButton/MainButton";
 import {MONTHS, WEEKDAYS_SHORT, WEEKDAYS_LONG} from "../../../../constants/calendarData";
 
-const data = [
-    {
-        date: "25.08.2022 - 26.08.2022",
-        number: 78,
-        numberMax: 100,
-        id: 5,
-    },
-    {
-        date: "27.08.2022 - 28.08.2022",
-        number: 68,
-        numberMax: 100,
-        id: 7,
-    },
-    {
-        date: "29.08.2022 - 30.08.2022",
-        number: 88,
-        numberMax: 100,
-        id: 510,
-    },
-];
-
-const BookingStep1 = props => {
+const BookingStep1 = ({bookingTour, ...props}) => {
     const [active, setActive] = useState(props.order.id);
 
     const nextStep = useCallback(() => {
@@ -39,6 +18,10 @@ const BookingStep1 = props => {
 
         props.onContinue();
     }, [active, props]);
+
+    if (!bookingTour) {
+        return <p>что-то не так</p>;
+    }
 
     return (
         <section>
@@ -56,7 +39,7 @@ const BookingStep1 = props => {
                         console.log("date", date);
                     }}
                 />
-                {data.map((item, index) => (
+                {bookingTour.trips.map((item, index) => (
                     <div
                         className={`booking-step-1__line ${active === item.id ? "booking-step-1__line--active" : ""}`}
                         key={index}
@@ -65,10 +48,10 @@ const BookingStep1 = props => {
                         }}
                     >
                         <div className="booking-step-1__icon">{funcIcon(active === item.id ? "#ffffff" : "#F1A22C")}</div>
-                        <p className="booking-step-1__date">{item.date}</p>
-                        <div className="booking-step-1__number">
-                            {item.number}/{item.numberMax}
-                        </div>
+                        <p className="booking-step-1__date">
+                            {item.dateStart} - {item.dateEnd}
+                        </p>
+                        <div className="booking-step-1__number">0/{item.touristLimit}</div>
                     </div>
                 ))}
 

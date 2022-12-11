@@ -1,0 +1,42 @@
+@import "../../../../variables.scss";
+
+/* autoprefixer grid: autoplace */
+.our-trip__header {
+    margin: 40px 0px;
+    display: flex;
+    align-items: center;
+}
+
+.our-trip__title {
+    @include titleFont;
+    font-size: 48px;
+    line-height: 115.75%;
+    letter-spacing: 0.02em;
+    text-transform: uppercase;
+
+    color: $mainColor;
+    margin: 0px;
+    // margin-left: 23px;
+}
+
+.our-trip__container {
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr;
+}
+
+@media screen and (max-width: 700px) {
+    .our-trip__title {
+        font-size: 32px;
+    }
+    .our-trip__header {
+        margin: 20px 0px;
+    }
+}
+@media screen and (max-width: 500px) {
+    .our-trip__title {
+        font-size: 28px;
+    }
+    .our-trip__img {
+        width: 80px;
+    }
+}

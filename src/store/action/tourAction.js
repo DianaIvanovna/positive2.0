@@ -1,3 +1,4 @@
+/* eslint-disable no-inline-comments */
 import {GET_TOURS, ADD_TOURS, GET_TOUR_PAGE, ADD_TOUR_PAGE} from "../types/tourTypes";
 
 export function getTours(data) {
@@ -7,9 +8,10 @@ export function getTours(data) {
     };
 }
 
-export function addTours(data) {
+export function addTours(data, status) {
     return {
         type: ADD_TOURS,
+        status, //pending; fulfilled; rejected;
         payload: data,
     };
 }
@@ -21,9 +23,10 @@ export function getTourPage(data) {
     };
 }
 
-export function addTourPage(data) {
+export function addTourPage(data, status) {
     return {
         type: ADD_TOUR_PAGE,
+        status,
         payload: data,
     };
 }

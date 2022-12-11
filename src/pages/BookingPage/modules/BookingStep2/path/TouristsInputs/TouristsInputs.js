@@ -11,7 +11,7 @@ export const TouristsInputs = () => {
             {({push, form}) => {
                 const onAddClick = () => {
                     push({
-                        name: "",
+                        firstName: "",
                         phone: "",
                         emai: "",
                     });
