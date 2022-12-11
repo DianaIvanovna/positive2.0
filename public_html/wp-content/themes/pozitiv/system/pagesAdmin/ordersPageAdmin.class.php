@@ -2,21 +2,7 @@
 
 require_once 'pagesAdmin.class.php';
 
-class OrdersPageAdmin extends PagesAdmin {
-
-    function __construct() {
-        parent::__construct();
-
-
-    }
-
-
-    function ShowTable() {
-
-    }
-}
-
-class OrderTableAdmin extends WP_List_Table {
+class OrdersTablePageAdmin extends WP_List_Table {
 
     // Мануал по таблицам
     // https://wp-kama.ru/function/wp_list_table?ysclid=lbghqhajmx238804204
@@ -107,6 +93,15 @@ class OrderTableAdmin extends WP_List_Table {
         }
     }
 
+    function column_id ($item) {
+        $actions = [
+            'edit'      => "<a href=\"?page=pozitiv_orders&action=edit&id={$item['id']}\">Изменить</a>",
+        ];
+        
+        return $item['id'] . ' ' .$this->row_actions($actions);
+        
+    }
+
     function get_sortable_columns() {
         return [
             'id' => array('booktitle',false),
@@ -114,5 +109,9 @@ class OrderTableAdmin extends WP_List_Table {
             'client'   => array('isbn',false)
         ];
     }
+
+}
+
+class OrderEditPageAdmin extends PagesAdmin {
 
 }

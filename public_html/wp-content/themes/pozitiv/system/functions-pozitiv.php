@@ -370,11 +370,29 @@ add_action(
 function PozitivOrderPage(){
     require_once __DIR__ . '/models/orderModel.class.php';
     require_once __DIR__ . '/pagesAdmin/ordersPageAdmin.class.php';
-    
-	echo '<h1>Управление заказами</h1>';
 
-    $orderModel = new OrderModel();
-    $orders = $orderModel->GetAll();
-    $objOrdersTable = new OrderTableAdmin($orders);
-    $objOrdersTable->display();
+
+    switch ($_REQUEST['action']) {
+        case 'edit':    // `показать страницу редактирования заказа
+            echo '<h1>Изменение заказа ID ' . $_REQUEST['id'];
+
+            $orderEditPageAdmin = new OrderEditPageAdmin();
+
+            break;
+
+        case 'update':  // обновить заказ
+
+        default:        // отобразить таблицу заказов
+            echo '<h1>Управление заказами</h1>';
+        
+            $orderModel = new OrderModel();
+            $orders = $orderModel->GetAll();
+            $objOrdersTable = new OrdersTablePageAdmin($orders);
+            $objOrdersTable->display();
+
+            break;
+
+        
+    }
+    
 }
