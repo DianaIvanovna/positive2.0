@@ -355,16 +355,12 @@ add_action(
         //= Подключим скрипты и стили к странице Заказов
         add_action('load-' . $pageOrder, function(){
             wp_enqueue_style( 'pozitiv-admin', get_template_directory_uri() . '/assets/styles/pozitiv-admin.min.css' );
-            wp_enqueue_style( 'order-page-admin', get_template_directory_uri() . '/assets/styles/orders-pages-admin.min.css' );
+            wp_enqueue_style( 'order-page-admin', get_template_directory_uri() . '/assets/styles/orders-page-admin.min.css' );
             // wp_enqueue_script('less', get_template_directory_uri() . '/assets/scripts/vendor/less.min.js');
-
-            //== Добавим класс странице Заказов
-            add_filter( 'admin_body_class', function() { return 'pozitiv-admin pozitiv-admin--orders'; });
         });
     },
     25
 );
-
 
 
 function PozitivOrderPage(){
@@ -374,21 +370,28 @@ function PozitivOrderPage(){
 
     switch ($_REQUEST['action']) {
         case 'edit':    // `показать страницу редактирования заказа
-            echo '<h1>Изменение заказа ID ' . $_REQUEST['id'];
+            echo '<div class="pozitiv__admin-page pozitiv__admin-page--edit">';
+            echo '<h1>Изменение заказа ID ' . $_REQUEST['id'] . '</h1>';
 
             $orderEditPageAdmin = new OrderEditPageAdmin();
+            $orderEditPageAdmin->Display();
+
+            echo '</div>';
 
             break;
 
         case 'update':  // обновить заказ
 
         default:        // отобразить таблицу заказов
+            echo '<div class="pozitiv__admin-page pozitiv__admin-page--list">';
             echo '<h1>Управление заказами</h1>';
         
             $orderModel = new OrderModel();
             $orders = $orderModel->GetAll();
             $objOrdersTable = new OrdersTablePageAdmin($orders);
             $objOrdersTable->display();
+
+            echo '</div>';
 
             break;
 

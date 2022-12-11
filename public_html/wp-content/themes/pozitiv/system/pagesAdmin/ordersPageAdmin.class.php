@@ -114,4 +114,78 @@ class OrdersTablePageAdmin extends WP_List_Table {
 
 class OrderEditPageAdmin extends PagesAdmin {
 
+    private $order;
+
+    function __construct() {
+        parent::__construct();
+
+        // получить данные заказа
+        $this->order = [];
+    }
+
+
+    function Display() {
+        echo "
+            <form action=\"\" method=\"POST\" class=\"pozitiv__order-edit-form\">
+                <input type=\"hidden\" name=\"id\" value=\"{$this->order->id}\">
+                <input type=\"hidden\" name=\"action\" value=\"change\">
+
+                <section class=\"pozitiv__order-edit-form__section\">
+                    <h2 class=\"pozitiv__order-edit-form__h\">Информация о туре</h2>
+                    
+                    <div class=\"pozitiv__order-edit-form__field\">
+                        <label for=\"lbTourName\">Тур</label>
+                        <input type=\"text\" value=\"{$this->order->tour}\" readonly>
+                    </div>
+
+                    <div class=\"pozitiv__order-edit-form__field\">
+                        <label for=\"lbTourName\">Поездка</label>
+                        <input type=\"text\" value=\"{$this->order->trip}\" readonly>
+                    </div>
+                </section>
+                    
+                <section class=\"pozitiv__order-edit-form__section\">
+                    <h2 class=\"pozitiv__order-edit-form__h\">Заказчик</h2>
+
+                    <input type=\"hidden\" name=\"idUserOwner\" value=\"{$this->order->idUserOwner}\">
+
+                    <div class=\"pozitiv__order-edit-form__row\">
+                        <div class=\"pozitiv__order-edit-form__field\">
+                            <label for=\"lbTourName\">Фамилия</label>
+                            <input type=\"text\" value=\"{$this->order->lastNameOwner}\">
+                        </div>
+
+                        <div class=\"pozitiv__order-edit-form__field\">
+                            <label for=\"lbTourName\">Имя</label>
+                            <input type=\"text\" value=\"{$this->order->firstNameOwner}\">
+                        </div>
+                    </div>
+
+                    <div class=\"pozitiv__order-edit-form__row\">
+                        <div class=\"pozitiv__order-edit-form__field\">
+                            <label for=\"lbTourName\">Телефон</label>
+                            <input type=\"text\" value=\"{$this->order->phoneOwner}\">
+                        </div>
+
+                        <div class=\"pozitiv__order-edit-form__field\">
+                            <label for=\"lbTourName\">E-mail</label>
+                            <input type=\"text\" value=\"{$this->order->emailOwner}\">
+                        </div>
+                    </div>
+                </section>
+
+                <section class=\"pozitiv__order-edit-form__section\">
+                    <h2 class=\"pozitiv__order-edit-form__h\">Туристы и услуги</h2>
+
+                </section>
+
+                <section class=\"pozitiv__order-edit-form__section\">
+                    <h2 class=\"pozitiv__order-edit-form__h\">Платежи</h2>
+                    
+                </section>
+
+                <button class=\"button action\" type=\"submit\">Сохранить</button>
+            </form>
+        ";
+    }
 }
