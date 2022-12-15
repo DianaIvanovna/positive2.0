@@ -125,66 +125,159 @@ class OrderEditPageAdmin extends PagesAdmin {
 
 
     function Display() {
+
+        //= Сформируем список туристов с данными
+        $touristsList = '';
+        foreach ($this->order['data']['tourists'] as $tourist) {
+            $touristsList .= "
+                <div class=\"tourist-item\">
+                    <div class=\"tourist-item__header\">
+                        <span class=\"tourist-item__header__name\">
+                            {$tourist['lastName']} {$tourist['firstName']} {$tourist['middleName']}
+                        </span>
+                        <div class=\"tourist-item__toggler\"></div>
+                    </div>
+                    <div class=\"tourist-item__data\">
+                        <div class=\"pozitiv__order-edit-form__row\">
+                            <div class=\"pozitiv__order-edit-form__col-1-2\">
+                                <div class=\"pozitiv__order-edit-form__field\">
+                                    <label for=\"lbTourName\">Имя</label>
+                                    <input type=\"text\" value=\"{$tourist['firstName']}\">
+                                </div>
+                                <div class=\"pozitiv__order-edit-form__field\">
+                                    <label for=\"lbTourName\">Фамилия</label>
+                                    <input type=\"text\" value=\"{$tourist['lastName']}\">
+                                </div>
+                                <div class=\"pozitiv__order-edit-form__field\">
+                                    <label for=\"lbTourName\">Отчество</label>
+                                    <input type=\"text\" value=\"{$tourist['middleName']}\">
+                                </div>
+                                <div class=\"pozitiv__order-edit-form__field\">
+                                    <label for=\"lbTourName\">Дата рождения</label>
+                                    <input type=\"text\" value=\"{$tourist['birthday']}\">
+                                </div>
+                            </div>
+                            <div class=\"pozitiv__order-edit-form__col-1-2\">
+                                <div class=\"pozitiv__order-edit-form__field\">
+                                    <label for=\"lbTourName\">Паспорт: серия</label>
+                                    <input type=\"text\" value=\"{$tourist['passportSeries']}\">
+                                </div>
+                                <div class=\"pozitiv__order-edit-form__field\">
+                                    <label for=\"lbTourName\">Паспорт: номер</label>
+                                    <input type=\"text\" value=\"{$tourist['passportNumber']}\">
+                                </div>
+                                <div class=\"pozitiv__order-edit-form__field\">
+                                    <label for=\"lbTourName\">Паспорт: дата выдачи</label>
+                                    <input type=\"text\" value=\"{$tourist['passportDateIssue']}\">
+                                </div>
+                                <div class=\"pozitiv__order-edit-form__field\">
+                                    <label for=\"lbTourName\">Паспорт: кем выдан</label>
+                                    <input type=\"text\" value=\"{$tourist['passportWhoIssue']}\">
+                                </div>
+                                <div class=\"pozitiv__order-edit-form__field\">
+                                    <label for=\"lbTourName\">Паспорт: код подразделения</label>
+                                    <input type=\"text\" value=\"{$tourist['passportCodeDivision']}\">
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            ";
+        }
+
         echo "
             <form action=\"\" method=\"POST\" class=\"pozitiv__order-edit-form\">
                 <input type=\"hidden\" name=\"id\" value=\"{$this->order->id}\">
                 <input type=\"hidden\" name=\"action\" value=\"change\">
 
-                <section class=\"pozitiv__order-edit-form__section\">
-                    <h2 class=\"pozitiv__order-edit-form__h\">Информация о туре</h2>
-                    
-                    <div class=\"pozitiv__order-edit-form__field\">
-                        <label for=\"lbTourName\">Тур</label>
-                        <input type=\"text\" value=\"{$this->order->tour}\" readonly>
-                    </div>
+                <div class=\"pozitiv__order-edit-form__control-block\">
+                    <button type=\"button\" id=\"orderBtnCancel\" class=\"components-button is-secondary is-destructive\">Отменить</button>
+                    <button type=\"button\" id=\"orderBtnPrint\" title=\"Распечатать\"></button>
+                    <button type=\"submit\" id=\"orderBtnSubmit\">Сохранить</button>
+                </div>
 
-                    <div class=\"pozitiv__order-edit-form__field\">
-                        <label for=\"lbTourName\">Поездка</label>
-                        <input type=\"text\" value=\"{$this->order->trip}\" readonly>
+                <section class=\"pozitiv__order-edit-form__section\">
+                    <h2>Тур и поездка</h2>
+
+                    <div class=\"pozitiv__order-edit-form__row\">
+                        <div class=\"pozitiv__order-edit-form__col-1-2\">
+                            <div class=\"pozitiv__order-edit-form__field\">
+                                <label for=\"lbTourName\">Тур</label>
+                                <input type=\"text\" value=\"{$this->order->tour}\" readonly>
+                            </div>
+                        </div>
+                        <div class=\"pozitiv__order-edit-form__col-1-2\">
+                            <div class=\"pozitiv__order-edit-form__field\">
+                                <label for=\"lbTourName\">Поездка</label>
+                                <input type=\"text\" value=\"{$this->order->trip}\" readonly>
+                            </div>
+                        </div>
                     </div>
                 </section>
                     
                 <section class=\"pozitiv__order-edit-form__section\">
-                    <h2 class=\"pozitiv__order-edit-form__h\">Заказчик</h2>
-
                     <input type=\"hidden\" name=\"idUserOwner\" value=\"{$this->order->idUserOwner}\">
+                    <h2>Заказчик</h2>
 
                     <div class=\"pozitiv__order-edit-form__row\">
-                        <div class=\"pozitiv__order-edit-form__field\">
-                            <label for=\"lbTourName\">Фамилия</label>
-                            <input type=\"text\" value=\"{$this->order->lastNameOwner}\">
-                        </div>
+                        <div class=\"pozitiv__order-edit-form__col-1-2\">
+                            <div class=\"pozitiv__order-edit-form__field\">
+                                <label for=\"lbTourName\">Фамилия</label>
+                                <input type=\"text\" value=\"{$this->order->lastNameOwner}\">
+                            </div>
 
-                        <div class=\"pozitiv__order-edit-form__field\">
-                            <label for=\"lbTourName\">Имя</label>
-                            <input type=\"text\" value=\"{$this->order->firstNameOwner}\">
-                        </div>
-                    </div>
+                            <div class=\"pozitiv__order-edit-form__field\">
+                                <label for=\"lbTourName\">Имя</label>
+                                <input type=\"text\" value=\"{$this->order->firstNameOwner}\">
+                            </div>
 
-                    <div class=\"pozitiv__order-edit-form__row\">
-                        <div class=\"pozitiv__order-edit-form__field\">
-                            <label for=\"lbTourName\">Телефон</label>
-                            <input type=\"text\" value=\"{$this->order->phoneOwner}\">
-                        </div>
+                            <div class=\"pozitiv__order-edit-form__field\">
+                                <label for=\"lbTourName\">Телефон</label>
+                                <input type=\"text\" value=\"{$this->order->phoneOwner}\">
+                            </div>
 
-                        <div class=\"pozitiv__order-edit-form__field\">
-                            <label for=\"lbTourName\">E-mail</label>
-                            <input type=\"text\" value=\"{$this->order->emailOwner}\">
+                            <div class=\"pozitiv__order-edit-form__field\">
+                                <label for=\"lbTourName\">E-mail</label>
+                                <input type=\"text\" value=\"{$this->order->emailOwner}\">
+                            </div>
+                        </div>
+                        <div class=\"pozitiv__order-edit-form__col-1-2\">
+                            <div class=\"pozitiv__order-edit-form__field\" style=\"height:100%;\">
+                                <label for=\"lbTourName\">Комментарий заказчика</label>
+                                <div class=\"form-field\" style=\"width:100%;height:100%\">
+                                    <textarea name=\"messageClient\" style=\"height:216px;\" readonly placeholder=\"Комментарий заказчика\">{$this->order->messageClient}</textarea>
+                                </div>
+                            </div>
                         </div>
                     </div>
                 </section>
 
                 <section class=\"pozitiv__order-edit-form__section\">
-                    <h2 class=\"pozitiv__order-edit-form__h\">Туристы и услуги</h2>
+                    <h2>Туристы и услуги</h2>
 
+                    <div class=\"pozitiv__order-edit-form__row\">
+                        <div class=\"pozitiv__order-edit-form__col-2-3\">
+                            <div id=\"orderListTourist\">
+                                {$touristsList}
+                            </div>
+                        </div>
+                        <div class=\"pozitiv__order-edit-form__col-1-3\">
+                            <div id=\"orderListServices\"></div>
+                        </div>
+                    </div>
                 </section>
 
                 <section class=\"pozitiv__order-edit-form__section\">
-                    <h2 class=\"pozitiv__order-edit-form__h\">Платежи</h2>
+                    <h2>Платежи</h2>
                     
                 </section>
 
-                <button class=\"button action\" type=\"submit\">Сохранить</button>
+                <section class=\"pozitiv__order-edit-form__section\">
+                    <h2>Комментарий администратора</h2>
+                    <div class=\"form-field\">
+                        <textarea class=\"\" name=\"messageAdmin\" placeholder=\"Комментарий администратора\"></textarea>
+                    </div>
+                </section>
             </form>
         ";
     }

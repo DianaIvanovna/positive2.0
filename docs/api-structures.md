@@ -41,6 +41,8 @@
 - emailOwner        - Почта заказчика
 - firstNameOwner    - Имя заказчика
 - lastNameOwner     - Фамилия заказчика
+- messageOwner      - Комментарий заказчика по заказу
+- messageAdmin      - Комментарий администратора системы по заказу
 - status            - Статус заказа created | payed | confirmed | canceled
                         created     - пользователь только отправил заказ
                         payed       - пользователь оплатил заказ
