@@ -367,14 +367,18 @@ function PozitivOrderPage(){
     require_once __DIR__ . '/models/orderModel.class.php';
     require_once __DIR__ . '/pagesAdmin/ordersPageAdmin.class.php';
 
+    $orderModel = new OrderModel(); 
+
 
     switch ($_REQUEST['action']) {
         case 'edit':    // `показать страницу редактирования заказа
             echo '<div class="pozitiv__admin-page pozitiv__admin-page--edit">';
             echo '<h1>Изменение заказа ID ' . $_REQUEST['id'] . '</h1>';
 
+            $order = $orderModel->GetByID($_REQUEST['id']);
+
             $orderEditPageAdmin = new OrderEditPageAdmin();
-            $orderEditPageAdmin->Display();
+            $orderEditPageAdmin->Display($order);
 
             echo '</div>';
 
@@ -386,7 +390,6 @@ function PozitivOrderPage(){
             echo '<div class="pozitiv__admin-page pozitiv__admin-page--list">';
             echo '<h1>Управление заказами</h1>';
         
-            $orderModel = new OrderModel();
             $orders = $orderModel->GetAll();
             $objOrdersTable = new OrdersTablePageAdmin($orders);
             $objOrdersTable->display();

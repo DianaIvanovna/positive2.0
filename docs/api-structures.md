@@ -36,12 +36,14 @@
 
 ## Заказ <a name="orderStructure"></a>
 - id                - ID заказа
+- tourID            - ID тура
+- tripID            - ID поездки
 - idUserOwner       - ID пользователя в системе на которого оформлен заказ (заказчик)
 - phoneOwner        - Телефон заказчика
 - emailOwner        - Почта заказчика
 - firstNameOwner    - Имя заказчика
 - lastNameOwner     - Фамилия заказчика
-- messageOwner      - Комментарий заказчика по заказу
+- messageClient      - Комментарий заказчика по заказу
 - messageAdmin      - Комментарий администратора системы по заказу
 - status            - Статус заказа created | payed | confirmed | canceled
                         created     - пользователь только отправил заказ

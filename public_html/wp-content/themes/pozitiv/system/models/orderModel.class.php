@@ -17,6 +17,8 @@ class OrderModel extends PozitivModel {
         $res = $wpdb->insert(
             'pozitiv_orders',
             [
+                'tourID'            => $arOrder['tourID'],
+                'tripID'            => $arOrder['tourID'],
                 'idUserOwner'       => $arOrder['idUserOwner'],
 	            'phoneOwner'        => $arOrder['phoneOwner'],
 	            'emailOwner'        => $arOrder['emailOwner'],
@@ -46,15 +48,22 @@ class OrderModel extends PozitivModel {
             'SELECT * FROM `pozitiv_orders` ORDER BY id DESC',
             'OBJECT'
         );
-
-
     }
 
 
     /**
      * 
      */
-    public function Get() {
+    public function GetByID(int $orderID) {
+        if ($orderID <=0) {
+            throw new ErrorException();
+        }
         
+        global $wpdb;
+
+        return array_shift($wpdb->get_results(
+            "SELECT * FROM `pozitiv_orders` WHERE ID={$orderID} ORDER BY id DESC",
+            'OBJECT'
+        ));
     }
 }
