@@ -76,5 +76,49 @@
                 width: 100%;
             }
         }
+
+        .tourist-item {
+            margin-bottom: 15px;
+            background-color: #f7f7f9;
+
+            &__header {
+                padding: 5px 10px;
+                display: flex;
+                border-radius: 3px;
+                border-bottom: 1px solid #e2e2e3;
+
+
+                &__number {
+                    font-weight: bold;
+                    display: block;
+                    margin-right: 5px;
+                }
+
+                &__name {
+                    font-weight: bold;
+                    justify-self: flex-end;
+                    margin-right: auto;
+                }
+
+                &__toggler {
+                    cursor: pointer;
+                    padding: 0 10px;
+                    user-select: none;
+                }
+
+
+            }
+
+            &__data {
+                height: 0;
+                overflow: hidden;
+                
+                &__row {
+                    padding-top: 15px;
+
+                }
+            }
+        }
     }
 }
+

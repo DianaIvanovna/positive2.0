@@ -356,7 +356,7 @@ add_action(
         add_action('load-' . $pageOrder, function(){
             wp_enqueue_style( 'pozitiv-admin', get_template_directory_uri() . '/assets/styles/pozitiv-admin.min.css' );
             wp_enqueue_style( 'order-page-admin', get_template_directory_uri() . '/assets/styles/orders-page-admin.min.css' );
-            // wp_enqueue_script('less', get_template_directory_uri() . '/assets/scripts/vendor/less.min.js');
+            wp_enqueue_script( 'js', get_template_directory_uri() . '/assets/scripts/orderPageAdmin.min.js');
         });
     },
     25

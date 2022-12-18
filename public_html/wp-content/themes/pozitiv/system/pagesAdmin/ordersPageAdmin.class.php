@@ -139,21 +139,27 @@ class OrderEditPageAdmin extends PagesAdmin {
             'p'             => $order->tripID,
         ]));
 
+        // TODO софрмировать список доступных для поездки услуг
+        $tripServices = '[]';
+
       
 
         $orderData = json_decode($order->data, true);
         
         //= Сформируем список туристов с данными
         $touristsList = '';
-        foreach ($orderData['tourists'] as $tourist) {
+        foreach ($orderData['tourists'] as $ind => $tourist) {
+
+            $number = $ind + 1;
 
             $touristsList .= "
-                <div class=\"tourist-item\">
+                <div class=\"tourist-item\" data-tourist-id=\"{$ind}\">
                     <div class=\"tourist-item__header\">
+                        <span class=\"tourist-item__header__number\">{$number}</span>
                         <span class=\"tourist-item__header__name\">
                             {$tourist['lastName']} {$tourist['firstName']} {$tourist['middleName']}
                         </span>
-                        <div class=\"tourist-item__toggler\"></div>
+                        <div class=\"tourist-item__header__toggler\">&#9660;</div>
                     </div>
                     <div class=\"tourist-item__data\">
                         <div class=\"pozitiv__order-edit-form__row\">
@@ -273,7 +279,7 @@ class OrderEditPageAdmin extends PagesAdmin {
                     </div>
                 </section>
 
-                <section class=\"pozitiv__order-edit-form__section\">
+                <section class=\"pozitiv__order-edit-form__section\" id=\"section-tourists\">
                     <h2>Туристы и услуги</h2>
 
                     <div class=\"pozitiv__order-edit-form__row\">
@@ -300,6 +306,10 @@ class OrderEditPageAdmin extends PagesAdmin {
                     </div>
                 </section>
             </form>
+            <script>
+                document.orderData = {$order->data};
+                document.tripServices = {$tripServices};
+            </script>
         ";
     }
 }
