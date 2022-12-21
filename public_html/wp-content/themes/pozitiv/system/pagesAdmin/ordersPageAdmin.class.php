@@ -139,13 +139,31 @@ class OrderEditPageAdmin extends PagesAdmin {
             'p'             => $order->tripID,
         ]));
 
-        // TODO софрмировать список доступных для поездки услуг
-        $tripServices = '[]';
 
-      
+        //= Достанем доступные в поездке услуги и сформируем из них массив с услугами
+        $availableServices = get_field('services', $tripPost->ID);
 
+        $services = get_posts([
+            'post_type'     => 'service',
+            'post__in'             => $availableServices
+        ]);
+
+        $servicesList = [];
+        foreach ($services as $service) {
+            $servicesList[$service->ID] = [
+                'id'    => $service->ID,
+                'title' => $service->post_title,
+                'description'   => strip_tags($service->post_content),
+            ];
+        }
+
+        $jsonServiceList = json_encode($servicesList);
+       
+
+        //= Получим данные заказа
         $orderData = json_decode($order->data, true);
         
+
         //= Сформируем список туристов с данными
         $touristsList = '';
         foreach ($orderData['tourists'] as $ind => $tourist) {
@@ -308,7 +326,7 @@ class OrderEditPageAdmin extends PagesAdmin {
             </form>
             <script>
                 document.orderData = {$order->data};
-                document.tripServices = {$tripServices};
+                document.tripServices = {$jsonServiceList};
             </script>
         ";
     }
