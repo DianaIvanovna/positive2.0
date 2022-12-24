@@ -198,6 +198,8 @@ class OrderEditPageAdmin extends PagesAdmin {
                                     <label for=\"lbTourName\">Дата рождения</label>
                                     <input type=\"text\" value=\"{$tourist['birthday']}\">
                                 </div>
+
+                                <button type=\"button\" class=\"pos-ui__button pos-ui__button--red tourist-item__remove\" title=\"Удалить туриста\">Удалить</button>
                             </div>
                             <div class=\"pozitiv__order-edit-form__col-1-2\">
                                 <div class=\"pozitiv__order-edit-form__field\">
@@ -305,9 +307,14 @@ class OrderEditPageAdmin extends PagesAdmin {
                             <div id=\"orderListTourist\">
                                 {$touristsList}
                             </div>
+                            <button class=\"pos-ui__button pos-ui__button--blue\" type=\"button\">Добавить туриста</button>
                         </div>
                         <div class=\"pozitiv__order-edit-form__col-1-3\">
-                            <div id=\"orderListServices\"></div>
+                            <div class=\"tourist-services-block\">
+                                <span class=\"pozitiv__order-edit-form__block-h\">Услуги туриста</span>
+                                <div id=\"orderListServices\"></div>
+                                <button class=\"pos-ui__button pos-ui__button--blue\" type=\"button\">Добавить услугу</button>
+                            </div>
                         </div>
                     </div>
                 </section>

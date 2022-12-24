@@ -1,4 +1,81 @@
-.pozitiv {
-    
-   
+.pos-ui {
+    &__button {
+        border-width: 1px;
+        border-style: solid;
+        border-radius: 3px;
+
+        &--blue {
+            $buttonClr: #007cba;
+
+            color: $buttonClr;
+            border-color: $buttonClr;
+            background-color: white;
+
+            &:hover {
+                background-color: $buttonClr;
+                color: white;
+            }
+
+        }
+
+        &--red {
+            $buttonClr: #ff7c7c;
+
+            color: $buttonClr;
+            border-color: $buttonClr;
+            background-color: white;
+
+            &:hover {
+                color: white;
+                background-color: $buttonClr;
+            }
+
+
+        }
+
+        &--gray {
+            $buttonClr: #808080;
+            color: $buttonClr;
+            border-color: $buttonClr;
+            background-color: white;
+
+            &:hover {
+                color: white;
+                background-color: $buttonClr;
+            }
+        }
+    }
+
+    &__link {
+        text-decoration:  underline;
+
+        &--blue {
+            $buttonClr: #007cba;
+
+            color: $buttonClr;
+
+            &:hover {
+            }
+
+        }
+
+        &--red {
+            $buttonClr: #ff7c7c;
+
+            color: $buttonClr;
+
+            &:hover {
+            }
+
+
+        }
+
+        &--gray {
+            $buttonClr: #808080;
+            color: $buttonClr;
+
+            &:hover {
+            }
+        }
+    }
 }

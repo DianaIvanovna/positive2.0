@@ -60,6 +60,14 @@
             align-items: stretch;
         }
 
+        &__block-h {
+            text-align: center;
+            display: block;
+            font-weight: bold;
+            line-height: 2;
+            margin-bottom: 10px;
+        }
+
         &__field {
             display: flex;
             flex-direction: column;
@@ -75,6 +83,12 @@
                 box-sizing: border-box;
                 width: 100%;
             }
+        }
+
+        .tourist-services-block {
+            border: 1px solid $clrBorder;
+            padding: 5px;
+            border-radius: 5px;
         }
 
         .tourist-item {
@@ -117,6 +131,35 @@
                     padding-top: 15px;
 
                 }
+            }
+        }
+
+        .tourist-service-item {
+            display: flex;
+            flex-direction: row;
+            justify-content: space-between;
+            align-items: center;
+            background-color: #f7f7f9;
+            margin-bottom: 5px;
+            padding: 5px;
+
+            span {
+                flex: 1 1 70%;
+                line-height: 1.1;
+            }
+
+            input {
+                flex: 1 1 28%;
+                width: unset;
+                max-width: 70px;
+                min-width: unset;
+            }
+
+            button {
+                flex: 0 0 30px;
+                height: 30px;
+                width: 30px;
+                margin-left: 10px;
             }
         }
     }
