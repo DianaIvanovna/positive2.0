@@ -89,6 +89,16 @@
             border: 1px solid $clrBorder;
             padding: 5px;
             border-radius: 5px;
+
+            &__footer {
+                display: flex;
+                justify-content: center;
+                padding: 5px 0;
+
+                button {
+                    display: none;
+                }
+            }
         }
 
         .tourist-item {

@@ -307,13 +307,15 @@ class OrderEditPageAdmin extends PagesAdmin {
                             <div id=\"orderListTourist\">
                                 {$touristsList}
                             </div>
-                            <button class=\"pos-ui__button pos-ui__button--blue\" type=\"button\">Добавить туриста</button>
+                            <button class=\"pos-ui__button pos-ui__button--blue\" id=\"btnTouristAdd\" type=\"button\">Добавить туриста</button>
                         </div>
                         <div class=\"pozitiv__order-edit-form__col-1-3\">
                             <div class=\"tourist-services-block\">
                                 <span class=\"pozitiv__order-edit-form__block-h\">Услуги туриста</span>
                                 <div id=\"orderListServices\"></div>
-                                <button class=\"pos-ui__button pos-ui__button--blue\" type=\"button\">Добавить услугу</button>
+                                <div class=\"tourist-services-block__footer\">
+                                    <button class=\"pos-ui__button pos-ui__button--blue\" id=\"btnTouristServiceAdd\" type=\"button\">Добавить услугу</button>
+                                </div>
                             </div>
                         </div>
                     </div>
