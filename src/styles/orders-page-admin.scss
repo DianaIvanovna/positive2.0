@@ -172,6 +172,50 @@
                 margin-left: 10px;
             }
         }
+
+        #servicesListAvailable {
+            background-color: #e3e3e6;
+            border-radius: 5px;
+            padding: 0;
+            margin: 10px 20px;
+            position: relative;
+            overflow: hidden;
+            height: 0;
+
+            &.opened {
+                height: auto;
+                padding: 10px;
+                border: 1px solid $clrBorder;
+            }
+
+            .closer {
+                position: absolute;
+                top: 0;
+                right: 0;
+                width: 20px;
+                height: 20px;
+                text-align: center;
+                color: black;
+                cursor: pointer;
+                border:none;
+            }
+
+            ul {
+                padding: 0;
+                margin: 0;
+            }
+
+            li {
+                display: flex;
+                justify-content: space-between;
+                align-items: center;
+                height: 30px;
+                background-color: white;
+                border-radius: 3px;
+                margin-bottom: 5px;
+                padding: 3px 10px;
+            }
+        }
     }
 }
 

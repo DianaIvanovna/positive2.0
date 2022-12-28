@@ -11,6 +11,7 @@ class OrderPageAdmin {
         this.sectionTourists = this.jRootForm.find('#section-tourists');
         this.listTourists = this.sectionTourists.find('#orderListTourist');
         this.listTouristServices = this.sectionTourists.find('#orderListServices');
+        this.listTouristServicesAvailable = this.sectionTourists.find('#servicesListAvailable');
         
         //= Повесим обработчики
         //== Развернуть / свернуть туриста
@@ -21,13 +22,17 @@ class OrderPageAdmin {
         this.sectionTourists.on('click', '.tourist-item__remove', jQuery.proxy( this.TouristRemove, this));
         //== Добавить туриста
         this.sectionTourists.find('#btnTouristAdd').click( jQuery.proxy( this.TouristAdd, this) );
+        //== Показать доступные услуги
+        this.sectionTourists.find('#btnTouristServiceAdd').click( jQuery.proxy( this.TouristServicesAvailableShow, this) );
+        //== Скрыть блок доступных услуг
+        this.listTouristServicesAvailable.find('.closer').click( jQuery.proxy( this.TouristServicesAvailableShow, this) );
         //== Добавить услугу
-        this.sectionTourists.find('#btnTouristServiceAdd').click( jQuery.proxy( this.TouristServiceAdd, this) );
+        this.listTouristServicesAvailable.find('li>button').click( jQuery.proxy( this.touristServicesAdd, this) );
     }
 
 
     /**
-     * Реагирует на сворачивание разворачивание туриста
+     * Сворачивание/разворачивание туриста
      */
     TouristToggleClick(e) {
         var jTourist = jQuery(e.target).parents('.tourist-item');
@@ -39,6 +44,7 @@ class OrderPageAdmin {
             this.listTouristServices.html('');
 
             this.sectionTourists.find('.tourist-services-block__footer button').css({"display": "none"});
+            this.listTouristServicesAvailable.removeClass('showed');
         }
 
         //= Если кликнутый пользователь свернут
@@ -163,10 +169,45 @@ class OrderPageAdmin {
 
 
     /**
-     * Добавит услугу туристу
+     * Покажет/скроет блок с доступными услугами
      */
-    TouristServiceAdd() {
+    TouristServicesAvailableShow() {
+        if (this.listTouristServicesAvailable.hasClass('opened')) {
+            this.listTouristServicesAvailable.removeClass('opened');
+        } else {
+            this.listTouristServicesAvailable.addClass('opened');
+        }
+    }
 
+
+    /**
+     * Добавит выбранную услугу текущему туристу
+     */
+    touristServicesAdd(e) {
+        //= Определить id открытого турист
+        var jTourist = this.listTourists.find('.tourist-item.opened')
+        var touristID = jTourist.data('tourist-id');
+
+        //= Определить id добавляемой услуги
+        var serviceAddID = jQuery(e.currentTarget).parents('li').data('service-id');
+        var serviceAddName = jQuery(e.currentTarget).parents('li').data('service-name');
+
+        //= Проверить что в данных у этого туриста нет такой услуги
+        var servicesCurTourist = this.orderData.tourists[touristID].services;
+        for (var i in servicesCurTourist) {
+            if (servicesCurTourist[i].id == serviceAddID) {
+                return false;
+            }
+        }
+
+        //= Добавить услугу в данные с нулевым количеством
+        this.orderData.tourists[touristID].services.push({
+            id: serviceAddID,
+            quantity: 0
+        });
+
+        //= Отрисовать услугу в блоке услуг
+        this.TouristShowServices(jTourist);
     }
 }
 

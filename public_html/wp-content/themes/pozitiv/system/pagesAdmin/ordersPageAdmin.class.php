@@ -145,16 +145,24 @@ class OrderEditPageAdmin extends PagesAdmin {
 
         $services = get_posts([
             'post_type'     => 'service',
-            'post__in'             => $availableServices
+            'post__in'      => $availableServices
         ]);
 
         $servicesList = [];
+        $servicesListHTML = '';
         foreach ($services as $service) {
             $servicesList[$service->ID] = [
                 'id'    => $service->ID,
                 'title' => $service->post_title,
                 'description'   => strip_tags($service->post_content),
             ];
+
+            $servicesListHTML .= "
+                <li data-service-id=\"{$service->ID}\">
+                    <span class=\"service-name\">{$service->post_title}</span>
+                    <button class=\"pos-ui__button pos-ui__button--blue\" type=\"button\">Добавить</button>
+                </li>
+            ";
         }
 
         $jsonServiceList = json_encode($servicesList);
@@ -315,6 +323,13 @@ class OrderEditPageAdmin extends PagesAdmin {
                                 <div id=\"orderListServices\"></div>
                                 <div class=\"tourist-services-block__footer\">
                                     <button class=\"pos-ui__button pos-ui__button--blue\" id=\"btnTouristServiceAdd\" type=\"button\">Добавить услугу</button>
+                                </div>
+                                <div id=\"servicesListAvailable\">
+                                    <button type=\"button\" class=\"closer\">&times;</button>
+                                    <span class=\"pozitiv__order-edit-form__block-h\">Доступные услуги</span>
+                                    <ul>
+                                        {$servicesListHTML}
+                                    </ul>
                                 </div>
                             </div>
                         </div>
