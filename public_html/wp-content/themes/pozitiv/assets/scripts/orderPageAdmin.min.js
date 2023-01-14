@@ -18,6 +18,8 @@ class OrderPageAdmin {
         this.sectionTourists.on('click', '.tourist-item__header__toggler', jQuery.proxy( this.TouristToggleClick, this ));
         //== Удалить услугу туриста
         this.listTouristServices.on('click', '.tourist-service-item button', jQuery.proxy( this.TouristServiceRemove, this));
+        //== Изменить услугу
+        this.listTouristServices.on('change', '.tourist-service-item input', jQuery.proxy( this.TouristServiceChange, this) );
         //== Удалить туриста
         this.sectionTourists.on('click', '.tourist-item__remove', jQuery.proxy( this.TouristRemove, this));
         //== Добавить туриста
@@ -27,7 +29,10 @@ class OrderPageAdmin {
         //== Скрыть блок доступных услуг
         this.listTouristServicesAvailable.find('.closer').click( jQuery.proxy( this.TouristServicesAvailableShow, this) );
         //== Добавить услугу
-        this.listTouristServicesAvailable.find('li>button').click( jQuery.proxy( this.touristServicesAdd, this) );
+        this.listTouristServicesAvailable.find('li>button').click( jQuery.proxy( this.TouristServicesAdd, this) );
+
+        //== Отправить форму
+        this.jRootForm.submit((e)=>{ this.CollectDataOrder(); return true; })
     }
 
 
@@ -183,7 +188,7 @@ class OrderPageAdmin {
     /**
      * Добавит выбранную услугу текущему туристу
      */
-    touristServicesAdd(e) {
+    TouristServicesAdd(e) {
         //= Определить id открытого турист
         var jTourist = this.listTourists.find('.tourist-item.opened')
         var touristID = jTourist.data('tourist-id');
@@ -201,6 +206,9 @@ class OrderPageAdmin {
         }
 
         //= Добавить услугу в данные с нулевым количеством
+        if (typeof this.orderData.tourists[touristID].services == "undefined") {
+            this.orderData.tourists[touristID].services = [];
+        }
         this.orderData.tourists[touristID].services.push({
             id: serviceAddID,
             quantity: 0
@@ -208,6 +216,59 @@ class OrderPageAdmin {
 
         //= Отрисовать услугу в блоке услуг
         this.TouristShowServices(jTourist);
+    }
+
+
+    /**
+     * Сохранит изменение количества услуг
+     */
+    TouristServiceChange(e) {
+        //= Определить id открытого турист
+        var jTourist = this.listTourists.find('.tourist-item.opened')
+        var touristID = jTourist.data('tourist-id');
+
+        var services = [];
+        this.listTouristServices.find('.tourist-service-item').each((i,el) => {
+            var jService = jQuery(el);
+            var idService = jService.data('service-id');
+            var quantityService = jService.find('input').val();
+
+            services.push({
+                id: idService,
+                quantity: quantityService
+            });
+        })
+        this.orderData.tourists[touristID].services = services;
+        console.log(this.orderData);
+    }
+
+
+    /**
+     * Соберет данные заказа
+     */
+    CollectDataOrder() {
+
+        //= Соберем данные туристов
+        var touristsData = [];
+        this.listTourists.find('.tourist-item').each((i, el) => {
+            var jTourist= jQuery(el);
+            var touristID = jTourist.data('tourist-id');
+
+            touristsData[touristID] = {
+                firstName:              jTourist.find('.tourist-item__filed-firstname').val(),
+                lastName:               jTourist.find('.tourist-item__filed-lasttname').val(),
+                middleName:             jTourist.find('.tourist-item__filed-middlename').val(),
+                birthday:               jTourist.find('.tourist-item__filed-birthday').val(),
+                passportSeries:         jTourist.find('.tourist-item__filed-pserises').val(),
+                passportNumber:         jTourist.find('.tourist-item__filed-pnumber').val(),
+                passportDateIssue:      jTourist.find('.tourist-item__filed-pdate').val(),
+                passportWhoIssue:       jTourist.find('.tourist-item__filed-pwho').val(),
+                passportCodeDivision:   jTourist.find('.tourist-item__filed-pcode').val(),
+                services:               this.orderData.tourists[touristID].services,
+            }
+        });
+
+        this.jRootForm.find('input[name=data]').val(JSON.stringify({tourists:touristsData}));
     }
 }
 

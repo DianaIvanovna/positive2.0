@@ -384,7 +384,11 @@ function PozitivOrderPage(){
 
             break;
 
-        case 'update':  // обновить заказ
+        case 'change':  // обновить заказ
+            $orderEditPageAdmin = new OrderEditPageAdmin();
+            $orderEditPageAdmin->Change();
+
+            wp_redirect('/wp-admin/admin.php?page=pozitiv_orders');
 
         default:        // отобразить таблицу заказов
             echo '<div class="pozitiv__admin-page pozitiv__admin-page--list">';

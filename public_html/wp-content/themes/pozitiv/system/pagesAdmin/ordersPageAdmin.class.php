@@ -170,7 +170,7 @@ class OrderEditPageAdmin extends PagesAdmin {
 
         //= Получим данные заказа
         $orderData = json_decode($order->data, true);
-        
+
 
         //= Сформируем список туристов с данными
         $touristsList = '';
@@ -191,20 +191,20 @@ class OrderEditPageAdmin extends PagesAdmin {
                         <div class=\"pozitiv__order-edit-form__row\">
                             <div class=\"pozitiv__order-edit-form__col-1-2\">
                                 <div class=\"pozitiv__order-edit-form__field\">
-                                    <label for=\"lbTourName\">Имя</label>
-                                    <input type=\"text\" value=\"{$tourist['firstName']}\">
+                                    <label>Имя</label>
+                                    <input type=\"text\" class=\"tourist-item__filed-firstname\" value=\"{$tourist['firstName']}\">
                                 </div>
                                 <div class=\"pozitiv__order-edit-form__field\">
                                     <label for=\"lbTourName\">Фамилия</label>
-                                    <input type=\"text\" value=\"{$tourist['lastName']}\">
+                                    <input type=\"text\" class=\"tourist-item__filed-lasttname\" value=\"{$tourist['lastName']}\">
                                 </div>
                                 <div class=\"pozitiv__order-edit-form__field\">
                                     <label for=\"lbTourName\">Отчество</label>
-                                    <input type=\"text\" value=\"{$tourist['middleName']}\">
+                                    <input type=\"text\" class=\"tourist-item__filed-middlename\" value=\"{$tourist['middleName']}\">
                                 </div>
                                 <div class=\"pozitiv__order-edit-form__field\">
                                     <label for=\"lbTourName\">Дата рождения</label>
-                                    <input type=\"text\" value=\"{$tourist['birthday']}\">
+                                    <input type=\"text\" class=\"tourist-item__filed-birthday\" value=\"{$tourist['birthday']}\">
                                 </div>
 
                                 <button type=\"button\" class=\"pos-ui__button pos-ui__button--red tourist-item__remove\" title=\"Удалить туриста\">Удалить</button>
@@ -212,23 +212,23 @@ class OrderEditPageAdmin extends PagesAdmin {
                             <div class=\"pozitiv__order-edit-form__col-1-2\">
                                 <div class=\"pozitiv__order-edit-form__field\">
                                     <label for=\"lbTourName\">Паспорт: серия</label>
-                                    <input type=\"text\" value=\"{$tourist['passportSeries']}\">
+                                    <input type=\"text\" class=\"tourist-item__filed-pserises\" value=\"{$tourist['passportSeries']}\">
                                 </div>
                                 <div class=\"pozitiv__order-edit-form__field\">
                                     <label for=\"lbTourName\">Паспорт: номер</label>
-                                    <input type=\"text\" value=\"{$tourist['passportNumber']}\">
+                                    <input type=\"text\" class=\"tourist-item__filed-pnumber\" value=\"{$tourist['passportNumber']}\">
                                 </div>
                                 <div class=\"pozitiv__order-edit-form__field\">
                                     <label for=\"lbTourName\">Паспорт: дата выдачи</label>
-                                    <input type=\"text\" value=\"{$tourist['passportDateIssue']}\">
+                                    <input type=\"text\" class=\"tourist-item__filed-pdate\" value=\"{$tourist['passportDateIssue']}\">
                                 </div>
                                 <div class=\"pozitiv__order-edit-form__field\">
                                     <label for=\"lbTourName\">Паспорт: кем выдан</label>
-                                    <input type=\"text\" value=\"{$tourist['passportWhoIssue']}\">
+                                    <input type=\"text\" class=\"tourist-item__filed-pwho\" value=\"{$tourist['passportWhoIssue']}\">
                                 </div>
                                 <div class=\"pozitiv__order-edit-form__field\">
                                     <label for=\"lbTourName\">Паспорт: код подразделения</label>
-                                    <input type=\"text\" value=\"{$tourist['passportCodeDivision']}\">
+                                    <input type=\"text\" class=\"tourist-item__filed-pcode\" value=\"{$tourist['passportCodeDivision']}\">
                                 </div>
                             </div>
                         </div>
@@ -249,8 +249,9 @@ class OrderEditPageAdmin extends PagesAdmin {
                 </div>
 
                 <section class=\"pozitiv__order-edit-form__section\">
-                    <input type=\"hidden\" value=\"{$order->tourID}\">
-                    <input type=\"hidden\" value=\"{$order->tripID}\">
+                    <input type=\"hidden\" name=\"tourID\" value=\"{$order->tourID}\">
+                    <input type=\"hidden\" name=\"tripID\" value=\"{$order->tripID}\">
+                    <input type=\"hidden\" name=\"data\" value=\"\">
                     
                     <h2>Тур и поездка</h2>
 
@@ -277,30 +278,30 @@ class OrderEditPageAdmin extends PagesAdmin {
                     <div class=\"pozitiv__order-edit-form__row\">
                         <div class=\"pozitiv__order-edit-form__col-1-2\">
                             <div class=\"pozitiv__order-edit-form__field\">
-                                <label for=\"lbTourName\">Фамилия</label>
-                                <input type=\"text\" value=\"{$order->lastNameOwner}\">
+                                <label for=\"lbOwnerLastName\">Фамилия</label>
+                                <input type=\"text\" id=\"lbOwnerLastName\" name=\"lastNameOwner\" value=\"{$order->lastNameOwner}\">
                             </div>
 
                             <div class=\"pozitiv__order-edit-form__field\">
-                                <label for=\"lbTourName\">Имя</label>
-                                <input type=\"text\" value=\"{$order->firstNameOwner}\">
+                                <label for=\"lbOwnerFirstName\">Имя</label>
+                                <input type=\"text\" id=\"lbOwnerFirstName\" name=\"firstNameOwner\" value=\"{$order->firstNameOwner}\">
                             </div>
 
                             <div class=\"pozitiv__order-edit-form__field\">
-                                <label for=\"lbTourName\">Телефон</label>
-                                <input type=\"text\" value=\"{$order->phoneOwner}\">
+                                <label for=\"lbOwnerPhone\">Телефон</label>
+                                <input type=\"text\" id=\"lbOwnerPhone\" name=\"phoneOwner\" value=\"{$order->phoneOwner}\">
                             </div>
 
                             <div class=\"pozitiv__order-edit-form__field\">
-                                <label for=\"lbTourName\">E-mail</label>
-                                <input type=\"text\" value=\"{$order->emailOwner}\">
+                                <label for=\"lbOwnerEmail\">E-mail</label>
+                                <input type=\"text\" id=\"lbOwnerEmail\" name=\"emailOwner\" value=\"{$order->emailOwner}\">
                             </div>
                         </div>
                         <div class=\"pozitiv__order-edit-form__col-1-2\">
                             <div class=\"pozitiv__order-edit-form__field\" style=\"height:100%;\">
-                                <label for=\"lbTourName\">Комментарий заказчика</label>
+                                <label for=\"lbOwnerMessage\">Комментарий заказчика</label>
                                 <div class=\"form-field\" style=\"width:100%;height:100%\">
-                                    <textarea name=\"messageClient\" style=\"height:216px;\" readonly placeholder=\"Комментарий заказчика\">{$order->messageClient}</textarea>
+                                    <textarea name=\"messageClient\" id=\"lbOwnerMessage\" style=\"height:216px;\" readonly placeholder=\"Комментарий заказчика\">{$order->messageClient}</textarea>
                                 </div>
                             </div>
                         </div>
@@ -353,5 +354,11 @@ class OrderEditPageAdmin extends PagesAdmin {
                 document.tripServices = {$jsonServiceList};
             </script>
         ";
+    }
+
+    function Change() {
+
+        $orderModel = new OrderModel();
+        $order = $orderModel->Update($_POST);
     }
 }

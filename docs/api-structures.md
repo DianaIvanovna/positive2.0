@@ -43,7 +43,7 @@
 - emailOwner        - Почта заказчика
 - firstNameOwner    - Имя заказчика
 - lastNameOwner     - Фамилия заказчика
-- messageClient      - Комментарий заказчика по заказу
+- messageClient     - Комментарий заказчика по заказу
 - messageAdmin      - Комментарий администратора системы по заказу
 - status            - Статус заказа created | payed | confirmed | canceled
                         created     - пользователь только отправил заказ

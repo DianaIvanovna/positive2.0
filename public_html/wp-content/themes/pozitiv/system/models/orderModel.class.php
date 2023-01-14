@@ -52,6 +52,45 @@ class OrderModel extends PozitivModel {
 
 
     /**
+     * Обновить данные
+     */
+    public function Update(array $data) {
+        global $wpdb;
+
+        $orderID = $data['id'];
+        unset($data['id']);
+        unset($data['action']);
+        $data['data'] = '{}';
+
+        $data['data'] = json_decode($data['data'], true);
+
+
+        $orderPrev = $this->GetByID($orderID);
+        $history = json_decode($orderPrev->history, true);
+        $history[time()] = $data;
+
+        
+
+        // $data['data']       = 
+        $data['history']    = json_encode($history);
+
+        // print_r($data);
+
+        // $res = $wpdb->update(
+        //     'pozitiv_orders',
+        //     $data,
+        //     ['id' => $orderID]
+        // );
+
+        // echo '<p>';
+        // var_dump($wpdb->last_query);
+        // var_dump($res);
+        // echo '</p>';
+
+    }
+
+
+    /**
      * 
      */
     public function GetByID(int $orderID) {
