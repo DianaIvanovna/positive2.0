@@ -58,35 +58,25 @@ class OrderModel extends PozitivModel {
         global $wpdb;
 
         $orderID = $data['id'];
+        
         unset($data['id']);
         unset($data['action']);
-        $data['data'] = '{}';
-
-        $data['data'] = json_decode($data['data'], true);
-
-
+        
+        //= Сохраним текущий заказ в истории
         $orderPrev = $this->GetByID($orderID);
         $history = json_decode($orderPrev->history, true);
         $history[time()] = $data;
 
-        
-
-        // $data['data']       = 
+        $data['data']       = stripcslashes($data['data']);
         $data['history']    = json_encode($history);
 
-        // print_r($data);
-
-        // $res = $wpdb->update(
-        //     'pozitiv_orders',
-        //     $data,
-        //     ['id' => $orderID]
-        // );
-
-        // echo '<p>';
-        // var_dump($wpdb->last_query);
-        // var_dump($res);
-        // echo '</p>';
-
+        $res = $wpdb->update(
+            'pozitiv_orders',
+            $data,
+            ['id' => $orderID]
+        );
+        
+        return (bool) $res;
     }
 
 

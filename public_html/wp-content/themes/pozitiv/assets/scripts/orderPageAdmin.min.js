@@ -94,6 +94,10 @@ class OrderPageAdmin {
      */
     TouristAdd() {
 
+        if (typeof this.orderData.tourists == 'undefined') {
+            this.orderData.tourists = [];
+        }
+        
         var numberTourists = this.orderData.tourists.length;
         var numberTouristsNew = numberTourists + 1;
         var indTouristNew = numberTourists;
@@ -101,6 +105,7 @@ class OrderPageAdmin {
         var touristHTML = '<div class="tourist-item" data-tourist-id="' + indTouristNew + '"><div class="tourist-item__header"><span class="tourist-item__header__number">' + numberTouristsNew + '</span><span class="tourist-item__header__name"></span><div class="tourist-item__header__toggler">&#9660;</div></div><div class="tourist-item__data"><div class="pozitiv__order-edit-form__row"><div class="pozitiv__order-edit-form__col-1-2"><div class="pozitiv__order-edit-form__field"><label for="lbTourName">Имя</label><input type="text" value=""></div><div class="pozitiv__order-edit-form__field"><label for="lbTourName">Фамилия</label><input type="text" value=""></div><div class="pozitiv__order-edit-form__field"><label for="lbTourName">Отчество</label><input type="text" value=""></div> <div class="pozitiv__order-edit-form__field"> <label for="lbTourName">Дата рождения</label> <input type="text" value=""> </div> <button type="button" class="pos-ui__button pos-ui__button--red tourist-item__remove" title="Удалить туриста">Удалить</button></div> <div class="pozitiv__order-edit-form__col-1-2"> <div class="pozitiv__order-edit-form__field"> <label for="lbTourName">Паспорт: серия</label> <input type="text" value=""> </div> <div class="pozitiv__order-edit-form__field"> <label for="lbTourName">Паспорт: номер</label> <input type="text" value=""> </div> <div class="pozitiv__order-edit-form__field"> <label for="lbTourName">Паспорт: дата выдачи</label> <input type="text" value=""> </div> <div class="pozitiv__order-edit-form__field"> <label for="lbTourName">Паспорт: кем выдан</label> <input type="text" value=""> </div> <div class="pozitiv__order-edit-form__field"> <label for="lbTourName">Паспорт: код подразделения</label> <input type="text" value=""> </div> </div> </div> </div> </div>';
 
         this.listTourists.append(touristHTML);
+
 
         this.orderData.tourists.push({
             birthday: "",

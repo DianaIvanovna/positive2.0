@@ -51,7 +51,7 @@ class OrdersTablePageAdmin extends WP_List_Table {
             $dataOrder = json_decode($order->data);
             $orderTouristsList = '';
             foreach ($dataOrder->tourists as $tourist) {
-                $orderTouristsList .= $tourist->name . '<br/>';
+                $orderTouristsList .= $tourist->firstName . '<br/>';
             }
 
             //== Определим статус
@@ -345,7 +345,7 @@ class OrderEditPageAdmin extends PagesAdmin {
                 <section class=\"pozitiv__order-edit-form__section\">
                     <h2>Комментарий администратора</h2>
                     <div class=\"form-field\">
-                        <textarea class=\"\" name=\"messageAdmin\" placeholder=\"Комментарий администратора\"></textarea>
+                        <textarea class=\"\" name=\"messageAdmin\" placeholder=\"Комментарий администратора\">{$order->messageAdmin}</textarea>
                     </div>
                 </section>
             </form>
@@ -358,7 +358,9 @@ class OrderEditPageAdmin extends PagesAdmin {
 
     function Change() {
 
+        $_POST['phoneOwner'] = GetCleanPhone($_POST['phoneOwner']);
+
         $orderModel = new OrderModel();
-        $order = $orderModel->Update($_POST);
+        $orderModel->Update($_POST);
     }
 }
