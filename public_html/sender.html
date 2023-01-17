@@ -80,6 +80,30 @@
         </details>
 
 
+        <!-- пользователь -->
+        <details>
+            <summary>Пользователь</summary>
+
+            <!-- Авторизация пользователя -->
+            <div class="form-wrapper">
+                <h3>Авторизация пользователя</h3>
+                <form action="/wp-json/pozitiv/v1/user/login/" method="POST">
+                    <p><input type="text" name="login" placeholder="e-mail"></p>
+                    <p><input type="text" name="pass" placeholder="пароль"></p>
+                    <button type="submit">отправить</button>
+                </form>
+            </div>
+
+            <!-- Выход пользователя -->
+            <div class="form-wrapper">
+                <h3>Выйти из профиля</h3>
+                <form action="/wp-json/pozitiv/v1/user/logout/" method="POST">
+                    <button type="submit">отправить</button>
+                </form>
+            </div>
+        </details>
+
+
         <script>
             jQuery('.field-disabler').click(function(){
                 console.log(this);

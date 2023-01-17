@@ -258,25 +258,25 @@ add_action( 'rest_api_init', function(){
     // );
 
     // Маршрут Пользователь
-    // register_rest_route(
-    //     POZITIV_API_NAMESPACE,
-    //     'user/(?P<method>[a-z]+)/',
-    //     [
-    //         'methods'   => 'POST',
-    //         'callback'  => 'EndpointUser',
-    //         'args'      => [
-    //             'paramName'     =>  [
-    //                 'default'               => null,            // значение параметра по умолчанию
-    //                 'required'              => null,            // является ли параметр обязательным. Может быть только true
-    //                 'validate_callback'     => 'function_name', // функция проверки значения параметра. Должна вернуть true/false
-    //                 'sanitize_callback'     => 'function_name', // функция очистки значения параметра. Должна вернуть очищенное значение
-    //             ]
-    //         ],
-    //         'permission_callback' => function ( $request ) {
-
-    //         }
-    //     ]
-    // );
+    register_rest_route(
+        POZITIV_API_NAMESPACE,
+        'user/(?P<action>[a-z]+)/',
+        [
+            'methods'   => 'POST',
+            'callback'  => 'EndpointUser',
+            'args'      => [
+                'paramName'     =>  [
+                    'default'               => null,            // значение параметра по умолчанию
+                    'required'              => null,            // является ли параметр обязательным. Может быть только true
+                    'validate_callback'     => 'function_name', // функция проверки значения параметра. Должна вернуть true/false
+                    'sanitize_callback'     => 'function_name', // функция очистки значения параметра. Должна вернуть очищенное значение
+                ]
+            ],
+            'permission_callback' => function ( $request ) {
+                return true;
+            }
+        ]
+    );
 
     // Маршрут Платеж
     // register_rest_route(
@@ -332,6 +332,12 @@ function EndpointOrder(WP_REST_Request $request) {
     require_once __DIR__ . '/api/OrderAPIController.class.php';
     $tourProcessor = new OrderAPIController();
     return $tourProcessor->Init($request);
+}
+
+function EndpointUser(WP_REST_Request $request) {
+    require_once __DIR__ . '/api/UserAPIController.class.php';
+    $userProcessor = new UserAPIController();
+    return $userProcessor->Init($request);
 }
 
 /**
