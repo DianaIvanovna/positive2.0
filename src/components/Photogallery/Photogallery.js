@@ -4,7 +4,7 @@ import "./Photogallery.scss";
 import {photosWinter} from "./winter";
 import {photosSummer} from "./summer";
 import closeSvg from "../../../public_html/wp-content/themes/pozitiv/img/Icon/close.svg";
-import {useOnScreen} from "../../utils/useOnScreen";
+import {useOnScreen} from "../../hooks/useOnScreen";
 
 const Photogallery = ({season}) => {
     const [photos, setPhotos] = useState([]);

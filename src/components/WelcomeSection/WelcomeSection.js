@@ -2,7 +2,7 @@
 import React, {useRef} from "react";
 import "./WelcomeSection.scss";
 import icon from "../../../public_html/wp-content/themes/pozitiv/img/Icon/Calendar.svg";
-import {useOnScreen} from "../../utils/useOnScreen";
+import {useOnScreen} from "../../hooks/useOnScreen";
 
 const WelcomeSection = ({data, ...props}) => {
     const elementRef = useRef(null);

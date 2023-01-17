@@ -1,5 +1,5 @@
 import React, {useRef} from "react";
-import {useOnScreen} from "../../../../utils/useOnScreen";
+import {useOnScreen} from "../../../../hooks/useOnScreen";
 import "./RentContainer.scss";
 
 const RentContainer = season => {

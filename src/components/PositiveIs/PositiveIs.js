@@ -13,7 +13,7 @@ import backpack from "../../../public_html/wp-content/themes/pozitiv/img/Icon/ba
 import dinner from "../../../public_html/wp-content/themes/pozitiv/img/Icon/dinner.svg";
 import discovery from "../../../public_html/wp-content/themes/pozitiv/img/Icon/Discovery.svg";
 
-import {useOnScreen} from "../../utils/useOnScreen";
+import {useOnScreen} from "../../hooks/useOnScreen";
 
 const PositiveIs = ({season}) => {
     const elementRef = useRef(null);

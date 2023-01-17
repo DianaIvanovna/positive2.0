@@ -1,28 +1,44 @@
 import React from "react";
-// eslint-disable-next-line no-unused-vars
-import {BrowserRouter as Router, Switch, Route} from "react-router-dom";
-import {withRouter} from "react-router";
-import HomePage from "./pages/HomePage/HomePage";
-import MainPage from "./pages/MainPage/MainPage";
-import RentPage from "./pages/RentPage/RentPage";
-import TripPage from "./pages/TripPage/TripPage";
-import BookingPage from "./pages/BookingPage/BookingPage";
+import {Routes, Route, Outlet} from "react-router-dom";
+import {HomePage, MainPage, RentPage, TripPage, BookingPage, Error404Page} from "./pages";
+import {ErrorBoundary} from "./components/ErrorBoundary";
 
 const App = () => {
     return (
-        // <div className="main">
+        <ErrorBoundary>
+            <Routes>
+                <Route path="/" element={<HomePage />} />
+                <Route
+                    path="/summer"
+                    element={
+                        <>
+                            <Outlet />
+                        </>
+                    }
+                >
+                    <Route index element={<MainPage />} />
+                    <Route path="booking/*" element={<BookingPage />} />
+                    <Route path="trip" element={<TripPage />} />
+                    <Route path="rent" element={<RentPage />} />
+                </Route>
+                <Route
+                    path="/winter"
+                    element={
+                        <>
+                            <Outlet />
+                        </>
+                    }
+                >
+                    <Route index element={<MainPage />} />
+                    <Route path="booking" element={<BookingPage />} />
+                    <Route path="trip" element={<TripPage />} />
+                    <Route path="rent" element={<RentPage />} />
+                </Route>
 
-        // </div>
-        <React.Fragment>
-            <Switch>
-                <Route path="/booking" component={BookingPage} />
-                <Route path="/trip" component={TripPage} />
-                <Route path="/trips" component={MainPage} />
-                <Route path="/rent" component={RentPage} />
-                <Route path="*" component={HomePage} />
-            </Switch>
-        </React.Fragment>
+                <Route path="*" element={<Error404Page />} />
+            </Routes>
+        </ErrorBoundary>
     );
 };
 
-export default withRouter(App);
+export default App;

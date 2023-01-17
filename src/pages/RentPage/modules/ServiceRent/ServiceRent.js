@@ -1,7 +1,7 @@
 import React, {useRef} from "react";
 import "./ServiceRent.scss";
 import {services} from "./data";
-import {useOnScreen} from "../../../../utils/useOnScreen";
+import {useOnScreen} from "../../../../hooks/useOnScreen";
 
 const ServiceRent = () => {
     const title = useRef(null);

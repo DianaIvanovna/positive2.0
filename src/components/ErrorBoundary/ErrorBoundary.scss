@@ -1,0 +1,8 @@
+@import "../../variables.scss";
+
+.error-boundary__error {
+    display: flex;
+    @include mainFontValue(normal, 700, 16px, 24px);
+    justify-content: center;
+    text-align: center;
+}

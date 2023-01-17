@@ -1,6 +1,6 @@
 import React, {useEffect, useState} from "react";
 import "./Header.scss";
-import {NavLink, withRouter} from "react-router-dom";
+import {NavLink, useNavigate} from "react-router-dom";
 
 import logoWebp from "../../../public_html/wp-content/themes/pozitiv/img/logo/logo-big_a1b.webp";
 import logo from "../../../public_html/wp-content/themes/pozitiv/img/logo/logo-big.png";
@@ -11,9 +11,14 @@ import viber from "../../../public_html/wp-content/themes/pozitiv/img/soc-icon/v
 import menuButton from "../../../public_html/wp-content/themes/pozitiv/img/Icon/menu-button.svg";
 // import instagram from "../../../public_html/wp-content/themes/pozitiv/img/soc-icon/instagram.svg";
 
-const Header = ({season = "winter", ...props}) => {
+import {ErrorBoundary} from "../ErrorBoundary";
+import {useLocationSeason} from "../../hooks/useLocationSeason";
+
+const Header = () => {
     const [showScroll, setShowScroll] = useState(false);
     const [mobile, setMobile] = useState(false);
+    const navigate = useNavigate();
+    const season = useLocationSeason();
 
     const scrollHandler = () => {
         if (window.pageYOffset === 0) {
@@ -49,107 +54,101 @@ const Header = ({season = "winter", ...props}) => {
     }, []);
 
     return (
-        <section className={`section-header ${showScroll ? "section-header_scroll" : ""} ${mobile ? "header_mobule_active" : ""}`}>
-            {mobile ? (
-                <div
-                    className="section-header__mobile"
-                    onClick={() => {
-                        setMobile(value => !value);
-                    }}
-                ></div>
-            ) : null}
-
-            <header className="header">
-                <div className="header__container">
-                    <picture
-                        className="header__logo"
-                        onClick={() => {
-                            props.history.push("/");
-                        }}
-                    >
-                        <source srcSet={logoWebp} type="image/webp" />
-                        <img width="106px" height="106px" src={logo} alt="логтип positive" />
-                    </picture>
-
-                    <nav className="header__nav">
-                        <NavLink className="header__link" exact to={`/trips?season=${season}`}>
-                            Наши поездки
-                        </NavLink>
-                        <NavLink className="header__link" exact to={`/rent?season=${season}`}>
-                            Прокат снаряжения
-                        </NavLink>
-                        <NavLink className="header__link" exact to="/trips">
-                            Фотогалерея
-                        </NavLink>
-                        <NavLink className="header__link" exact to="/trips">
-                            Отзывы
-                        </NavLink>
-                    </nav>
-                    <div className="header__tel">
-                        <a href="tel:+79226999898" className="header__number">
-                            +7 (922) 699-98-98
-                        </a>
-                        <div className="header__container-message">
-                            <a href="https://vk.com/pozitiv74" target="_blank" rel="noreferrer">
-                                <img width="30px" height="30px" src={vk} alt="vk" className="header__icon" />
-                            </a>
-
-                            {/* <a href="https://www.instagram.com/pozitivtour/" target="_blank">
-                                <img width="30px" height="30px" src={instagram} alt="instagram" className="header__icon" />
-                            </a> */}
-
-                            <a href="https://t.me/pozitivtour" target="_blank" rel="noreferrer">
-                                <img width="30px" height="30px" src={telegram} alt="telegram" className="header__icon" />
-                            </a>
-
-                            <a href="https://wa.me/79226999898" target="_blank" rel="noreferrer">
-                                <img width="30px" height="30px" src={whatsapp} className="header__icon" alt="whatsapp" />
-                            </a>
-
-                            <a href="viber://chat?number=79226999898" target="_blank" rel="noreferrer">
-                                <img width="30px" height="30px" src={viber} alt="viber" className="header__icon" />
-                            </a>
-                        </div>
-                    </div>
-                    <img
-                        width="20px"
-                        height="25px"
-                        src={menuButton}
-                        alt="иконка меню"
-                        className="header__menu"
+        <ErrorBoundary>
+            <section className={`section-header ${showScroll ? "section-header_scroll" : ""} ${mobile ? "header_mobule_active" : ""}`}>
+                {mobile ? (
+                    <div
+                        className="section-header__mobile"
                         onClick={() => {
                             setMobile(value => !value);
                         }}
-                    />
-                </div>
+                    ></div>
+                ) : null}
 
-                <div className="header__container-mobule">
-                    <nav className="header__nav">
-                        <NavLink
-                            className="header__link"
-                            exact
-                            activeClassName="header__links--active"
-                            to="/trips"
-                            // onClick={() => {
-                            //     scrollUp(props, "/about");
-                            // }}
+                <header className="header">
+                    <div className="header__container">
+                        <picture
+                            className="header__logo"
+                            onClick={() => {
+                                navigate("/");
+                            }}
                         >
-                            Наши поездки
-                        </NavLink>
-                        <NavLink className="header__link" exact to="/trips">
-                            Прокат снаряжения
-                        </NavLink>
-                        <NavLink className="header__link" exact to="/rent">
-                            Фотогалерея
-                        </NavLink>
-                        <NavLink className="header__link" exact to="/trips">
-                            Отзывы
-                        </NavLink>
-                    </nav>
-                </div>
-            </header>
-        </section>
+                            <source srcSet={logoWebp} type="image/webp" />
+                            <img width="106px" height="106px" src={logo} alt="логтип positive" />
+                        </picture>
+
+                        <nav className="header__nav">
+                            <NavLink className="header__link" to={`/${season}/`}>
+                                Наши поездки
+                            </NavLink>
+                            <NavLink className="header__link" to={`/${season}/rent`}>
+                                Прокат снаряжения
+                            </NavLink>
+                            <NavLink className="header__link" to={`/${season}/`}>
+                                Фотогалерея
+                            </NavLink>
+                            <NavLink className="header__link" to={`/${season}/`}>
+                                Отзывы
+                            </NavLink>
+                        </nav>
+                        <div className="header__tel">
+                            <a href="tel:+79226999898" className="header__number">
+                                +7 (922) 699-98-98
+                            </a>
+                            <div className="header__container-message">
+                                <a href="https://vk.com/pozitiv74" target="_blank" rel="noreferrer">
+                                    <img width="30px" height="30px" src={vk} alt="vk" className="header__icon" />
+                                </a>
+
+                                {/* <a href="https://www.instagram.com/pozitivtour/" target="_blank">
+                                <img width="30px" height="30px" src={instagram} alt="instagram" className="header__icon" />
+                            </a> */}
+
+                                <a href="https://t.me/pozitivtour" target="_blank" rel="noreferrer">
+                                    <img width="30px" height="30px" src={telegram} alt="telegram" className="header__icon" />
+                                </a>
+
+                                <a href="https://wa.me/79226999898" target="_blank" rel="noreferrer">
+                                    <img width="30px" height="30px" src={whatsapp} className="header__icon" alt="whatsapp" />
+                                </a>
+
+                                <a href="viber://chat?number=79226999898" target="_blank" rel="noreferrer">
+                                    <img width="30px" height="30px" src={viber} alt="viber" className="header__icon" />
+                                </a>
+                            </div>
+                        </div>
+                        <img
+                            width="20px"
+                            height="25px"
+                            src={menuButton}
+                            alt="иконка меню"
+                            className="header__menu"
+                            onClick={() => {
+                                setMobile(value => !value);
+                            }}
+                        />
+                    </div>
+
+                    <div className="header__container-mobule">
+                        <nav className="header__nav">
+                            <NavLink className="header__link" to={`/${season}/`}>
+                                Наши поездки
+                            </NavLink>
+                            <NavLink className="header__link" to={`/${season}/rent`}>
+                                Прокат снаряжения
+                            </NavLink>
+                            <NavLink className="header__link" to={`/${season}/`}>
+                                Фотогалерея
+                            </NavLink>
+                            <NavLink className="header__link" to={`/${season}/`}>
+                                Отзывы
+                            </NavLink>
+                        </nav>
+                    </div>
+                </header>
+            </section>
+        </ErrorBoundary>
     );
 };
 
-export default withRouter(Header);
+export default Header;

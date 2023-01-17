@@ -9,12 +9,9 @@ export function* getTours(action) {
 
         const res = yield call(fetchFunc.bind(null, "/wp-json/pozitiv/v1/tour/get/", action.payload));
 
-        yield console.log("getTours", res);
-
         if (res.tours) {
             yield put(addTours(res.tours, "fulfilled"));
         } else {
-            yield console.log("getTours2", res.error);
             yield put(addTours(res.error, "rejected"));
         }
 
@@ -27,17 +24,39 @@ export function* getTours(action) {
 
 export function* getTourPage(action) {
     try {
+        yield put(addTourPage(true, "pending"));
+
         const res = yield call(fetchFunc.bind(null, "/wp-json/pozitiv/v1/tour/get/", action.payload));
 
-        yield console.log("getTourPage", res);
-
         if (res.tours) {
-            yield console.log("getTours1", res[0]);
-            yield put(addTourPage(res.tours[0]));
+            yield put(addTourPage(res.tours[0], "fulfilled"));
         } else {
-            yield console.log("getTours2", res.error);
+            yield put(addTourPage(res.error, "rejected"));
         }
+
+        yield put(addTourPage(false, "pending"));
     } catch (e) {
-        yield console.log("getTours error", e);
+        yield put(addTourPage(e, "rejected"));
+        yield put(addTourPage(false, "pending"));
+    }
+}
+
+export function* tourOrderCreate(action) {
+    try {
+        // yield put(addTourPage(true, "pending"));
+
+        const res = yield call(fetchFunc.bind(null, "/wp-json/pozitiv/v1/order/create/", action.payload));
+
+        console.log("res", res);
+        // if (res.tours) {
+        //     yield put(addTourPage(res.tours[0], "fulfilled"));
+        // } else {
+        //     yield put(addTourPage(res.error, "rejected"));
+        // }
+
+        // yield put(addTourPage(false, "pending"));
+    } catch (e) {
+        // yield put(addTourPage(e, "rejected"));
+        // yield put(addTourPage(false, "pending"));
     }
 }

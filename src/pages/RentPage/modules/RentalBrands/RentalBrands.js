@@ -6,7 +6,7 @@ import photo2 from "../../../../../public_html/wp-content/themes/pozitiv/img/bra
 import photo3 from "../../../../../public_html/wp-content/themes/pozitiv/img/brand/burton1.png";
 import photo4 from "../../../../../public_html/wp-content/themes/pozitiv/img/brand/head1.png";
 import photo5 from "../../../../../public_html/wp-content/themes/pozitiv/img/brand/atomic1.png";
-import {useOnScreen} from "../../../../utils/useOnScreen";
+import {useOnScreen} from "../../../../hooks/useOnScreen";
 
 const RentalBrands = () => {
     const title = useRef(null);

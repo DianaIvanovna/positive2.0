@@ -3,7 +3,7 @@ import styles from "./TripContainer.module.scss";
 import cn from "classnames";
 import TripMiniCard from "../../../../components/TripMiniCard/TripMiniCard";
 
-import {useOnScreen} from "../../../../utils/useOnScreen";
+import {useOnScreen} from "../../../../hooks/useOnScreen";
 import {useSelector} from "react-redux";
 import {Loading} from "../../../../components/Loading/Loading";
 

@@ -4,4 +4,14 @@
     &__background {
         min-height: calc(100vh - 106px);
     }
+
+    &__error {
+        @include mainFontValue(normal, 600, 16px, 18px);
+        padding: 0 20px;
+        text-align: center;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        color: #241534;
+    }
 }

@@ -3,9 +3,9 @@ import "./BookingStep3.scss";
 import Promocode from "../../../../components/Promocode/Promocode";
 import BonusContainer from "../../../../components/BonusContainer/BonusContainer";
 
-import photo from "../../../../../../photo.png";
+import photo from "../../../../../../photo.jpg";
 
-const BookingStep3 = () => {
+const BookingStep3 = props => {
     return (
         <section>
             <div className="booking-step-3">
@@ -63,6 +63,7 @@ const BookingStep3 = () => {
                     <div className="button__background booking-step-3__button">
                         <button
                             className="button"
+                            onClick={props.orderCreate}
                             //(click)="scrollToBook($event, data.link)"
                         >
                             завершить заказ

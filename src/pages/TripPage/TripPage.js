@@ -1,11 +1,9 @@
 /* eslint-disable max-len */
 import React, {useCallback, useEffect, useRef, useState} from "react";
-import {withRouter} from "react-router";
 import "./TripPage.scss";
 import Header from "../../components/Header/Header";
-import {useDispatch, useSelector} from "react-redux";
+import {useSelector} from "react-redux";
 // import {getTourPage} from "../../store/action/tourAction";
-import {addBookingTour} from "../../store/action/bookingAction";
 import GoUp from "../../components/GoUp/GoUp";
 
 import logoWebp from "../../../public_html/wp-content/themes/pozitiv/img/logo/logo-big_a1b.webp";
@@ -15,17 +13,19 @@ import icon3 from "../../../public_html/wp-content/themes/pozitiv/img/Icon/Disco
 import {dataFooterWinter, dataFooterSummer} from "./data";
 
 import Footer from "../../components/Footer/Footer";
-import {useOnScreen} from "../../utils/useOnScreen";
+import {useOnScreen} from "../../hooks/useOnScreen";
 import {MainButton} from "../../components/MainButton/MainButton";
+import {useLocationSeason} from "../../hooks/useLocationSeason";
+import {useNavigate} from "react-router-dom";
+import {useSeasonNavigate} from "../../hooks/useSeasonNavigate";
 
-const TripPage = props => {
-    const dispath = useDispatch();
+export const TripPage = props => {
+    const navigate = useNavigate();
+    const navigateSeason = useSeasonNavigate();
+    const season = useLocationSeason();
     const [tripPageData] = useSelector(store => [store.tour.tourPage]);
     const [numberActivePhoto, setNumberActivePhoto] = useState(0);
-
-    const [season, setSeason] = useState(null);
     const [dataFooter, setDataFooter] = useState(null);
-
     const lazyImage = useRef(null);
     // eslint-disable-next-line no-unused-vars
     const isOnScreen = useOnScreen([lazyImage], [dataFooter, tripPageData]);
@@ -41,12 +41,6 @@ const TripPage = props => {
     }, []);
 
     useEffect(() => {
-        //props.location.pathname
-        const query = new URLSearchParams(props.location.search);
-        const season = query.get("season");
-
-        setSeason(season);
-
         if (season === "summer") {
             // setDataWelcomeSection(dataTripSummer);
             setDataFooter(dataFooterSummer);
@@ -56,17 +50,16 @@ const TripPage = props => {
             setDataFooter(dataFooterWinter);
             // setPositiveIs(dataPositiveIsWinter);
         }
-    }, [props.location]);
+    }, [season]);
 
     const goBack = useCallback(() => {
-        props.history.goBack();
-    }, [props.history]);
+        navigate.goBack();
+    }, [navigate]);
 
     const onBooking = useCallback(() => {
-        dispath(addBookingTour(tripPageData));
-
-        props.history.push("/booking");
-    }, [props.history, dispath, tripPageData]);
+        localStorage.setItem("idBookedTrip", tripPageData.id);
+        navigateSeason("booking");
+    }, [navigateSeason, tripPageData]);
 
     if (!tripPageData || !dataFooter) {
         return (
@@ -216,5 +209,3 @@ const TripPage = props => {
         </div>
     );
 };
-
-export default withRouter(TripPage);

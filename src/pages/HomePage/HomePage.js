@@ -1,6 +1,6 @@
 import React from "react";
 import "./HomePage.scss";
-import {withRouter} from "react-router";
+import {useNavigate} from "react-router-dom";
 
 import Preloader from "../../components/Preloader/Preloader";
 import preview1 from "../../../public_html/wp-content/themes/pozitiv/img/home-page/preview-summer_4f7.webp";
@@ -13,12 +13,10 @@ import preview6 from "../../../public_html/wp-content/themes/pozitiv/img/home-pa
 import preview7 from "../../../public_html/wp-content/themes/pozitiv/img/home-page/preview-winter_e9b.webp";
 import preview8 from "../../../public_html/wp-content/themes/pozitiv/img/home-page/preview-winter_59e.jpg";
 
-const HomePage = props => {
+export const HomePage = () => {
+    const navigate = useNavigate();
     const goPage = season => {
-        props.history.push({
-            pathname: "/trips",
-            search: `?season=${season}`,
-        });
+        navigate(`/${season}`);
     };
 
     return (
@@ -94,5 +92,3 @@ const HomePage = props => {
         </section>
     );
 };
-
-export default withRouter(HomePage);

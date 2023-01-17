@@ -1,6 +1,5 @@
 import React, {useEffect, useRef, useState} from "react";
 import "./RentPage.scss";
-import {withRouter} from "react-router";
 import Header from "../../components/Header/Header";
 import WelcomeSection from "../../components/WelcomeSection/WelcomeSection";
 import Preloader from "../../components/Preloader/Preloader";
@@ -9,13 +8,14 @@ import GoUp from "../../components/GoUp/GoUp";
 
 import {dataTripSummer, dataRentWinter, dataFooterSummer, dataFooterWinter, dataBlockWinter, dataBlock2Winter, dataBlockSummer, dataBlock2Summer} from "./data";
 
-import {useOnScreen} from "../../utils/useOnScreen";
+import {useOnScreen} from "../../hooks/useOnScreen";
 import RentalBrands from "./modules/RentalBrands/RentalBrands";
 import ServiceRent from "./modules/ServiceRent/ServiceRent";
 import RentContainer from "./modules/RentContainer/RentContainer";
+import {useLocationSeason} from "../../hooks/useLocationSeason";
 
-const RentPage = props => {
-    const [season, setSeason] = useState(null);
+export const RentPage = props => {
+    const season = useLocationSeason();
     const [dataWelcomeSection, setDataWelcomeSection] = useState(null);
     const [dataFooter, setDataFooter] = useState(null);
 
@@ -28,12 +28,6 @@ const RentPage = props => {
     const isOnScreen = useOnScreen([lazyImage1, lazyImage2, lazyImage3, lazyImage4, lazyImage5], [dataWelcomeSection, dataFooter]);
 
     useEffect(() => {
-        //props.location.pathname
-        const query = new URLSearchParams(props.location.search);
-        const season = query.get("season") || "winter";
-
-        setSeason(season);
-
         if (season === "summer") {
             setDataWelcomeSection(dataTripSummer);
             setDataFooter(dataFooterSummer);
@@ -41,7 +35,7 @@ const RentPage = props => {
             setDataWelcomeSection(dataRentWinter);
             setDataFooter(dataFooterWinter);
         }
-    }, [props.location]);
+    }, [season]);
 
     if (!dataWelcomeSection || !dataFooter) {
         return <Preloader />;
@@ -146,5 +140,3 @@ const RentPage = props => {
         </div>
     );
 };
-
-export default withRouter(RentPage);

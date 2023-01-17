@@ -1,7 +1,6 @@
 /* eslint-disable no-unused-vars */
 import React, {useEffect, useRef, useState} from "react";
 import "./MainPage.scss";
-import {withRouter} from "react-router";
 import {useDispatch} from "react-redux";
 
 import Header from "../../components/Header/Header";
@@ -14,14 +13,17 @@ import Footer from "../../components/Footer/Footer";
 import TripContainer from "./modules/TripContainer/TripContainer";
 
 import {dataTripSummer, dataTripWinter, dataFooterSummer, dataFooterWinter, dataPositiveIsSummer, dataPositiveIsWinter} from "./data";
-import {useOnScreen} from "../../utils/useOnScreen";
+import {useOnScreen} from "../../hooks/useOnScreen";
 import GoUp from "../../components/GoUp/GoUp";
 
 import {getTours} from "../../store/action/tourAction";
+import {useLocationSeason} from "../../hooks/useLocationSeason";
 
-const MainPage = props => {
+export const MainPage = () => {
     const dispath = useDispatch();
-    const [season, setSeason] = useState(null);
+
+    const season = useLocationSeason();
+
     const [dataWelcomeSection, setDataWelcomeSection] = useState(null);
     const [dataFooter, setDataFooter] = useState(null);
     const [positiveIs, setPositiveIs] = useState(null);
@@ -30,20 +32,12 @@ const MainPage = props => {
     const lazyImage2 = useRef(null);
     const isOnScreen = useOnScreen([lazyImage, lazyImage2], [dataWelcomeSection, dataFooter]);
 
-    // console.log("lazyImage!", lazyImage);
-
     useEffect(() => {
         dispath(getTours());
         // eslint-disable-next-line react-hooks/exhaustive-deps
     }, []);
 
     useEffect(() => {
-        //props.location.pathname
-        const query = new URLSearchParams(props.location.search);
-        const season = query.get("season");
-
-        setSeason(season);
-
         if (season === "summer") {
             setDataWelcomeSection(dataTripSummer);
             setDataFooter(dataFooterSummer);
@@ -53,7 +47,7 @@ const MainPage = props => {
             setDataFooter(dataFooterWinter);
             setPositiveIs(dataPositiveIsWinter);
         }
-    }, [props.location]);
+    }, [season]);
 
     if (!dataWelcomeSection || !dataFooter) {
         return <Preloader />;
@@ -109,5 +103,3 @@ const MainPage = props => {
         </div>
     );
 };
-
-export default withRouter(MainPage);
