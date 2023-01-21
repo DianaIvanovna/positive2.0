@@ -8,7 +8,7 @@
 - name              - название тура для FE
 - description       - описание тура
 - descriptionShort  - краткое описание
-- season            - сезон тура
+- season            - сезон тура: winter - зима | summer - лето
 - duration          - продолжительность тура
 - place             - место тура
 - plan              - описание плана поездки
