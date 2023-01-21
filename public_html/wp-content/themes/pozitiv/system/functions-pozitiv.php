@@ -342,11 +342,34 @@ function EndpointUser(WP_REST_Request $request) {
 
 
 
+// Отключаем проверку nonce кодов
 add_filter( 'rest_authentication_errors', function($errors) {
 
     if (empty($errors)) { return true; }
 });
 
+
+// Реакция на сохранение поста
+add_action(
+    'save_post',
+    function ($postID, $post, $update) {
+        if ($post->post_type == 'tour') {
+            
+            $existSlug = get_field('slug');
+            if (empty($existSlug)) {
+                $slug = wp_unique_post_slug($post->post_title, $post->ID, $post->post_status, 'tour', 0);
+            } else {
+                $slug = $existSlug;
+            }
+            
+            update_field('slug', $slug, $post->ID);
+        }
+
+        return true;
+    }, 
+    10, 
+    3 
+);
 
 
 
