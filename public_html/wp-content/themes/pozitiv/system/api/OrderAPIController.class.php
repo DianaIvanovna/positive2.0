@@ -132,6 +132,11 @@ class OrderAPIController extends WP_REST_Controller {
 
         $arOrders = $this->orderModel->GetByOwnerID($user->ID);
 
+        foreach ($arOrders as $ind => $order) {
+            $arOrders[$ind]->data = json_decode($order->data, true);
+            $arOrders[$ind]->history = json_decode($order->history, true);
+        }
+
         return ['result' => 1, 'orders' => $arOrders ];
     }
 }
