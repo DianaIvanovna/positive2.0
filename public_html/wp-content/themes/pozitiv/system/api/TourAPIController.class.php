@@ -49,9 +49,11 @@ class TourAPIController extends WP_REST_Controller {
             $res->the_post();
 
             $season = get_field('season');
+            $slug = get_field('slug');
 
             //== Фильтрация по параметрам
             if (!empty($this->sourceRequest->get_param('season')) && ($season != $this->sourceRequest->get_param('season')) ) { continue; }
+            if (!empty($this->sourceRequest->get_param('slug')) && ($slug != $this->sourceRequest->get_param('slug')) ) { continue; }
 
             //== Соберем массив фотографий тура
             $arImages = [];
