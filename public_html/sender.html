@@ -69,11 +69,21 @@
             <!-- создать заказ -->
             <div class="form-wrapper">
                 <form action="/wp-json/pozitiv/v1/order/create/" method="POST">
+                    <legend>Создать заказ</legend>
                     <p><input type="tel" name="phoneOwner" placeholder="телефон"></p>
                     <p><input type="email" name="emailOwner" placeholder="e-mail"></p>
                     <p><input type="text" name="firstNameOwner" placeholder="Имя"></p>
                     <p><input type="text" name="lastNameOwner" placeholder="Фамилия"></p>
                     <p><textarea name="data" placeholder="json-туристов"></textarea></p>
+                    <button type="submit">отправить</button>
+                </form>
+            </div>
+
+            <!-- мои заказы -->
+            <div class="form-wrapper">
+                <form action="/wp-json/pozitiv/v1/order/getmy/" method="POST">
+                    <legend>Получить заказы</legend>
+                    <p><input type="text" name="_wpnonce" placeholder="код безопасности"></p>
                     <button type="submit">отправить</button>
                 </form>
             </div>
@@ -93,6 +103,16 @@
                     <button type="submit">отправить</button>
                 </form>
             </div>
+            
+
+            <!-- Данные текущего пользователя -->
+            <div class="form-wrapper">
+                <h3>Данные текущего пользователя</h3>
+                <form action="/wp-json/pozitiv/v1/user/current/" method="POST">
+                    <button type="submit">отправить</button>
+                </form>
+            </div>
+
 
             <!-- Выход пользователя -->
             <div class="form-wrapper">

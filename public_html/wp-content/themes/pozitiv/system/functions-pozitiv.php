@@ -340,6 +340,17 @@ function EndpointUser(WP_REST_Request $request) {
     return $userProcessor->Init($request);
 }
 
+
+
+add_filter( 'rest_authentication_errors', function($errors) {
+
+    if (empty($errors)) { return true; }
+});
+
+
+
+
+
 /**
  * Добавим меню Заказы в админку
  */

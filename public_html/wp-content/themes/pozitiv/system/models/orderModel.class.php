@@ -95,4 +95,18 @@ class OrderModel extends PozitivModel {
             'OBJECT'
         ));
     }
+
+
+    public function GetByOwnerID(int $ownerID) {
+        if ($ownerID <=0) {
+            throw new ErrorException();
+        }
+        
+        global $wpdb;
+
+        return $wpdb->get_results(
+            "SELECT * FROM `pozitiv_orders` WHERE idUserOwner={$ownerID} ORDER BY id ASC",
+            'OBJECT'
+        );
+    }
 }

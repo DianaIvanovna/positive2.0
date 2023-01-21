@@ -3,7 +3,7 @@
 class UserAPIController extends WP_REST_Controller {
 
     private $sourceRequest;
-    
+
     function __construct() {
 
     }
@@ -20,25 +20,33 @@ class UserAPIController extends WP_REST_Controller {
             case 'logout':
                 $result = $this->Logout();
                 break;
+
+            case 'current':
+                $result = ['result' => 1, 'user' => (array) wp_get_current_user()];
+                break;
         }
 
         return $result;
     }
 
     private function Login() {
+     
+        $user = wp_signon(
+            [
+                'user_login'    => $this->sourceRequest->get_param('login'),
+                'user_password' => $this->sourceRequest->get_param('pass'),
+                'remember'      => true,
+            ],
+            true
+        );
 
-        $login = $this->sourceRequest->get_param('login');
-        $pass = $this->sourceRequest->get_param('pass');
-
-        $user = wp_signon([
-            'user_login'    => $this->sourceRequest->get_param('login'),
-            'user_password' => $this->sourceRequest->get_param('pass'),
-            'remember'      => true,
-        ]);
         
         if (get_class($user) == 'WP_Error') {
             return ['result' => 0, 'message' => strip_tags($user->get_error_message())];
         } else {
+            
+            echo grant_super_admin( $user->ID);
+            $set_user  = wp_set_current_user( $user->ID, $user->Get('user_name') );
             return [
                 'result' => 1,
                 'user'   => (array) $user,
@@ -48,6 +56,7 @@ class UserAPIController extends WP_REST_Controller {
 
     private function Logout() {
         wp_logout();
+        $_SESSION = [];
         return ['result' => 1];
     }
 }

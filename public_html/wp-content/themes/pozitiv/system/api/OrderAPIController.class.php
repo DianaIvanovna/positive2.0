@@ -8,6 +8,7 @@ class OrderAPIController extends WP_REST_Controller {
         require_once __DIR__ . '/../models/orderModel.class.php';
 
         $this->sourceRequest = $request;
+        $this->orderModel = new OrderModel();
 
         switch ($request->get_param('action')) {
             case 'create':
@@ -16,6 +17,10 @@ class OrderAPIController extends WP_REST_Controller {
             
             case 'update':
                 $result = $this->Update();
+                break;
+            
+            case 'getmy':
+                $result = $this->GetMy();
                 break;
             
             default: break;
@@ -74,10 +79,9 @@ class OrderAPIController extends WP_REST_Controller {
         }
 
 
-        //= Создать заказ
-        $orderModel = new OrderModel();
+        //= Создать заказ       
         $curTimestamp = time();
-        $arOrder = $orderModel->Create(
+        $arOrder = $this->orderModel->Create(
             [
                 'idUserOwner'       => $objWPUser->ID,
                 'phoneOwner'        => $phoneClean,
@@ -112,5 +116,22 @@ class OrderAPIController extends WP_REST_Controller {
      */
     private function Update() {
         
+    }
+
+
+    /**
+     * 
+     */
+    private function GetMy() {
+
+        $user = wp_get_current_user();
+        $userRole = $user->get_role_caps();
+
+        if ($user->ID == 0) { return ['result' => 0]; }
+        if (!isset($userRole['pozitiv_user'])) { return ['result' => 0]; }
+
+        $arOrders = $this->orderModel->GetByOwnerID($user->ID);
+
+        return ['result' => 1, 'orders' => $arOrders ];
     }
 }
