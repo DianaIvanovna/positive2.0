@@ -80,6 +80,7 @@ class TourAPIController extends WP_REST_Controller {
                 'images'            => $arImages,
                 'thumbnail'         => get_the_post_thumbnail_url(get_the_ID()),
                 'order'             => $post->menu_order,
+                'slug'              => get_field('slug'),
             ];
 
             //== Прицепим данные о поездках
