@@ -6,6 +6,8 @@ import "./styles.scss";
 import App from "./App";
 import store from "./store";
 
+import {SVGSource} from "src/components/icons";
+
 import {createBrowserHistory} from "history";
 
 const history = createBrowserHistory();
@@ -13,6 +15,7 @@ const history = createBrowserHistory();
 ReactDOM.render(
     // <Provider store={store}>
     <Provider store={store}>
+        <SVGSource />
         <React.StrictMode>
             <BrowserRouter history={history}>
                 <App />

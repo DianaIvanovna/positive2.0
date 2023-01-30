@@ -13,6 +13,42 @@
     border-bottom: 1px solid rgb(196, 196, 196);
 }
 
+.header__button-enter {
+    @include mainFontValue(normal, 500, 14px, 17px);
+    letter-spacing: 0.04em;
+
+    color: #f1a22c;
+    //background: rgba(255, 255, 255, 1);
+    background: none;
+    border: 1px solid #f1a22c;
+    border-radius: 49px;
+    padding: 10px 24px;
+    display: flex;
+    align-items: center;
+    cursor: pointer;
+    position: relative;
+
+    svg {
+        flex-shrink: 0;
+        margin-left: 7px;
+    }
+
+    &::before {
+        content: "";
+        display: block;
+        position: absolute;
+        top: -25%;
+        left: -25%;
+        width: 150%;
+        height: 150%;
+        z-index: -1;
+        background: #fff;
+        border-radius: 49px;
+        opacity: 0.85;
+        filter: blur(5px);
+    }
+}
+
 .header__logo {
     width: 106px;
     height: 106px;
@@ -152,6 +188,9 @@
             margin-bottom: 20px;
         }
     }
+    .header__button-enter {
+        display: block;
+    }
     .header__links {
         list-style: none;
         display: flex;
@@ -190,6 +229,9 @@
 }
 @media screen and (max-width: 915px) {
     .header__nav {
+        display: none;
+    }
+    .header__button-enter {
         display: none;
     }
     .header__links {

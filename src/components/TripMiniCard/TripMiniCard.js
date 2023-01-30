@@ -2,8 +2,8 @@ import React, {useCallback} from "react";
 import "./TripMiniCard.scss";
 import {MainButton} from "../MainButton/MainButton";
 import {useDispatch} from "react-redux";
-import {addTourPage} from "../../store/action/tourAction";
-import {useSeasonNavigate} from "../../hooks/useSeasonNavigate";
+import {addTourPage} from "src/store/action/tourAction";
+import {useSeasonNavigate} from "src/hooks/useSeasonNavigate";
 import {ErrorBoundary} from "../ErrorBoundary";
 
 const TripMiniCard = ({data, ...props}) => {

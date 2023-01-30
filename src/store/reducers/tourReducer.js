@@ -1,4 +1,4 @@
-import {ADD_TOURS, ADD_TOUR_PAGE} from "../types/tourTypes";
+import {ADD_TOURS, ADD_TOUR_PAGE, RESET_TOUR} from "../types/tourTypes";
 //import {tours} from "./data";
 
 const initialState = {
@@ -9,7 +9,7 @@ const initialState = {
     tourPage__loading: false,
     tourPage__error: null,
 };
-export default function tourReducer(state = initialState, action) {
+export function tourReducer(state = initialState, action) {
     switch (action.type) {
         case ADD_TOURS:
             if (action.status === "pending") {
@@ -31,7 +31,8 @@ export default function tourReducer(state = initialState, action) {
             }
 
             return {...state, tourPage: action.payload};
-
+        case RESET_TOUR:
+            return {...initialState};
         default:
             return state;
     }

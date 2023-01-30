@@ -1,5 +1,5 @@
-@import "../../variables.scss";
-input {
+@import "src/variables.scss";
+.input {
     // padding: 24px 30px;
     padding: 10px 20px;
     box-sizing: border-box;
@@ -11,43 +11,18 @@ input {
     border: 1px solid #ffefd8;
     border-radius: 8px;
 
-    &::-webkit-input-placeholder {
-        /* WebKit, Blink, Edge */
-        @include mainFontValue(normal, 500, 16px, 140%);
+    @include inputPlaceholder(normal, 500, 16px, 140%, #3d3d3d);
 
-        color: #3d3d3d;
+    &:disabled {
+        background-color: rgba(61, 61, 61, 0.3);
     }
-    &:-moz-placeholder {
-        /* Mozilla Firefox 4 to 18 */
-        @include mainFontValue(normal, 500, 16px, 140%);
-
-        color: #3d3d3d;
-        opacity: 1;
-    }
-    &::-moz-placeholder {
-        /* Mozilla Firefox 19+ */
-        @include mainFontValue(normal, 500, 16px, 140%);
-
-        color: #3d3d3d;
-        opacity: 1;
-    }
-    &:-ms-input-placeholder {
-        /* Internet Explorer 10-11 */
-        @include mainFontValue(normal, 500, 16px, 140%);
-
-        color: #3d3d3d;
-    }
-    &::-ms-input-placeholder {
-        /* Microsoft Edge */
-        @include mainFontValue(normal, 500, 16px, 140%);
-
-        color: #3d3d3d;
-    }
-
-    &::placeholder {
-        /* Most modern browsers support this now. */
-        @include mainFontValue(normal, 500, 16px, 140%);
-
-        color: #3d3d3d;
-    }
+}
+.input-container {
+    width: 100%;
+}
+.label {
+    @include mainFontValue(normal, 500, 16px, 115%);
+    margin: 0;
+    color: #0f0f0f;
+    margin-bottom: 10px;
 }

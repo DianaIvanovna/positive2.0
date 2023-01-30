@@ -1,0 +1,251 @@
+@import "src/variables.scss";
+
+.order {
+    width: 100%;
+    display: flex;
+    justify-content: space-between;
+    padding: 35px;
+    box-sizing: border-box;
+    border: 1px solid #f0eae0;
+    background: #fffefd;
+
+    &--first {
+        border-radius: 12px 12px 0 0;
+    }
+    &--end {
+        border-radius: 0 0 12px 12px;
+    }
+
+    &__img {
+        width: 216px;
+        object-fit: cover;
+        border-radius: 8px;
+        margin-right: 10px;
+        grid-area: img;
+    }
+
+    &__main {
+        // display: flex;
+        // flex-direction: column;
+        // justify-content: space-between;
+        // margin-right: 10px;
+        display: grid;
+        // grid-template-columns: 1fr 1fr;
+        // justify-items: stretch;
+        grid-template-areas:
+            "header number"
+            "payment payment";
+        grid-area: main;
+    }
+
+    &__header {
+        // display: flex;
+        // align-items: center;
+        grid-area: header;
+    }
+
+    &__title {
+        @include mainFontValue(normal, 600, 26px, 115%);
+
+        color: #0f0f0f;
+        margin: 0;
+        margin-bottom: 12px;
+    }
+    &__date {
+        @include mainFontValue(normal, 500, 16px, 115%);
+
+        color: #676767;
+        margin: 0;
+    }
+    &__number {
+        @include mainFontValue(normal, 600, 16px, 115%);
+
+        color: #f39d1c;
+        margin: 0;
+        padding: 13px 26px;
+        background: #ffffff;
+        border: 1px solid #ffefd8;
+        border-radius: 8px;
+        margin-left: 20px;
+        display: flex;
+        align-items: center;
+        align-self: flex-start;
+
+        width: max-content;
+        height: max-content;
+        grid-area: number;
+
+        span {
+            font-weight: 500;
+            color: #3c3c3c;
+            margin-left: 8px;
+        }
+
+        svg {
+            margin-right: 8px;
+        }
+    }
+
+    &__payment-container {
+        display: flex;
+        justify-content: space-between;
+        width: 100%;
+        grid-area: payment;
+    }
+
+    &__payment {
+        @include mainFontValue(normal, 600, 18px, 115%);
+
+        color: #5c5c5c;
+        margin: 0;
+        display: flex;
+        align-items: flex-end;
+    }
+
+    &__payment-value {
+        @include mainFontValue(normal, 700, 20px, 115%);
+        margin: 0;
+        margin-left: 20px;
+
+        color: #0f0f0f;
+
+        span {
+            color: #f39d1c;
+        }
+    }
+
+    &__button {
+        padding: 12px;
+        width: 100%;
+        max-width: 188px;
+        border: 1px solid #f1a22c;
+        @include mainFontValue(normal, 500, 16px, 140%);
+        color: #f1a22c;
+        text-transform: capitalize;
+        align-self: flex-end;
+        grid-area: button;
+
+        &--1200 {
+            display: none;
+        }
+    }
+
+    @media screen and (max-width: 1200px) {
+        padding: 20px;
+        display: grid;
+        grid-template-areas:
+            "img main main"
+            "img main main";
+        grid-gap: 20px 0;
+
+        &__img {
+            width: 220px;
+            object-fit: cover;
+            border-radius: 8px;
+            margin-right: 10px;
+            grid-area: img;
+        }
+
+        &__button {
+            justify-self: end;
+            display: none;
+            &--1200 {
+                display: flex;
+            }
+        }
+
+        &__main {
+            display: grid;
+            grid-template-areas:
+                "header number"
+                "payment button";
+            grid-area: main;
+        }
+
+        &__number {
+            align-self: flex-start;
+            justify-self: end;
+        }
+    }
+
+    @media screen and (max-width: 1040px) {
+        &__payment-container {
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+            align-items: flex-start;
+            justify-content: end;
+        }
+        &__payment:first-of-type {
+            margin-bottom: 12px;
+        }
+    }
+    @media screen and (max-width: 870px) {
+        display: flex;
+        width: 100%;
+
+        &__main {
+            // display: grid;
+            // grid-template-areas:
+            //     "header number"
+            //     "payment button";
+            // grid-area: main;
+            display: flex;
+            flex-direction: column;
+            width: 100%;
+        }
+
+        &__number {
+            margin: 12px 0;
+        }
+
+        &__img {
+            // width: 220px;
+            // object-fit: cover;
+            // border-radius: 8px;
+            // margin-right: 10px;
+            // grid-area: img;
+            width: 50%;
+            flex-shrink: 0;
+            margin-right: 20px;
+        }
+
+        &__button {
+            justify-self: start;
+            align-self: flex-start;
+            margin-top: 12px;
+        }
+    }
+
+    @media screen and (max-width: 670px) {
+        flex-direction: column;
+        align-items: center;
+        width: 100%;
+        max-width: 400px;
+        margin: 0 auto;
+
+        &__img {
+            width: 100%;
+            flex-shrink: 0;
+            margin-right: 0;
+        }
+        &__date {
+            text-align: center;
+        }
+        &__title {
+            text-align: center;
+        }
+        &__number {
+            margin: 12px auto;
+        }
+
+        &__payment-container {
+            align-items: center;
+            justify-content: center;
+        }
+
+        &__button {
+            margin: 12px auto 0;
+        }
+    }
+}

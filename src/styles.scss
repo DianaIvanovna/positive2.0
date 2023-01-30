@@ -4,9 +4,15 @@
 @import url("./styles/normalize.scss");
 @import "./styles/page.scss";
 @import "./variables.scss";
+
+#webpack-dev-server-client-overlay {
+    display: none;
+}
+
 html,
 body {
     height: 100%;
+    @include scroll();
 }
 body {
     margin: 0px;
@@ -33,19 +39,30 @@ body {
     position: relative;
     width: 100%;
     height: 100%;
+    display: flex;
+    margin: 0 auto;
+    flex-direction: column;
     .main__contant {
         position: relative;
-        top: 106px;
+        // top: 106px;
+        width: 100%;
+        margin: 0 auto;
+        margin-top: 106px;
     }
     @media screen and (max-width: 450px) {
         .main__contant {
-            top: 80px;
+            // top: 80px;
+            margin-top: 106px;
         }
     }
 }
 .page {
     width: 100%;
     position: relative;
+    display: flex;
+    flex-direction: column;
+    flex-grow: 1;
+
     // overflow: hidden;
 }
 .page__background {
@@ -63,6 +80,7 @@ body {
 //     z-index: -1;
 // }
 .page__background_footer {
+    overflow: hidden;
     width: 100%;
     height: 100%;
     position: absolute;
@@ -115,6 +133,7 @@ body {
 .pageContent {
     display: flex;
     flex-direction: column;
+    width: 100%;
     max-width: 1140px;
     margin: 0px auto;
 }

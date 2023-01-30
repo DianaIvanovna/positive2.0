@@ -3,8 +3,8 @@ import React from "react";
 import bookingStyle from "./BookingStep2.module.scss";
 // import cn from "classnames";
 import {TouristsInputs} from "./path/TouristsInputs/TouristsInputs";
-import {Input} from "../../../../components/Input/Input";
-import {MainButton} from "../../../../components/MainButton/MainButton";
+import {Input} from "src/components/Input/Input";
+import {MainButton} from "src/components/MainButton/MainButton";
 
 const initialValuesTourist = order => {
     if (order?.data) {

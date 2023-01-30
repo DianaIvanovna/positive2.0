@@ -15,6 +15,13 @@ module.exports = {
         filename: "wp-content/themes/pozitiv/js/main.js",
         publicPath: "/",
     },
+    resolve: {
+        alias: {
+            src: path.resolve(__dirname, "src/"),
+            store: path.resolve(__dirname, "src/store"),
+            img: path.resolve(__dirname, "public_html/wp-content/themes/pozitiv/img"),
+        },
+    },
     devServer: {
         historyApiFallback: true,
     },

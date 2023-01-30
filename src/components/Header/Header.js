@@ -1,24 +1,29 @@
-import React, {useEffect, useState} from "react";
+import React, {useEffect, useMemo, useState} from "react";
+import {NavLink, useLocation} from "react-router-dom";
+import {useSelector} from "react-redux";
+
 import "./Header.scss";
-import {NavLink, useNavigate} from "react-router-dom";
 
-import logoWebp from "../../../public_html/wp-content/themes/pozitiv/img/logo/logo-big_a1b.webp";
-import logo from "../../../public_html/wp-content/themes/pozitiv/img/logo/logo-big.png";
-import vk from "../../../public_html/wp-content/themes/pozitiv/img/soc-icon/vk.svg";
-import telegram from "../../../public_html/wp-content/themes/pozitiv/img/soc-icon/telegram.svg";
-import whatsapp from "../../../public_html/wp-content/themes/pozitiv/img/soc-icon/whatsapp.svg";
-import viber from "../../../public_html/wp-content/themes/pozitiv/img/soc-icon/viber.svg";
-import menuButton from "../../../public_html/wp-content/themes/pozitiv/img/Icon/menu-button.svg";
-// import instagram from "../../../public_html/wp-content/themes/pozitiv/img/soc-icon/instagram.svg";
+import logoWebp from "img/logo/logo-big_a1b.webp";
+import logo from "img/logo/logo-big.png";
 
-import {ErrorBoundary} from "../ErrorBoundary";
-import {useLocationSeason} from "../../hooks/useLocationSeason";
+import {SVG} from "src/components/icons";
+import {ErrorBoundary} from "src/components/ErrorBoundary/ErrorBoundary";
+import {useLocationSeason} from "src/hooks/useLocationSeason";
+import {useBoundAction} from "src/hooks/useBoundAction";
+import {authPopupAction, logout} from "src/store/action/authAction";
+import {useSeasonNavigate} from "src/hooks/useSeasonNavigate";
 
 const Header = () => {
     const [showScroll, setShowScroll] = useState(false);
     const [mobile, setMobile] = useState(false);
-    const navigate = useNavigate();
+    const [isAccount, setIsAccount] = useState(false);
+    const navigate = useSeasonNavigate();
+    const location = useLocation();
     const season = useLocationSeason();
+    const auth = useSelector(store => store.auth.auth);
+    const logoutHandler = useBoundAction(() => logout());
+    const popupAuthHandler = useBoundAction(() => authPopupAction(true));
 
     const scrollHandler = () => {
         if (window.pageYOffset === 0) {
@@ -45,6 +50,50 @@ const Header = () => {
     //     }
     // };
 
+    const button = useMemo(() => {
+        if (auth) {
+            if (isAccount) {
+                return (
+                    <button
+                        className="header__button-enter"
+                        onClick={() => {
+                            logoutHandler();
+                            navigate("");
+                        }}
+                    >
+                        Выход
+                        <SVG id="logout" width="14px" height="14px" />
+                    </button>
+                );
+            }
+
+            return (
+                <button
+                    className="header__button-enter"
+                    onClick={() => {
+                        navigate("account");
+                    }}
+                >
+                    Профиль
+                </button>
+            );
+        }
+
+        return (
+            <button
+                className="header__button-enter"
+                onClick={() => {
+                    //navigate("/account");
+                    popupAuthHandler();
+                }}
+            >
+                Войти
+                <SVG id="logout" width="14px" height="14px" />
+            </button>
+        );
+        // eslint-disable-next-line react-hooks/exhaustive-deps
+    }, [isAccount, auth]);
+
     useEffect(() => {
         document.addEventListener("scroll", scrollHandler);
 
@@ -52,6 +101,14 @@ const Header = () => {
             document.removeEventListener("scroll", scrollHandler);
         };
     }, []);
+
+    useEffect(() => {
+        if (location.pathname.includes("/account")) {
+            setIsAccount(true);
+        } else {
+            setIsAccount(false);
+        }
+    }, [location]);
 
     return (
         <ErrorBoundary>
@@ -84,12 +141,12 @@ const Header = () => {
                             <NavLink className="header__link" to={`/${season}/rent`}>
                                 Прокат снаряжения
                             </NavLink>
-                            <NavLink className="header__link" to={`/${season}/`}>
+                            {/* <NavLink className="header__link" to={`/${season}/`}>
                                 Фотогалерея
                             </NavLink>
                             <NavLink className="header__link" to={`/${season}/`}>
                                 Отзывы
-                            </NavLink>
+                            </NavLink> */}
                         </nav>
                         <div className="header__tel">
                             <a href="tel:+79226999898" className="header__number">
@@ -97,7 +154,7 @@ const Header = () => {
                             </a>
                             <div className="header__container-message">
                                 <a href="https://vk.com/pozitiv74" target="_blank" rel="noreferrer">
-                                    <img width="30px" height="30px" src={vk} alt="vk" className="header__icon" />
+                                    <SVG id="vk" width="30px" height="30px" className="header__icon" />
                                 </a>
 
                                 {/* <a href="https://www.instagram.com/pozitivtour/" target="_blank">
@@ -105,19 +162,21 @@ const Header = () => {
                             </a> */}
 
                                 <a href="https://t.me/pozitivtour" target="_blank" rel="noreferrer">
-                                    <img width="30px" height="30px" src={telegram} alt="telegram" className="header__icon" />
+                                    <SVG id="telegram" width="30px" height="30px" className="header__icon" />
                                 </a>
 
                                 <a href="https://wa.me/79226999898" target="_blank" rel="noreferrer">
-                                    <img width="30px" height="30px" src={whatsapp} className="header__icon" alt="whatsapp" />
+                                    <SVG id="whatsapp" width="30px" height="30px" className="header__icon" />
                                 </a>
 
                                 <a href="viber://chat?number=79226999898" target="_blank" rel="noreferrer">
-                                    <img width="30px" height="30px" src={viber} alt="viber" className="header__icon" />
+                                    <SVG id="viber" width="30px" height="30px" className="header__icon" />
                                 </a>
                             </div>
                         </div>
-                        <img
+
+                        {button}
+                        {/* <img
                             width="20px"
                             height="25px"
                             src={menuButton}
@@ -126,7 +185,17 @@ const Header = () => {
                             onClick={() => {
                                 setMobile(value => !value);
                             }}
-                        />
+                        /> */}
+
+                        <div
+                            alt="иконка меню"
+                            className="header__menu"
+                            onClick={() => {
+                                setMobile(value => !value);
+                            }}
+                        >
+                            <SVG id="menu-button" width="20px" height="25px" />
+                        </div>
                     </div>
 
                     <div className="header__container-mobule">
@@ -143,6 +212,7 @@ const Header = () => {
                             <NavLink className="header__link" to={`/${season}/`}>
                                 Отзывы
                             </NavLink>
+                            {button}
                         </nav>
                     </div>
                 </header>

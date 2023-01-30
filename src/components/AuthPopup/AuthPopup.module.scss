@@ -1,0 +1,151 @@
+@import "src/variables.scss";
+
+.auth {
+    background: #fffefd;
+    border: 1px solid #f0eae0;
+    border-radius: 12px;
+    width: 100%;
+    max-width: 360px;
+    height: max-content;
+    max-height: 100%;
+    margin: 0 auto;
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+
+    overflow-y: scroll;
+    margin: auto;
+    @include scroll;
+    padding: 35px;
+    box-sizing: border-box;
+
+    &__close {
+        right: 6px;
+        top: 12px;
+        width: 32px;
+        height: 32px;
+        // border: none;
+        // width: 24px;
+        // height: 24px;
+    }
+
+    &__title {
+        @include mainFontValue(normal, 700, 36px, 45px);
+
+        text-align: center;
+        color: #414141;
+        margin: 0;
+        margin-bottom: 4px;
+    }
+    &__subtitle {
+        @include mainFontValue(normal, 500, 18px, 22px);
+
+        text-align: center;
+        color: #737373;
+        margin: 0;
+        margin-bottom: 35px;
+    }
+
+    &__input {
+        background: #f8f8f8;
+        border-radius: 118.997px;
+        width: 100%;
+        padding: 25px;
+        margin: 0;
+        margin-bottom: 20px;
+
+        @include inputPlaceholder(normal, 400, 18px, 22px, #bcbcbc);
+        @include mainFontValue(normal, 500, 18px, 22px);
+        color: #414141;
+        text-align: center;
+        max-width: 320px;
+    }
+
+    &__text {
+        @include mainFontValue(normal, 400, 14px, 17px);
+
+        text-align: center;
+        color: #f1a22c;
+        margin: 0;
+        margin-bottom: 35px;
+    }
+    &__button {
+        @include mainFontValue(normal, 600, 14px, 17px);
+
+        text-align: center;
+        letter-spacing: 0.09em;
+        text-transform: uppercase;
+
+        color: #ffffff;
+
+        text-shadow: 0px -1.2183px 2.4366px #c17b11;
+        padding: 32px;
+
+        max-height: none;
+        height: auto;
+        max-width: 317px;
+        margin-bottom: 24px;
+    }
+
+    &__text-second {
+        @include mainFontValue(normal, 500, 14px, 17px);
+        color: #868686;
+        margin: 0;
+        text-align: center;
+
+        span {
+            color: #f1a22c;
+        }
+    }
+
+    @media screen and (max-width: 1040px) {
+        // background: #fffefd;
+        // border: 1px solid #f0eae0;
+        // border-radius: 12px;
+        // width: 100%;
+        // max-width: 476px;
+        // margin: 0 auto;
+        // position: relative;
+        // display: flex;
+        // flex-direction: column;
+        // align-items: center;
+
+        // padding: 35px;
+        padding: 20px;
+
+        &__close {
+            right: 5px;
+            top: 10px;
+            // border: none;
+            // width: 24px;
+            // height: 24px;
+        }
+
+        &__title {
+            @include mainFontValue(normal, 700, 32px, 120%);
+        }
+        &__subtitle {
+            @include mainFontValue(normal, 500, 16px, 120%);
+
+            margin-bottom: 20px;
+        }
+
+        &__input {
+            padding: 15px;
+
+            @include inputPlaceholder(normal, 400, 16px, 120%, #bcbcbc);
+            @include mainFontValue(normal, 500, 16px, 120%);
+            margin-bottom: 10px;
+        }
+
+        &__text {
+            margin-bottom: 20px;
+        }
+        &__button {
+            padding: 15px;
+            margin-bottom: 20px;
+            max-width: 240px;
+        }
+    }
+}

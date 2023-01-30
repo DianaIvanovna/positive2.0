@@ -1,0 +1,155 @@
+@import "src/variables.scss";
+.popup-order {
+    width: 100%;
+    height: max-content;
+    display: flex;
+    max-height: 100%;
+    flex-direction: column;
+    background: #fffefd;
+    border: 1px solid #f0eae0;
+    border-radius: 12px;
+    padding: 48px;
+    box-sizing: border-box;
+    //height: max-content;
+    margin: auto;
+    position: relative;
+    overflow-y: scroll;
+    @include scroll();
+
+    &__close {
+        width: 32px;
+        height: 32px;
+    }
+
+    &__main-container {
+        // width: 100%;
+        // display: flex;
+        // margin-bottom: 30px;
+        // display: grid;
+        // grid-template-areas:
+        //     "img description"
+        //     "item description";
+        // grid-gap: 20px;
+        display: flex;
+    }
+
+    &__container {
+        display: flex;
+        flex-direction: column;
+        width: calc(50% - 40px);
+        margin-right: 40px;
+        flex-shrink: 0;
+    }
+    &__title {
+        @include mainFontValue(normal, 600, 32px, 115%);
+
+        color: #0f0f0f;
+        margin: 0;
+        margin-bottom: 40px;
+    }
+
+    &__img {
+        width: 100%;
+        object-fit: cover;
+        margin: 0;
+        margin-right: 40px;
+        border-radius: 8px;
+        grid-area: img;
+        margin-bottom: 30px;
+    }
+
+    &__description {
+        @include mainFontValue(normal, 500, 16px, 150%);
+
+        color: #4e4e4e;
+        text-align: start;
+        grid-area: description;
+        margin: 0;
+    }
+
+    &__item-container {
+        display: grid;
+        align-items: flex-start;
+        grid-template-columns: 1fr 1fr;
+        width: 100%;
+        grid-gap: 20px;
+        grid-area: item;
+        align-self: end;
+    }
+
+    &__item-name {
+        @include mainFontValue(normal, 500, 18px, 115.75%);
+
+        color: #7c7c7c;
+        margin: 0;
+        margin-bottom: 12px;
+    }
+
+    &__item-value {
+        @include mainFontValue(normal, 500, 18px, 115.75%);
+
+        color: #373737;
+        margin: 0;
+    }
+
+    @media screen and (max-width: 1040px) {
+        padding: 25px;
+        &__main-container {
+            display: flex;
+            flex-direction: column;
+        }
+        &__container {
+            width: 100%;
+            margin-bottom: 20px;
+            flex-direction: row;
+            margin-right: 0;
+        }
+
+        &__img {
+            width: calc(50% - 20px);
+            margin-bottom: 0;
+            margin-right: 20px;
+        }
+
+        &__item-container {
+            align-self: flex-start;
+            flex-direction: column;
+            display: flex;
+            gap: 12px;
+        }
+
+        &__item-name {
+            @include mainFontValue(normal, 500, 16px, 115.75%);
+            margin-bottom: 5px;
+        }
+
+        &__item-value {
+            @include mainFontValue(normal, 500, 16px, 115.75%);
+        }
+
+        &__title {
+            @include mainFontValue(normal, 600, 26px, 115%);
+
+            margin-bottom: 20px;
+        }
+    }
+    @media screen and (max-width: 700px) {
+        &__container {
+            flex-direction: column;
+        }
+
+        &__img {
+            width: 100%;
+            margin-bottom: 20px;
+            margin-right: 0;
+        }
+
+        &__item {
+            display: flex;
+        }
+        &__item-name {
+            margin-bottom: 0;
+            margin-right: 10px;
+        }
+    }
+}

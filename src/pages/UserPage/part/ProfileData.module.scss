@@ -1,0 +1,39 @@
+// .container {
+//     width: 100%;
+//     display: flex;
+// }
+
+.profile {
+    width: 100%;
+}
+.inputs {
+    width: 100%;
+    display: flex;
+    justify-content: space-between;
+    margin-bottom: 20px;
+}
+
+.input-block {
+    width: 30%;
+}
+
+.input {
+    width: 100%;
+}
+
+.button {
+    border: 1px solid #db8607;
+    padding: 12px;
+}
+
+@media screen and (max-width: 780px) {
+    .inputs {
+        flex-direction: column;
+        margin-bottom: 0;
+    }
+    .input-block {
+        margin-bottom: 20px;
+        width: 100%;
+        max-width: 250px;
+    }
+}

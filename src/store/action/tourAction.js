@@ -1,5 +1,5 @@
 /* eslint-disable no-inline-comments */
-import {GET_TOURS, ADD_TOURS, GET_TOUR_PAGE, ADD_TOUR_PAGE, ORDER_CREATE} from "../types/tourTypes";
+import {GET_TOURS, ADD_TOURS, GET_TOUR_PAGE, ADD_TOUR_PAGE, ORDER_CREATE, RESET_TOUR} from "../types/tourTypes";
 
 export function getTours(data) {
     return {
@@ -35,5 +35,11 @@ export function orderCreate(data, status) {
     return {
         type: ORDER_CREATE,
         payload: data,
+    };
+}
+
+export function resetTourReducer() {
+    return {
+        type: RESET_TOUR,
     };
 }
