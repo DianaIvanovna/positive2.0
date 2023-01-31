@@ -14,15 +14,15 @@ class OrderAPIController extends WP_REST_Controller {
             case 'create':
                 $result = $this->Create();
                 break;
-            
+
             case 'update':
                 $result = $this->Update();
                 break;
-            
+
             case 'getmy':
                 $result = $this->GetMy();
                 break;
-            
+
             default: break;
         }
 
@@ -53,7 +53,6 @@ class OrderAPIController extends WP_REST_Controller {
             return ['result' => 0, 'message' => 'данные туристов невалидны'];
         }
 
-        
 
         //= Разберемся с пользователем
         $objWPUser = get_user_by('email', $emailOwner);
@@ -79,10 +78,12 @@ class OrderAPIController extends WP_REST_Controller {
         }
 
 
-        //= Создать заказ       
+        //= Создать заказ
         $curTimestamp = time();
         $arOrder = $this->orderModel->Create(
             [
+                'tourID'            => $this->sourceRequest->get_param('tourID'),
+                'tripID'            => $this->sourceRequest->get_param('tripID'),
                 'idUserOwner'       => $objWPUser->ID,
                 'phoneOwner'        => $phoneClean,
                 'emailOwner'        => $emailOwner,
@@ -115,12 +116,12 @@ class OrderAPIController extends WP_REST_Controller {
      * Обновить заказ
      */
     private function Update() {
-        
+
     }
 
 
     /**
-     * 
+     *
      */
     private function GetMy() {
 

@@ -18,7 +18,7 @@ class OrderModel extends PozitivModel {
             'pozitiv_orders',
             [
                 'tourID'            => $arOrder['tourID'],
-                'tripID'            => $arOrder['tourID'],
+                'tripID'            => $arOrder['tripID'],
                 'idUserOwner'       => $arOrder['idUserOwner'],
 	            'phoneOwner'        => $arOrder['phoneOwner'],
 	            'emailOwner'        => $arOrder['emailOwner'],
@@ -30,7 +30,7 @@ class OrderModel extends PozitivModel {
         );
 
         if (!$res) {
-            throw new ErrorException('dsdsadas');
+            throw new ErrorException('Не удалось записать заказ в базу: (SQL' . $wpdb->last_query . ') (Error: ' . $wpdb->last_error . ')' );
         }
 
         $arOrder['id'] = $wpdb->insert_id;
