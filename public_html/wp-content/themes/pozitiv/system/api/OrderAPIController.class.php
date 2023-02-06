@@ -75,6 +75,8 @@ class OrderAPIController extends WP_REST_Controller {
             //=== Назначим роль пользователю
             $objWPUser = new WP_User($idUserOwner);
             $objWPUser->set_role('pozitiv_user');
+
+            wp_new_user_notification($idUserOwner, null, 'user');
         }
 
 
