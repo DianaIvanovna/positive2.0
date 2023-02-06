@@ -372,49 +372,6 @@ add_action(
 );
 
 
-function redirect_users_after_login() {
-    $user = wp_get_current_user();
-    $roles = ( array ) $user->roles;
-    
-    // Редирект для администраторов
-    if ( $roles[0] == 'administrator' ) {
-         wp_redirect( 'https://site.ru/page_for_admin' );
-         exit;
-    }
-    
-    // Редирект для подписчиков
-    if ( $roles[0] == 'subscriber' ) {
-         wp_redirect( 'https://site.ru/page_for_subscriber' );
-         exit;
-    }
-
-    // Редирект для авторов
-    if ( $roles[0] == 'author' ) {
-         wp_redirect( 'https://site.ru/page_for_author' );
-         exit;
-    }
-
-    // Редирект для редакторов
-    if ( $roles[0] == 'editor' ) {
-         wp_redirect( 'https://site.ru/page_for_editor' );
-         exit;
-    }
-
-}
-
-
-add_action( 'admin_init', function() {
-    $user = wp_get_current_user();
-    $roles = ( array ) $user->roles;
-
-    if (in_array('pozitiv_user', $roles)) {
-        wp_redirect( '/account' );
-    }
-});
-
-
-
-
 /**
  * Добавим меню Заказы в админку
  */
