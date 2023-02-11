@@ -243,9 +243,10 @@ class OrderEditPageAdmin extends PagesAdmin {
                 <input type=\"hidden\" name=\"action\" value=\"change\">
 
                 <div class=\"pozitiv__order-edit-form__control-block\">
-                    <button type=\"button\" id=\"orderBtnCancel\" class=\"components-button is-secondary is-destructive\">Отменить</button>
-                    <button type=\"button\" id=\"orderBtnPrint\" title=\"Распечатать\"></button>
-                    <button type=\"submit\" id=\"orderBtnSubmit\">Сохранить</button>
+                    <button type=\"button\" id=\"orderBtnCancel\" class=\"pos-ui__button pos-ui__button--red pos-ui__button--big\" title=\"Отменить заказ и сохранить\">Отменить</button>
+                    <button type=\"submit\" id=\"orderBtnSubmit\" class=\"pos-ui__button pos-ui__button--blue pos-ui__button--big\" title=\"Сохранить заказ без изменения статуса\">Сохранить</button>
+                    <button type=\"button\" id=\"orderBtnAccepted\" class=\"pos-ui__button pos-ui__button--green pos-ui__button--big\" title=\"Сохранить заказ и подтвердить\">Подтвердить заказ</button>
+                    <button type=\"button\" id=\"orderBtnPrint\" class=\"pos-ui__button pos-ui__button--gray pos-ui__button--big\" title=\"Распечатать\">🖨</button>
                 </div>
 
                 <section class=\"pozitiv__order-edit-form__section\">

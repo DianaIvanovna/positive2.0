@@ -6,6 +6,13 @@
 
         &__control-block {
             margin-bottom: 20px;
+            display: flex;
+            justify-content: flex-end;
+            padding-right: 20px;
+
+            button {
+                margin-left: 10px;
+            }
         }
 
         &__section {
