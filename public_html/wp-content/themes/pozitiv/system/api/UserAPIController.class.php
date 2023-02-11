@@ -22,11 +22,15 @@ class UserAPIController extends WP_REST_Controller {
                 break;
 
             case 'current':
-                $result = ['result' => 1, 'user' => (array) wp_get_current_user()];
+                $result = ['result' => 1, 'user' => $this->WPUserTOArray(wp_get_current_user())];
                 break;
 
             case 'registration':
                 $result = $this->Registration();
+                break;
+
+            case 'update':
+                $result = $this->Update();
                 break;
         }
 
@@ -87,14 +91,7 @@ class UserAPIController extends WP_REST_Controller {
 
         return [
             'result' => 1,
-            'user'   => [
-                'id' => $objWPUser->ID,
-                'login' => $objWPUser->data->user_login,
-                'email' => $objWPUser->data->user_email,
-                'phone' => get_user_meta($objWPUser->ID, 'phone', true),
-                'firstName' => get_user_meta($objWPUser->ID, 'first_name', true),
-                'lastName' => get_user_meta($objWPUser->ID, 'last_name', true),
-            ]
+            'user'   => WPUserTOArray($objWPUser->ID),
         ];
     }
 
@@ -129,5 +126,53 @@ class UserAPIController extends WP_REST_Controller {
         wp_logout();
         $_SESSION = [];
         return ['result' => 1];
+    }
+
+
+    private function Update() {
+
+        $WPUser = wp_get_current_user();
+        
+        if ( ($WPUser->ID == 0) || !in_array('pozitiv_user', $WPUser->roles) ) {
+            return ['result' => 1, 'message' => 'текущему пользователю не разрешен этот метод'];
+        }
+
+        if (!empty($this->sourceRequest->get_param('firstName'))) {
+            update_user_meta( $WPUser->ID, 'firstName', $this->sourceRequest->get_param('firstName') );
+        }
+
+        if (!empty($this->sourceRequest->get_param('lastName'))) {
+            update_user_meta( $WPUser->ID, 'lastName', $this->sourceRequest->get_param('lastName') );
+        }
+
+        if ( !empty($this->sourceRequest->get_param('phone')) ) {
+            update_user_meta( $WPUser->ID, 'phone', GetCleanPhone($this->sourceRequest->get_param('phone')) );
+        }
+
+        if ( !empty($this->sourceRequest->get_param('email')) && filter_var($this->sourceRequest->get_param('email'), FILTER_VALIDATE_EMAIL) ) {
+            wp_update_user([
+                'ID'            => $WPUser->ID,
+                'user_email'    => $this->sourceRequest->get_param('email')
+            ]);
+        }
+
+        return ['result' => 1, 'user' => $this->WPUserTOArray(wp_get_current_user())];
+    }
+
+
+    private function WPUserTOArray($WPUser) {
+
+        if ($WPUser->ID == 0) {
+            return false;
+        }
+
+        return [
+            'id'        => $WPUser->ID,
+            'login'     => $WPUser->data->user_login,
+            'email'     => $WPUser->data->user_email,
+            'phone'     => get_user_meta($WPUser->ID, 'phone', true),
+            'firstName' => get_user_meta($WPUser->ID, 'firstName', true),
+            'lastName'  => get_user_meta($WPUser->ID, 'lastName', true),
+        ];
     }
 }

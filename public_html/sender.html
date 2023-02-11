@@ -138,6 +138,19 @@
                     <button type="submit">отправить</button>
                 </form>
             </div>
+
+
+            <!-- Обновление пользователя -->
+            <div class="form-wrapper">
+                <h3>Обновление данных пользователя</h3>
+                <form action="/wp-json/pozitiv/v1/user/update/" method="POST">
+                    <p><input type="text" name="firstName" placeholder="Имя"></p>
+                    <p><input type="text" name="lastName" placeholder="Фамилия"></p>
+                    <p><input type="text" name="phone" placeholder="Телефон"></p>
+                    <p><input type="text" name="email" placeholder="Email"></p>
+                    <button type="submit">отправить</button>
+                </form>
+            </div>
         </details>
 
 
