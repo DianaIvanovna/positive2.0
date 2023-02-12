@@ -67,6 +67,16 @@
             align-items: stretch;
         }
 
+        &__status {
+            line-height: 32px;
+            font-size: 14px;
+            margin-right: 20px;
+
+            span {
+                font-weight: 600;
+            }
+        }
+
         &__block-h {
             text-align: center;
             display: block;

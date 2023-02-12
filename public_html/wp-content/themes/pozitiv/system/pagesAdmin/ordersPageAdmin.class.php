@@ -237,16 +237,43 @@ class OrderEditPageAdmin extends PagesAdmin {
             ";
         }
 
+
+        //= Сформируем статус заказа
+        $orderStatus = '';
+        switch ($order->status) {
+            case 'created':
+                $orderStatus = 'Не обработан';
+                break;
+            
+            case 'canceled':
+                $orderStatus = 'Отменен';
+                break;
+
+            case 'confirmed':
+                $orderStatus = 'Подтвержден';
+                break;
+
+            case 'payed':
+                $orderStatus = 'Оплачен';
+                break;
+
+            case 'completed':
+                $orderStatus = 'Завершен';
+                break;
+        }
+
         echo "
             <form action=\"\" method=\"POST\" class=\"pozitiv__order-edit-form\">
                 <input type=\"hidden\" name=\"id\" value=\"{$order->id}\">
                 <input type=\"hidden\" name=\"action\" value=\"change\">
+                <input type=\"hidden\" name=\"status\" value=\"{$order->status}\">
 
                 <div class=\"pozitiv__order-edit-form__control-block\">
+                    <div class=\"pozitiv__order-edit-form__status\">Статус заказа: <span>{$orderStatus}</span></div>
                     <button type=\"button\" id=\"orderBtnCancel\" class=\"pos-ui__button pos-ui__button--red pos-ui__button--big\" title=\"Отменить заказ и сохранить\">Отменить</button>
                     <button type=\"submit\" id=\"orderBtnSubmit\" class=\"pos-ui__button pos-ui__button--blue pos-ui__button--big\" title=\"Сохранить заказ без изменения статуса\">Сохранить</button>
                     <button type=\"button\" id=\"orderBtnAccepted\" class=\"pos-ui__button pos-ui__button--green pos-ui__button--big\" title=\"Сохранить заказ и подтвердить\">Подтвердить заказ</button>
-                    <button type=\"button\" id=\"orderBtnPrint\" class=\"pos-ui__button pos-ui__button--gray pos-ui__button--big\" title=\"Распечатать\">🖨</button>
+                    <button type=\"button\" id=\"orderBtnPrint\" class=\"pos-ui__button pos-ui__button--gray pos-ui__button--big\" title=\"Распечатать заказ\">🖨</button>
                 </div>
 
                 <section class=\"pozitiv__order-edit-form__section\">

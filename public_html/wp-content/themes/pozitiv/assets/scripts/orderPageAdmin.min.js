@@ -30,6 +30,13 @@ class OrderPageAdmin {
         this.listTouristServicesAvailable.find('.closer').click( jQuery.proxy( this.TouristServicesAvailableShow, this) );
         //== Добавить услугу
         this.listTouristServicesAvailable.find('li>button').click( jQuery.proxy( this.TouristServicesAdd, this) );
+        
+        //== Нажатие кнопки Отмены заказа
+        this.jRootForm.find('#orderBtnCancel').click( jQuery.proxy( this.OrderCancel, this) );
+        //== Нажатие кнопки Сохранить и подтвердить
+        this.jRootForm.find('#orderBtnAccepted').click( jQuery.proxy( this.OrderAccept, this) );
+        //== Нажатие кнопки Распечатать заказ
+        this.jRootForm.find('#orderBtnPrint').click( jQuery.proxy( this.OrderPrint, this) );
 
         //== Отправить форму
         this.jRootForm.submit((e)=>{ this.CollectDataOrder(); return true; })
@@ -274,6 +281,32 @@ class OrderPageAdmin {
         });
 
         this.jRootForm.find('input[name=data]').val(JSON.stringify({tourists:touristsData}));
+    }
+
+
+    /**
+     * Отменить заказ
+     */
+    OrderCancel(e) {
+        this.jRootForm.find('input[name=status]').val('canceled');
+        this.jRootForm.submit();
+    }
+
+
+    /**
+     * Подтвердить заказ
+     */
+    OrderAccept(e) {
+        this.jRootForm.find('input[name=status]').val('confirmed');
+        this.jRootForm.submit();
+    }
+
+
+    /**
+     * Распечатать заказ
+     */
+    OrderPrint(e) {
+        alert('функция в разработке');
     }
 }
 
