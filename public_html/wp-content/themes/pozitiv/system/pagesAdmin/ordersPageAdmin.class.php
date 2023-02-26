@@ -365,9 +365,10 @@ class OrderEditPageAdmin extends PagesAdmin {
                     </div>
                 </section>
 
-                <section class=\"pozitiv__order-edit-form__section\">
+                <section class=\"pozitiv__order-edit-form__section\" id=\"section-payments\">
                     <h2>Платежи</h2>
-                    
+                    <div id=\"orderListPayments\"></div>
+                    <button type=\"button\" id=\"orderBtnPaymentAdd\" class=\"pos-ui__button pos-ui__button--blue\" title=\"Добавить платеж\">Добавить платеж</button>
                 </section>
 
                 <section class=\"pozitiv__order-edit-form__section\">

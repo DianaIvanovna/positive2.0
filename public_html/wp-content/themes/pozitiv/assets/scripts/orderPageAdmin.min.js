@@ -9,9 +9,11 @@ class OrderPageAdmin {
         //= Определим блоки
         this.jRootForm = jQuery('.pozitiv__order-edit-form');
         this.sectionTourists = this.jRootForm.find('#section-tourists');
+        this.sectionPayments = this.jRootForm.find('#section-payments');
         this.listTourists = this.sectionTourists.find('#orderListTourist');
         this.listTouristServices = this.sectionTourists.find('#orderListServices');
         this.listTouristServicesAvailable = this.sectionTourists.find('#servicesListAvailable');
+        this.listPayments = this.sectionPayments.find('#orderListPayments');
         
         //= Повесим обработчики
         //== Развернуть / свернуть туриста
@@ -30,6 +32,8 @@ class OrderPageAdmin {
         this.listTouristServicesAvailable.find('.closer').click( jQuery.proxy( this.TouristServicesAvailableShow, this) );
         //== Добавить услугу
         this.listTouristServicesAvailable.find('li>button').click( jQuery.proxy( this.TouristServicesAdd, this) );
+        //== Добавить платеж
+        this.sectionPayments.on('click', '#orderBtnPaymentAdd', jQuery.proxy(this.PaymentAdd, this) );
         
         //== Нажатие кнопки Отмены заказа
         this.jRootForm.find('#orderBtnCancel').click( jQuery.proxy( this.OrderCancel, this) );
@@ -126,6 +130,15 @@ class OrderPageAdmin {
             passportWhoIssue: "",
             services: [],
         });
+    }
+
+
+    /**
+     * Добавить платеж
+     */
+    PaymentAdd() {
+        var paymentHTML = '<div class="payment-item">Платеж</div>';
+        this.listPayments.append(paymentHTML);
     }
 
 
