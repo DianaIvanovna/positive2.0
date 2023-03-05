@@ -87,11 +87,12 @@ class UserAPIController extends WP_REST_Controller {
             $objWPUser->set_role('pozitiv_user');
         }
 
+        //==  Отправим пользователю и администратору письмо о регистрации
         wp_new_user_notification($objWPUser->ID, null, 'user');
 
         return [
             'result' => 1,
-            'user'   => WPUserTOArray($objWPUser->ID),
+            'user'   => $this->WPUserTOArray($objWPUser),
         ];
     }
 
