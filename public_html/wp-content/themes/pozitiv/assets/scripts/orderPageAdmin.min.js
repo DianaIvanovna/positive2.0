@@ -137,7 +137,7 @@ class OrderPageAdmin {
      * Добавить платеж
      */
     PaymentAdd() {
-        var paymentHTML = '<div class="payment-item">Платеж</div>';
+        var paymentHTML = '<div class="payment-item-new"> <div class="pozitiv__order-edit-form__field"> <label for="lbNewPaymentDate">Дата платежа</label> <input type="date" id="lbNewPaymentDate"> </div> <div class="pozitiv__order-edit-form__field"> <label for="lbNewPaymentType">Тип оплаты</label> <select id="lbNewPaymentType"> <option value="cash">Наличными</option> <option value="transfer">Переводом</option> </select> </div> <div class="pozitiv__order-edit-form__field"> <label for="lbNewPaymentAmount">Сумма</label> <input type="number" id="lbNewPaymentAmount"> </div> <div class="pozitiv__order-edit-form__field"> <label for="lbNewPaymentDescription">Описание</label> <input type="text" id="lbNewPaymentDescription"> </div><div class="payment-item-new__button"><button id="paymentSave" class="pos-ui__button pos-ui__button--green" type="button" title="Сохранить платеж">Сохранить платеж</button></div></div>';
         this.listPayments.append(paymentHTML);
     }
 

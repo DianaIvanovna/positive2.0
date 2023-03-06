@@ -190,6 +190,25 @@
             }
         }
 
+        .payment-item-new {
+            display: flex;
+            justify-content: space-between;
+            background-color: #f7f7f9;
+            padding: 5px 10px;
+            margin-bottom: 10px;
+            align-items: stretch;
+
+            &__button {
+                display: flex;
+                justify-content: center;
+                flex-direction: column;
+            }
+
+            .pozitiv__order-edit-form__field {
+                margin-bottom: 0;
+            }
+        }
+
         #servicesListAvailable {
             background-color: #e3e3e6;
             border-radius: 5px;
