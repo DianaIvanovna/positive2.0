@@ -214,6 +214,48 @@ add_action( 'rest_api_init', function(){
         ]
     );
 
+    // Маршрут Пользователь
+    register_rest_route(
+        POZITIV_API_NAMESPACE,
+        '/user/(?P<action>[a-z]+)/',
+        [
+            'methods'   => 'POST',
+            'callback'  => 'EndpointUser',
+            'args'      => [
+                'paramName'     =>  [
+                    'default'               => null,            // значение параметра по умолчанию
+                    'required'              => null,            // является ли параметр обязательным. Может быть только true
+                    'validate_callback'     => 'function_name', // функция проверки значения параметра. Должна вернуть true/false
+                    'sanitize_callback'     => 'function_name', // функция очистки значения параметра. Должна вернуть очищенное значение
+                ]
+            ],
+            'permission_callback' => function ( $request ) {
+                return true;
+            }
+        ]
+    );
+
+    // Маршрут Платеж
+    register_rest_route(
+        POZITIV_API_NAMESPACE,
+        '/payment/(?P<action>[a-z]+)/',
+        [
+            'methods'   => 'POST',
+            'callback'  => 'EndpointPayment',
+            'args'      => [
+                'paramName'     =>  [
+                    'default'               => null,            // значение параметра по умолчанию
+                    'required'              => null,            // является ли параметр обязательным. Может быть только true
+                    'validate_callback'     => 'function_name', // функция проверки значения параметра. Должна вернуть true/false
+                    'sanitize_callback'     => 'function_name', // функция очистки значения параметра. Должна вернуть очищенное значение
+                ]
+            ],
+            'permission_callback' => function ( $request ) {
+
+            }
+        ]
+    );
+
 
     // Маршрут Поездка
     // register_rest_route(
@@ -243,48 +285,6 @@ add_action( 'rest_api_init', function(){
     //     [
     //         'methods'   => 'POST',
     //         'callback'  => 'EndpointOrder',
-    //         'args'      => [
-    //             'paramName'     =>  [
-    //                 'default'               => null,            // значение параметра по умолчанию
-    //                 'required'              => null,            // является ли параметр обязательным. Может быть только true
-    //                 'validate_callback'     => 'function_name', // функция проверки значения параметра. Должна вернуть true/false
-    //                 'sanitize_callback'     => 'function_name', // функция очистки значения параметра. Должна вернуть очищенное значение
-    //             ]
-    //         ],
-    //         'permission_callback' => function ( $request ) {
-
-    //         }
-    //     ]
-    // );
-
-    // Маршрут Пользователь
-    register_rest_route(
-        POZITIV_API_NAMESPACE,
-        'user/(?P<action>[a-z]+)/',
-        [
-            'methods'   => 'POST',
-            'callback'  => 'EndpointUser',
-            'args'      => [
-                'paramName'     =>  [
-                    'default'               => null,            // значение параметра по умолчанию
-                    'required'              => null,            // является ли параметр обязательным. Может быть только true
-                    'validate_callback'     => 'function_name', // функция проверки значения параметра. Должна вернуть true/false
-                    'sanitize_callback'     => 'function_name', // функция очистки значения параметра. Должна вернуть очищенное значение
-                ]
-            ],
-            'permission_callback' => function ( $request ) {
-                return true;
-            }
-        ]
-    );
-
-    // Маршрут Платеж
-    // register_rest_route(
-    //     POZITIV_API_NAMESPACE,
-    //     'payment/(?P<method>[a-z]+)/',
-    //     [
-    //         'methods'   => 'POST',
-    //         'callback'  => 'EndpointPayment',
     //         'args'      => [
     //             'paramName'     =>  [
     //                 'default'               => null,            // значение параметра по умолчанию
@@ -340,6 +340,11 @@ function EndpointUser(WP_REST_Request $request) {
     return $userProcessor->Init($request);
 }
 
+function EndpointPayment(WP_REST_Request $request) {
+    require_once __DIR__ . '/api/PaymentAPIController.class.php';
+    $paymentProcessor = new PaymentAPIController();
+    return $paymentProcessor->Init($request);
+}
 
 
 // Отключаем проверку nonce кодов
