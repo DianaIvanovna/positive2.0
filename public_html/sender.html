@@ -22,7 +22,7 @@
                 margin-bottom: 10px;
             }
         </style>
-        <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+        <script src="/wp-content/themes/pozitiv/js/vendor/jquery.min.js"></script>
 
     </head>
     <body>
@@ -148,6 +148,24 @@
                     <p><input type="text" name="lastName" placeholder="Фамилия"></p>
                     <p><input type="text" name="phone" placeholder="Телефон"></p>
                     <p><input type="text" name="email" placeholder="Email"></p>
+                    <button type="submit">отправить</button>
+                </form>
+            </div>
+        </details>
+
+
+        <!-- платежи -->
+        <details>
+            <summary>Платежи</summary>
+
+            <!-- Создание платежа -->
+            <div class="form-wrapper">
+                <h3>Создание платежа</h3>
+                <form action="/wp-json/pozitiv/v1/payment/createManual/" method="POST">
+                    <p><input type="text" name="email" placeholder="e-mail"></p>
+                    <p><input type="text" name="phone" placeholder="телефон"></p>
+                    <p><input type="text" name="firstName" placeholder="Имя"></p>
+                    <p><input type="text" name="lastName" placeholder="Фамилия"></p>
                     <button type="submit">отправить</button>
                 </form>
             </div>
