@@ -8,13 +8,28 @@ class PaymentModel extends PozitivModel {
     }
 
 
-    function Create(array $data) {
+    function CreateManual(array $arPayment) {
+        global $wpdb;
 
+        $res = $wpdb->insert(
+            'pozitiv_payments',
+            $arPayment
+        );
+
+        if (!$res) {
+            throw new ErrorException('Не удалось записать платеж в базу: (SQL' . $wpdb->last_query . ') (Error: ' . $wpdb->last_error . ')' );
+        }
+
+        $arPayment['id'] = $wpdb->insert_id;
+        return $arPayment;
     }
 
 
-    function Get() {
+    function GetByOrderID(int $orderID) {
+        global $wpdb;
 
+        $res = $wpdb->get_results("SELECT * FROM pozitiv_payments WHERE orderID = {$orderID} ORDER BY dateCreate DESC");
+        return $res;
     }
 
 

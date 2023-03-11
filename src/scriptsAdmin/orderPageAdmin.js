@@ -46,6 +46,9 @@ class OrderPageAdmin {
 
         //== Отправить форму
         this.jRootForm.submit((e)=>{ this.CollectDataOrder(); return true; })
+
+        //== Запросим и отрисуем платежи
+        this.PaymentRender();
     }
 
 
@@ -146,22 +149,25 @@ class OrderPageAdmin {
      * Сохранит новый платеж
      */
     PaymentSave(e) {
+        
         var jPayment = jQuery(e.currentTarget).parents('.payment-item-new');
         var dataPayment = [
-            {name: "date", value: jPayment.find('#lbNewPaymentDate').val()},
+            {name: "orderID", value: this.jRootForm.find('input[name=id]').val()},
+            {name: "dateCreate", value: jPayment.find('#lbNewPaymentDate').val()},
             {name: "type", value: jPayment.find('#lbNewPaymentType').val()},
             {name: "amount", value: jPayment.find('#lbNewPaymentAmount').val()},
             {name: "description", value: jPayment.find('#lbNewPaymentDescription').val()}
         ];
+        var ths = this;
 
         jQuery.ajax({
-            url: '/wp-json/pozitiv/v1/payment/create_manual/',
+            url: '/wp-json/pozitiv/v1/payment/createManual/',
             type: 'POST',
             dataType: 'json',
             data: dataPayment,
             success:function(resp) {
                 console.log(resp);
-                this.PaymentRender();
+                ths.PaymentRender();
             },
             error: function() {
             }
@@ -173,11 +179,53 @@ class OrderPageAdmin {
      * Запросить и обновить список платежей
      */
     PaymentRender() {
+        var ths = this;
         jQuery.ajax({
-            success: () => {
+            url: '/wp-json/pozitiv/v1/payment/getPayments/',
+            type: 'POST',
+            dataType: 'json',
+            data: [
+                {name: 'orderID', value: this.jRootForm.find('input[name=id]').val()},
+            ],
+            success:function(resp) {
+                if (resp.result == 1) {
+                    resp.payments.forEach((payment) => {
 
+                        // Пропустим не успешные
+                        if (payment.status != 'success') { return; }
+
+                        let amount = Math.round(parseInt(payment.amount) / 100);
+                        
+                        let labelType = '';
+                        switch (payment.type) {
+                            case 'cash': 
+                                labelType = 'Наличные';
+                                break;
+                            
+                            case 'transfer':
+                                labelType = 'Перевод';
+                                break;
+
+                            case 'acquiring':
+                                labelType = 'Эквайринг';
+                        }
+
+                        let date = payment.dateCreate.substring(0, payment.dateCreate.indexOf(' '));
+
+                        let controlPayment = '';
+                        if (payment.type != 'acquiring') {
+                            controlPayment = '<div class="payment-item-new__button"><button id="paymentDelete" class="pos-ui__button pos-ui__button--red" type="button" title="Удалить платеж">Удалить платеж</button></div>';
+                        }
+
+                        var paymentHTML = '<div class="payment-item-new"> <div class="pozitiv__order-edit-form__field"> <label for="lbPaymentDate">Дата платежа</label> <input type="date" id="lbPaymentDate" value="' + date + '" disabled> </div> <div class="pozitiv__order-edit-form__field"> <label for="lbPaymentType">Тип оплаты</label> <input id="lbPaymentType" type="text" value="' + labelType + '" disabled> </div> <div class="pozitiv__order-edit-form__field"> <label for="lbPaymentAmount">Сумма</label> <input type="number" id="lbPaymentAmount" value="' + amount + '" disabled> </div> <div class="pozitiv__order-edit-form__field"> <label for="lbPaymentDescription">Описание</label> <input type="text" id="lbPaymentDescription" disabled value="' + payment.description + '"> </div> ' + controlPayment + '</div>';
+                        ths.listPayments.append(paymentHTML);
+                    });
+                }
+                
+            },
+            error: function() {
             }
-        })
+        });
     }
 
 
