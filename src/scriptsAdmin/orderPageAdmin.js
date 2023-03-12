@@ -43,6 +43,8 @@ class OrderPageAdmin {
         this.jRootForm.find('#orderBtnPrint').click( jQuery.proxy( this.OrderPrint, this) );
         //== Нажатие кнопки сохранить платеж
         this.listPayments.on('click', '#paymentSave', jQuery.proxy(this.PaymentSave, this) );
+        //== Нажатие кнопки удалить платеж
+        this.listPayments.on('click', '#paymentDelete', jQuery.proxy(this.PaymentDelete, this) );
 
         //== Отправить форму
         this.jRootForm.submit((e)=>{ this.CollectDataOrder(); return true; })
@@ -221,11 +223,18 @@ class OrderPageAdmin {
                         ths.listPayments.append(paymentHTML);
                     });
                 }
-                
             },
             error: function() {
             }
         });
+    }
+
+
+    /**
+     * Удаление платежа
+     */
+    PaymentDelete() {
+        
     }
 
 
