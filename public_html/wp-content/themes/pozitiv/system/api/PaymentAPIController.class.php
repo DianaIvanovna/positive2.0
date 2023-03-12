@@ -21,6 +21,10 @@ class PaymentAPIController extends WP_REST_Controller {
                 $result = $this->GetByOrderID($request->get_param('orderID'));
                 break;
 
+            case 'delete':
+                $result = $this->Delete((int)$request->get_param('paymentID'));
+                break;
+
             case 'get':
                 $result = $this->Get();
                 break;
@@ -84,6 +88,14 @@ class PaymentAPIController extends WP_REST_Controller {
 
     private function Get() {
 
+    }
+
+
+    private function Delete(int $paymentID) {
+
+        $res = $this->paymentModel->Remove($paymentID);
+
+        return ['result' => (int)$res];
     }
 
 

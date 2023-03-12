@@ -36,4 +36,13 @@ class PaymentModel extends PozitivModel {
     function Update(array $data) {
 
     }
+
+
+    function Remove(int $paymentID) {
+        global $wpdb;
+
+        $res = $wpdb->delete( 'pozitiv_payments', [ 'id' => $paymentID ] );
+
+        return (bool)$res;
+    }
 }

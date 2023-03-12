@@ -191,6 +191,9 @@ class OrderPageAdmin {
             ],
             success:function(resp) {
                 if (resp.result == 1) {
+
+                    ths.listPayments.html('');
+
                     resp.payments.forEach((payment) => {
 
                         // Пропустим не успешные
@@ -219,7 +222,7 @@ class OrderPageAdmin {
                             controlPayment = '<div class="payment-item-new__button"><button id="paymentDelete" class="pos-ui__button pos-ui__button--red" type="button" title="Удалить платеж">Удалить платеж</button></div>';
                         }
 
-                        var paymentHTML = '<div class="payment-item-new"> <div class="pozitiv__order-edit-form__field"> <label for="lbPaymentDate">Дата платежа</label> <input type="date" id="lbPaymentDate" value="' + date + '" disabled> </div> <div class="pozitiv__order-edit-form__field"> <label for="lbPaymentType">Тип оплаты</label> <input id="lbPaymentType" type="text" value="' + labelType + '" disabled> </div> <div class="pozitiv__order-edit-form__field"> <label for="lbPaymentAmount">Сумма</label> <input type="number" id="lbPaymentAmount" value="' + amount + '" disabled> </div> <div class="pozitiv__order-edit-form__field"> <label for="lbPaymentDescription">Описание</label> <input type="text" id="lbPaymentDescription" disabled value="' + payment.description + '"> </div> ' + controlPayment + '</div>';
+                        var paymentHTML = '<div class="payment-item-new" data-id="' + payment.id + '"> <div class="pozitiv__order-edit-form__field"> <label for="lbPaymentDate">Дата платежа</label> <input type="date" id="lbPaymentDate" value="' + date + '" disabled> </div> <div class="pozitiv__order-edit-form__field"> <label for="lbPaymentType">Тип оплаты</label> <input id="lbPaymentType" type="text" value="' + labelType + '" disabled> </div> <div class="pozitiv__order-edit-form__field"> <label for="lbPaymentAmount">Сумма</label> <input type="number" id="lbPaymentAmount" value="' + amount + '" disabled> </div> <div class="pozitiv__order-edit-form__field"> <label for="lbPaymentDescription">Описание</label> <input type="text" id="lbPaymentDescription" disabled value="' + payment.description + '"> </div> ' + controlPayment + '</div>';
                         ths.listPayments.append(paymentHTML);
                     });
                 }
@@ -233,8 +236,25 @@ class OrderPageAdmin {
     /**
      * Удаление платежа
      */
-    PaymentDelete() {
-        
+    PaymentDelete(e) {
+        var jPayment = jQuery(e.currentTarget).parents('.payment-item-new');
+        var ths = this;
+
+        jQuery.ajax({
+            url: '/wp-json/pozitiv/v1/payment/delete/',
+            type: 'POST',
+            dataType: 'json',
+            data: [
+                {name: 'paymentID', value: jPayment.data('id')}
+            ],
+            success:function(resp) {
+                if (resp.result == 1) {
+                    ths.PaymentRender();
+                }
+            },
+            error: function() {
+            }
+        });
     }
 
 
