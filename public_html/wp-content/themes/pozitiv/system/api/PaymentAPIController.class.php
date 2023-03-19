@@ -74,7 +74,7 @@ class PaymentAPIController extends WP_REST_Controller {
     }
 
 
-    private function GetByOrderID($orderID) {
+    private function GetByOrderID(int $orderID) {
         $listPayments = $this->paymentModel->GetByOrderID($orderID);
 
         $out = [];

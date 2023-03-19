@@ -45,4 +45,21 @@ class PaymentModel extends PozitivModel {
 
         return (bool)$res;
     }
+
+
+    /**
+     * Рассчитает оплаченную сумму по ID заказа
+     */
+    function PaidByOrder(int $orderID) {
+        $arPayments = $this->GetByOrderID($orderID);
+
+        $paymentSum = 0;
+        foreach ($arPayments as $payment) {
+            if ($payment->status == 'success') {
+                $paymentSum += round( ($payment->amount / 100));
+            }
+        }
+
+        return $paymentSum;
+    }
 }

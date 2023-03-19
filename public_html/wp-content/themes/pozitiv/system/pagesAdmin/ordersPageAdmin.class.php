@@ -2,6 +2,10 @@
 
 require_once 'pagesAdmin.class.php';
 
+
+/**
+ * Класс отвечает за отображение таблицы заказов
+ */
 class OrdersTablePageAdmin extends WP_List_Table {
 
     // Мануал по таблицам
@@ -32,17 +36,22 @@ class OrdersTablePageAdmin extends WP_List_Table {
 			'dateCreate'    => 'Дата создания',
 			'client'        => 'Клиент',
 			'tourists'      => 'Туристы',
-			'amount'        => 'Сумма',
+			'amount'        => 'Оплачено / Сумма заказа',
 			'status'        => 'Статус',
         ];
     }
 
     function prepare_items() {
 
+        require_once __DIR__ . '/../models/paymentModel.class.php';
+        $paymentModel = new PaymentModel();
+
         $columns = $this->get_columns();
         $hidden = array();
         $sortable = $this->get_sortable_columns();
         $this->_column_headers = array($columns, $hidden, $sortable);
+
+
         
         $out = [];
         foreach ($this->orders as $order) {
@@ -73,13 +82,19 @@ class OrdersTablePageAdmin extends WP_List_Table {
                     break;
             }
 
+            //== Определимся с оплаченостью заказа и цветом в таблице
+            $paymentSum = $paymentModel->PaidByOrder($order->id);
+            if ($paymentSum == 0) { $sumColor = 'red';}
+            if ( ($paymentSum > 0) && ($paymentSum < $order->amount) ) { $sumColor = 'orange'; }
+            if ($paymentSum == $order->amount) { $sumColor = 'green'; }
+ 
 
             $out[] = [
                 'id'            => $order->id,
                 'dateCreate'    => $order->dateCreate,
                 'client'        => $order->lastNameOwner . ' ' . $order->firstNameOwner,
                 'tourists'      => $orderTouristsList,
-                'amount'        => 0,
+                'amount'        => "<span style=\"color:{$sumColor}\">{$paymentSum} / {$order->amount}</span>",
                 'status'        => $orderStatus,
             ];
         }
@@ -112,12 +127,18 @@ class OrdersTablePageAdmin extends WP_List_Table {
 
 }
 
+
+/**
+ * Класс отвечает за обработку страницы редактирования заказа
+ */
 class OrderEditPageAdmin extends PagesAdmin {
 
     private $order;
 
     function __construct() {
         parent::__construct();
+
+        wp_enqueue_script( 'js', get_template_directory_uri() . '/assets/scripts/orderPageAdmin.min.js');
 
         // получить данные заказа
         $this->order = [];
@@ -262,6 +283,12 @@ class OrderEditPageAdmin extends PagesAdmin {
                 break;
         }
 
+        //= Оплаченная сумма
+        require_once __DIR__ . '/../models/paymentModel.class.php';
+        $paymentModel = new PaymentModel();
+
+        $paid = $paymentModel->PaidByOrder($order->id);
+
         echo "
             <form action=\"\" method=\"POST\" class=\"pozitiv__order-edit-form\">
                 <input type=\"hidden\" name=\"id\" value=\"{$order->id}\">
@@ -269,6 +296,7 @@ class OrderEditPageAdmin extends PagesAdmin {
                 <input type=\"hidden\" name=\"status\" value=\"{$order->status}\">
 
                 <div class=\"pozitiv__order-edit-form__control-block\">
+                    <div class=\"pozitiv__order-edit-form__paystatus\">Оплачено / Общая стоимость:&nbsp;<span>{$paid}&nbsp;/&nbsp;{$order->amount}&nbsp;руб.</span></div>
                     <div class=\"pozitiv__order-edit-form__status\">Статус заказа: <span>{$orderStatus}</span></div>
                     <button type=\"button\" id=\"orderBtnCancel\" class=\"pos-ui__button pos-ui__button--red pos-ui__button--big\" title=\"Отменить заказ и сохранить\">Отменить</button>
                     <button type=\"submit\" id=\"orderBtnSubmit\" class=\"pos-ui__button pos-ui__button--blue pos-ui__button--big\" title=\"Сохранить заказ без изменения статуса\">Сохранить</button>
@@ -389,7 +417,49 @@ class OrderEditPageAdmin extends PagesAdmin {
 
         $_POST['phoneOwner'] = GetCleanPhone($_POST['phoneOwner']);
 
+        //= Пересчитаем стоимость заказа перед сохранением
+        $_POST['amount'] = $this->CalcSumOrder($_POST);
+
         $orderModel = new OrderModel();
         $orderModel->Update($_POST);
+    }
+
+
+    /**
+     * Рассчитаем стоимость заказа
+     */
+    private function CalcSumOrder(array $order) {
+
+        require_once __DIR__ . '/../models/tripModel.class.php';
+        require_once __DIR__ . '/../models/serviceModel.class.php';
+        $tripModel = new TripModel();
+        $serviceModel = new ServiceModel();
+
+        $trip = $tripModel->GetByID($order['tripID']);
+
+        $data = json_decode(stripcslashes($order['data']), true);
+        $tourists = $data['tourists'];
+
+        $amount = 0;
+        if (!is_null($tourists)) {
+
+            //== Рассчитаем стоимость заказа за туристов
+            $amount += (int)$trip['cost'] * count($tourists);
+
+            foreach ($tourists as $tourist) {
+
+                if (count($tourist['services']) > 0) {
+                    foreach ($tourist['services'] as $service) {
+                        $arService = $serviceModel->GetByID($service['id']);
+                        $amountService = (int)$arService['cost'] * (int)$service['quantity'];
+
+                        $amount += $amountService;
+
+                    }
+                }
+            }
+        }
+        
+        return $amount;
     }
 }

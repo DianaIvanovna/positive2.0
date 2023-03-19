@@ -30,7 +30,7 @@ class OrderAPIController extends WP_REST_Controller {
     }
 
     /**
-     * Создать заказ
+     * Создать заказ из данных запроса
      */
     private function Create() {
 
@@ -60,7 +60,7 @@ class OrderAPIController extends WP_REST_Controller {
         //== Если не удалось найти пользователя по email
         if (empty($objWPUser)) {
             //=== Сгенерируем логин и создадим пользователя
-            $login = str_replace(['@','_','.'], '_', $emailOwner );
+            $login = str_replace( ['@','_','.'], '_', $emailOwner );
             $idUserOwner = wp_create_user(
                 $login,
                 GetRandomString(12),
@@ -117,9 +117,7 @@ class OrderAPIController extends WP_REST_Controller {
     /**
      * Обновить заказ
      */
-    private function Update() {
-
-    }
+    private function Update() { }
 
 
     /**

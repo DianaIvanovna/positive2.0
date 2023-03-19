@@ -67,6 +67,16 @@
             align-items: stretch;
         }
 
+        &__paystatus {
+            display: flex;
+            align-items: center;
+            margin-right: 30px;
+
+            span {
+                font-weight: bold;
+            }
+        }
+
         &__status {
             line-height: 32px;
             font-size: 14px;
@@ -153,7 +163,7 @@
             &__data {
                 height: 0;
                 overflow: hidden;
-                
+
                 &__row {
                     padding-top: 15px;
 
