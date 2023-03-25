@@ -43,9 +43,17 @@ class TourAPIController extends WP_REST_Controller {
 
         //= Соберем данные по турам
         $out = [];
+        $out['tours'] = [];
+
         while ($res->have_posts()) {
             $res->the_post();
 
+            $season = get_field('season');
+            $slug = get_field('slug');
+
+            //== Фильтрация по параметрам
+            if (!empty($this->sourceRequest->get_param('season')) && ($season != $this->sourceRequest->get_param('season')) ) { continue; }
+            if (!empty($this->sourceRequest->get_param('slug')) && ($slug != $this->sourceRequest->get_param('slug')) ) { continue; }
 
             //== Соберем массив фотографий тура
             $arImages = [];
@@ -55,8 +63,8 @@ class TourAPIController extends WP_REST_Controller {
                     $arImages[] = $curImage;
                 }
             }
+
             global $post;
-            
 
             //== Соберем массив ответа
             $arTour = [
@@ -65,7 +73,7 @@ class TourAPIController extends WP_REST_Controller {
                 'name'              => get_field('name'),
                 'description'       => get_the_content(),
                 'descriptionShort'  => get_field('descriptionShort'),
-                'season'            => get_field('season'),
+                'season'            => $season,
                 'duration'          => get_field('duration'),
                 'place'             => get_field('place'),
                 'plan'              => get_field('plan'),
@@ -74,12 +82,13 @@ class TourAPIController extends WP_REST_Controller {
                 'images'            => $arImages,
                 'thumbnail'         => get_the_post_thumbnail_url(get_the_ID()),
                 'order'             => $post->menu_order,
+                'slug'              => get_field('slug'),
             ];
 
             //== Прицепим данные о поездках
             $trips = get_field('trips');
             $arTrips = [];
-            if (count($trips)) {
+            if (is_array($trips) && count($trips)) {
                 foreach ($trips as $tripID) {
 
                     $resTrip = new WP_Query([
@@ -138,11 +147,11 @@ class TourAPIController extends WP_REST_Controller {
             }
 
             $arTour['trips'] = $arTrips;
-            $out[] = $arTour;
+            $out['tours'][] = $arTour;
         }
         wp_reset_postdata();
 
-        $out['numberTours'] = count($out);
+        $out['numberTours'] = count($out['tours']);
 
         return $out;
     }

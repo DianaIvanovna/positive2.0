@@ -8,16 +8,21 @@ class OrderAPIController extends WP_REST_Controller {
         require_once __DIR__ . '/../models/orderModel.class.php';
 
         $this->sourceRequest = $request;
+        $this->orderModel = new OrderModel();
 
         switch ($request->get_param('action')) {
             case 'create':
                 $result = $this->Create();
                 break;
-            
+
             case 'update':
                 $result = $this->Update();
                 break;
-            
+
+            case 'getmy':
+                $result = $this->GetMy();
+                break;
+
             default: break;
         }
 
@@ -25,7 +30,7 @@ class OrderAPIController extends WP_REST_Controller {
     }
 
     /**
-     * Создать заказ
+     * Создать заказ из данных запроса
      */
     private function Create() {
 
@@ -48,7 +53,6 @@ class OrderAPIController extends WP_REST_Controller {
             return ['result' => 0, 'message' => 'данные туристов невалидны'];
         }
 
-        
 
         //= Разберемся с пользователем
         $objWPUser = get_user_by('email', $emailOwner);
@@ -56,7 +60,7 @@ class OrderAPIController extends WP_REST_Controller {
         //== Если не удалось найти пользователя по email
         if (empty($objWPUser)) {
             //=== Сгенерируем логин и создадим пользователя
-            $login = str_replace(['@','_','.'], '_', $emailOwner );
+            $login = str_replace( ['@','_','.'], '_', $emailOwner );
             $idUserOwner = wp_create_user(
                 $login,
                 GetRandomString(12),
@@ -71,14 +75,17 @@ class OrderAPIController extends WP_REST_Controller {
             //=== Назначим роль пользователю
             $objWPUser = new WP_User($idUserOwner);
             $objWPUser->set_role('pozitiv_user');
+
+            wp_new_user_notification($idUserOwner, null, 'user');
         }
 
 
         //= Создать заказ
-        $orderModel = new OrderModel();
         $curTimestamp = time();
-        $arOrder = $orderModel->Create(
+        $arOrder = $this->orderModel->Create(
             [
+                'tourID'            => $this->sourceRequest->get_param('tourID'),
+                'tripID'            => $this->sourceRequest->get_param('tripID'),
                 'idUserOwner'       => $objWPUser->ID,
                 'phoneOwner'        => $phoneClean,
                 'emailOwner'        => $emailOwner,
@@ -110,7 +117,27 @@ class OrderAPIController extends WP_REST_Controller {
     /**
      * Обновить заказ
      */
-    private function Update() {
-        
+    private function Update() { }
+
+
+    /**
+     *
+     */
+    private function GetMy() {
+
+        $user = wp_get_current_user();
+        $userRole = $user->get_role_caps();
+
+        if ($user->ID == 0) { return ['result' => 0]; }
+        if (!isset($userRole['pozitiv_user'])) { return ['result' => 0]; }
+
+        $arOrders = $this->orderModel->GetByOwnerID($user->ID);
+
+        foreach ($arOrders as $ind => $order) {
+            $arOrders[$ind]->data = json_decode($order->data, true);
+            $arOrders[$ind]->history = json_decode($order->history, true);
+        }
+
+        return ['result' => 1, 'orders' => $arOrders ];
     }
 }

@@ -1,11 +1,96 @@
-.pozitiv-admin {
-    
-    &__table-wrapper {
-        max-width: 100%;
-        overflow: auto;
+.pos-ui {
+    &__button {
+        border-width: 1px;
+        border-style: solid;
+        border-radius: 3px;
+
+        &--big {
+            font-size: 16px;
+            padding: 5px 10px;
+        }
+
+        &--blue {
+            $buttonClr: #007cba;
+
+            color: $buttonClr;
+            border-color: $buttonClr;
+            background-color: white;
+
+            &:hover {
+                background-color: $buttonClr;
+                color: white;
+            }
+        }
+
+        &--red {
+            $buttonClr: #ff7c7c;
+
+            color: $buttonClr;
+            border-color: $buttonClr;
+            background-color: white;
+
+            &:hover {
+                color: white;
+                background-color: $buttonClr;
+            }
+        }
+
+        &--green {
+            $buttonClr: green;
+
+            color: $buttonClr;
+            border-color: $buttonClr;
+            background-color: white;
+
+            &:hover {
+                color: white;
+                background-color: $buttonClr;
+            }
+        }
+
+        &--gray {
+            $buttonClr: #808080;
+            color: $buttonClr;
+            border-color: $buttonClr;
+            background-color: white;
+
+            &:hover {
+                color: white;
+                background-color: $buttonClr;
+            }
+        }
     }
 
-    &__table {
-        width: 100%;
+    &__link {
+        text-decoration:  underline;
+
+        &--blue {
+            $buttonClr: #007cba;
+
+            color: $buttonClr;
+
+            &:hover {
+            }
+
+        }
+
+        &--red {
+            $buttonClr: #ff7c7c;
+
+            color: $buttonClr;
+
+            &:hover {
+            }
+
+
+        }
+
+        &--gray {
+            $buttonClr: #808080;
+            color: $buttonClr;
+
+            &:hover {
+            }
+        }
     }
 }
