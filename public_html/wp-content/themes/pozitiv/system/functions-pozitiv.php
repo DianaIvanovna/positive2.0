@@ -218,6 +218,17 @@ add_action(
             20 // позиция в меню
         );
 
+        //= Добавим страницу управления поездками
+        $res = add_submenu_page( 
+            'edit.php?post_type=trip', 
+            'Управление поездками', 
+            'Отчеты по поездкам', 
+            'manage_options', 
+            'pozitiv_trip_control',
+            'PozitivTripControl',
+            30
+        );
+
         //= Подключим скрипты и стили к странице Заказов
         add_action('load-' . $pageOrder, function(){
             wp_enqueue_style( 'pozitiv-admin', get_template_directory_uri() . '/assets/styles/pozitiv-admin.min.css' );
@@ -268,4 +279,18 @@ function PozitivOrderPage(){
         
     }
     
+}
+
+
+/** 
+ * Функция обрабатывает страницу управления поездками
+*/
+function PozitivTripControl() {
+
+    switch ($_REQUEST['action']) {
+        case 'show': break;
+        case 'update': break;
+        default: 
+            break; 
+    }
 }
