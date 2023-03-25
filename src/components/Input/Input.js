@@ -5,7 +5,7 @@ import {Field} from "formik";
 
 export const Input = props => {
     // eslint-disable-next-line no-unused-vars
-    const {className, errors, label, classNameLabel, ...inputsProps} = props;
+    const {className, errors, label, classNameLabel, showError, error, ...inputsProps} = props;
 
     if (label) {
         return (
@@ -13,9 +13,15 @@ export const Input = props => {
                 <p className={styles.label}>{label}</p>
 
                 <Field {...inputsProps} autoFocus={props.autoFocus} className={cn(styles.input, className)} autoComplete="off" />
+                {showError && <p className={styles.error}>{error}</p>}
             </label>
         );
     }
 
-    return <Field {...inputsProps} autoFocus={props.autoFocus} className={cn(styles.input, className)} autoComplete="off" />;
+    return (
+        <>
+            <Field {...inputsProps} autoFocus={props.autoFocus} className={cn(styles.input, className)} autoComplete="off" />
+            {showError && <p className={styles.error}>{error}</p>}
+        </>
+    );
 };

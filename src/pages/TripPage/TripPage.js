@@ -1,25 +1,26 @@
 /* eslint-disable max-len */
 import React, {useCallback, useEffect, useRef, useState} from "react";
-import "./TripPage.scss";
-import Header from "../../components/Header/Header";
 import {useSelector} from "react-redux";
-// import {getTourPage} from "../../store/action/tourAction";
-import GoUp from "../../components/GoUp/GoUp";
+import {useNavigate, useLocation} from "react-router-dom";
+import "./TripPage.scss";
 
-import logoWebp from "../../../public_html/wp-content/themes/pozitiv/img/logo/logo-big_a1b.webp";
-import logoPng from "../../../public_html/wp-content/themes/pozitiv/img/logo/logo-big.png";
-import icon2 from "../../../public_html/wp-content/themes/pozitiv/img/Icon/Time Circle.svg";
-import icon3 from "../../../public_html/wp-content/themes/pozitiv/img/Icon/Discovery_for_trip.svg";
+import Header from "src/components/Header/Header";
+import GoUp from "src/components/GoUp/GoUp";
+import Footer from "src/components/Footer/Footer";
+import {MainButton} from "src/components/MainButton/MainButton";
+import Preloader from "src/components/Preloader/Preloader";
+import {useOnScreen} from "src/hooks/useOnScreen";
+import {useLocationSeason} from "src/hooks/useLocationSeason";
+import {useSeasonNavigate} from "src/hooks/useSeasonNavigate";
+import {getTourPage} from "src/store/action/tourAction";
+import {useBoundAction} from "src/hooks/useBoundAction";
+
+import icon2 from "img/Icon/Time Circle.svg";
+import icon3 from "img/Icon/Discovery_for_trip.svg";
 import {dataFooterWinter, dataFooterSummer} from "./data";
 
-import Footer from "../../components/Footer/Footer";
-import {useOnScreen} from "../../hooks/useOnScreen";
-import {MainButton} from "../../components/MainButton/MainButton";
-import {useLocationSeason} from "../../hooks/useLocationSeason";
-import {useNavigate} from "react-router-dom";
-import {useSeasonNavigate} from "../../hooks/useSeasonNavigate";
-
 export const TripPage = props => {
+    const location = useLocation();
     const navigate = useNavigate();
     const navigateSeason = useSeasonNavigate();
     const season = useLocationSeason();
@@ -30,13 +31,16 @@ export const TripPage = props => {
     // eslint-disable-next-line no-unused-vars
     const isOnScreen = useOnScreen([lazyImage], [dataFooter, tripPageData]);
 
+    const getTour = useBoundAction(data => getTourPage(data));
+
     useEffect(() => {
-        // const query = new URLSearchParams(props.location.search);
-        // const id = query.get("id");
-        // console.log("id", id);
-        // const formData = new FormData();
-        // formData.append("ID", id);
-        // dispath(getTourPage(formData));
+        const query = new URLSearchParams(location.search);
+        const id = query.get("id");
+
+        const formData = new FormData();
+
+        formData.append("id", id);
+        getTour(formData);
         // eslint-disable-next-line react-hooks/exhaustive-deps
     }, []);
 
@@ -53,7 +57,7 @@ export const TripPage = props => {
     }, [season]);
 
     const goBack = useCallback(() => {
-        navigate.goBack();
+        navigate(-1);
     }, [navigate]);
 
     const onBooking = useCallback(() => {
@@ -66,12 +70,13 @@ export const TripPage = props => {
             <div className="main">
                 <Header season={season} />
                 <div className="main__contant">
-                    <div className="loading loading_trip-info">
+                    {/* <div className="loading loading_trip-info"> 
                         <picture className="loading__pulse">
                             <source srcSet={logoWebp} type="image/webp" />
                             <img width="106px" height="106px" src={logoPng} alt="логтип positive" />
                         </picture>
-                    </div>
+                    </div> */}
+                    <Preloader />
                 </div>
             </div>
         );
@@ -146,18 +151,9 @@ export const TripPage = props => {
                                     <div className="trip-info__reserve">
                                         <div>
                                             <p className="trip-info__price">Цена:</p>
-                                            <p className="trip-info__price-value"> ??? {tripPageData.price}₽</p>
+                                            <p className="trip-info__price-value"> {tripPageData.minCost} ₽</p>
                                         </div>
-                                        <MainButton text=" ЗАБРОНИРОВАТЬ" onClick={onBooking} />
-                                        {/* <div className="button__background">
-                                            <button
-                                                className="trip-info__button"
-
-                                                // (click)="openPopup(trip.bukzaUrl)"
-                                            >
-                                                ЗАБРОНИРОВАТЬ
-                                            </button>
-                                        </div> */}
+                                        <MainButton text=" ЗАБРОНИРОВАТЬ" onClick={onBooking} className="trip-info__button-second" />
                                     </div>
                                 </div>
                             </div>
@@ -168,7 +164,6 @@ export const TripPage = props => {
                                 </div>
                                 <div className="travel-plan__img">
                                     <img width="650px" height="504px" src={tripPageData.planPicture} alt="фото поездки" className="" />
-                                    image
                                 </div>
                             </section>
                         </section>

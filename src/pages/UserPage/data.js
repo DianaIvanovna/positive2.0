@@ -1,4 +1,4 @@
-import photo from "../../../../photo.jpg";
+import photo from "img/photogallery_summer/photo_1_32e.png";
 
 export const data = [
     {

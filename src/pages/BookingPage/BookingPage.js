@@ -18,7 +18,10 @@ import {getTourPage, orderCreate} from "../../store/action/tourAction";
 import {Loading} from "../../components/Loading/Loading";
 
 const defoltOrder = {
-    id: null,
+    trip: {
+        id: null,
+        cost: null,
+    },
     phoneOwner: null,
     emailOwner: null,
     firstNameOwner: "",
@@ -91,16 +94,19 @@ export const BookingPage = () => {
     const orderCreateHandler = () => {
         const formData = new FormData();
 
+        console.log("bookingTour", bookingTour);
+        console.log("order", order);
+
+        formData.append("tourID", bookingTour.id);
+        formData.append("tripID", order.trip.id);
         formData.append("phoneOwner", order.phoneOwner);
         formData.append("emailOwner", order.emailOwner);
         formData.append("firstNameOwner", order.firstNameOwner);
         formData.append("lastNameOwner", order.lastNameOwner);
         formData.append("data", JSON.stringify(order.data));
-
         dispath(orderCreate(formData));
-
-        // localStorage.removeItem("order");
-        // localStorage.removeItem("idBookedTrip");
+        localStorage.removeItem("order");
+        localStorage.removeItem("idBookedTrip");
     };
 
     useEffect(() => {
@@ -143,7 +149,7 @@ export const BookingPage = () => {
                         <Routes>
                             <Route index element={<BookingStep1 onContinue={goToStep2} setOrder={setOrder} order={order} bookingTour={bookingTour} />} />
                             <Route path="/step_2" element={<BookingStep2 onContinue={goToStep3} setOrder={setOrder} order={order} />} />
-                            <Route path="/step_3" element={<BookingStep3 orderCreate={orderCreateHandler} />} />
+                            <Route path="/step_3" element={<BookingStep3 orderCreate={orderCreateHandler} bookingTour={bookingTour} order={order} />} />
                         </Routes>
 
                         <picture className={`page__background_footer page__background_footer--center lazy-image`}>

@@ -2,17 +2,18 @@ import React from "react";
 import "./BookingStep3.scss";
 import Promocode from "../../../../components/Promocode/Promocode";
 import BonusContainer from "../../../../components/BonusContainer/BonusContainer";
+import {MainButton} from "src/components/MainButton/MainButton";
 
-import photo from "../../../../../../photo.jpg";
-
-const BookingStep3 = props => {
+const BookingStep3 = ({bookingTour, orderCreate, order}) => {
     return (
         <section>
             <div className="booking-step-3">
                 <div className="booking-step-3__block-left">
                     <div className="booking-step-3__header">
-                        <p className="booking-step-3__name">Сплав по реке Ай</p>
-                        <p className="booking-step-3__date">28.08.2022-29.08.2022</p>
+                        <p className="booking-step-3__name">{bookingTour?.name}</p>
+                        <p className="booking-step-3__date">
+                            {order.trip?.dateStart} - {order.trip?.dateEnd}
+                        </p>
                     </div>
                     <div className="booking-step-3__item-container">
                         <div className="booking-step-3__item">
@@ -37,20 +38,20 @@ const BookingStep3 = props => {
                         </div>
                     </div>
                     <p className="booking-step-3__people">
-                        Кол-во человек: <span>2</span>
+                        Кол-во человек: <span>{order?.data?.length}</span>
                     </p>
 
                     <div className="booking-step-3__score">
                         <div className="booking-step-3__amount-container">
-                            <p className="booking-step-3__amount">Сумма</p>
+                            <p className="booking-step-3__amount">Сумма </p>
                             <p className="booking-step-3__sum">
-                                11 000 <span>₽</span>
+                                {order.trip?.cost} <span>₽</span>
                             </p>
                         </div>
                         <div className="booking-step-3__amount-container">
                             <p className="booking-step-3__amount">Предоплата</p>
                             <p className="booking-step-3__sum">
-                                6 000 <span>₽</span>
+                                1 000 <span>₽</span>
                             </p>
                         </div>
                     </div>
@@ -59,27 +60,10 @@ const BookingStep3 = props => {
                 </div>
 
                 <div className="booking-step-3__block-right">
-                    <img src={photo} alt="фото поездки" className="booking-step-3__img" />
-                    <div className="button__background booking-step-3__button">
-                        <button
-                            className="button"
-                            onClick={props.orderCreate}
-                            //(click)="scrollToBook($event, data.link)"
-                        >
-                            завершить заказ
-                        </button>
-                    </div>
-                </div>
+                    <img src={bookingTour?.images[0]} alt="фото поездки" className="booking-step-3__img" />
 
-                {/* <div className="button__background booking-step-1__button">
-                    <button
-                        className="button"
-                        disabled={!active}
-                        //(click)="scrollToBook($event, data.link)"
-                    >
-                        Продолжить
-                    </button>
-                </div> */}
+                    <MainButton text="завершить заказ" onClick={orderCreate} className="booking-step-3__button" />
+                </div>
             </div>
         </section>
     );

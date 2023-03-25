@@ -26,3 +26,9 @@
     color: #0f0f0f;
     margin-bottom: 10px;
 }
+
+.error {
+    margin: 0 0 5px;
+    @include mainFontValue(normal, 500, 14px, 140%);
+    color: #e44f4f;
+}

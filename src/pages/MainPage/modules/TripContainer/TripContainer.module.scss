@@ -18,10 +18,23 @@
     margin: 0px;
     // margin-left: 23px;
 }
+.our-trip__error {
+    text-align: left;
+    @include mainFontValue(normal, 400, 16px, 120%);
+}
 
 .our-trip__container {
     display: grid;
     grid-template-columns: 1fr 1fr 1fr;
+    grid-gap: 20px;
+    justify-items: center;
+
+    @media screen and (max-width: 1040px) {
+        grid-template-columns: 1fr 1fr;
+    }
+    @media screen and (max-width: 650px) {
+        grid-template-columns: 1fr;
+    }
 }
 
 @media screen and (max-width: 700px) {

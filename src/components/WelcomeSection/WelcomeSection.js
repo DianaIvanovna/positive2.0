@@ -1,8 +1,9 @@
 /* eslint-disable jsx-a11y/anchor-is-valid */
 import React, {useRef} from "react";
 import "./WelcomeSection.scss";
-import icon from "../../../public_html/wp-content/themes/pozitiv/img/Icon/Calendar.svg";
-import {useOnScreen} from "../../hooks/useOnScreen";
+import icon from "img/Icon/Calendar.svg";
+import {useOnScreen} from "src/hooks/useOnScreen";
+import {MainButton} from "src/components/MainButton/MainButton";
 
 const WelcomeSection = ({data, ...props}) => {
     const elementRef = useRef(null);
@@ -28,18 +29,12 @@ const WelcomeSection = ({data, ...props}) => {
                         </h1>
                         <p className="welcome__subtitle">{data.subtitle}</p>
                     </div>
-
-                    <div className="button__background">
-                        <button
-                            className="welcome__button button"
-                            //(click)="scrollToBook($event, data.link)"
-                        >
-                            <a href="#" className="welcome__link">
-                                {data.page === "home" ? <img width="24px" height="28px" src={icon} alt="Иконка календаря" className="button__icon" /> : null}
-                                {data.btnText}
-                            </a>
-                        </button>
-                    </div>
+                    <MainButton className="welcome__button">
+                        <a href="#" className="welcome__link">
+                            {data.page === "home" ? <img width="24px" height="28px" src={icon} alt="Иконка календаря" className="button__icon" /> : null}
+                            {data.btnText}
+                        </a>
+                    </MainButton>
                 </section>
             </div>
         </div>

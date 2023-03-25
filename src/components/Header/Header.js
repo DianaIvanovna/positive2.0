@@ -71,7 +71,7 @@ const Header = () => {
                 <button
                     className="header__button-enter"
                     onClick={() => {
-                        navigate("account");
+                        navigate("account", true);
                     }}
                 >
                     Профиль
@@ -127,7 +127,7 @@ const Header = () => {
                         <picture
                             className="header__logo"
                             onClick={() => {
-                                navigate("/");
+                                navigate("", true);
                             }}
                         >
                             <source srcSet={logoWebp} type="image/webp" />

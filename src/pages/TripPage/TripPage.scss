@@ -44,88 +44,6 @@ main {
         box-shadow: 0 0 0 40px rgba(242, 163, 44, 0);
     }
 }
-// .page {
-//     width: 100%;
-//     position: relative;
-//     // overflow: hidden;
-// }
-// .background-container {
-//     width: 100%;
-//     height: calc(100vh - 106px);
-//     min-height: 550px;
-//     position: absolute;
-//     top: 0px;
-//     left: 0px;
-//     display: flex;
-//     flex-direction: column;
-//     align-items: center;
-//     @media screen and (max-width: 800px) {
-//         & {
-//             min-height: 400px;
-//         }
-//     }
-//     .page__background {
-//         @media screen and (min-width: 320px) {
-//             & {
-//                 position: relative;
-//                 height: 100%;
-//                 right: 22%;
-//                 top: 10%;
-//                 object-fit: cover;
-//                 z-index: -1;
-//             }
-//         }
-//         @media screen and (min-width: 425px) {
-//             & {
-//                 min-width: 100%;
-//                 right: 0px;
-//             }
-//         }
-
-//         @media screen and (min-width: 1024px) {
-//             & {
-//                 width: 150%;
-//             }
-//         }
-//         @media screen and (min-width: 1280px) {
-//             & {
-//                 width: 100%;
-//             }
-//         }
-//         @media screen and (max-width: 450px) {
-//             & {
-//                 height: calc(100vh - 80px);
-//             }
-//         }
-//     }
-// }
-// .page__background_footer {
-//     width: 100%;
-//     height: 100%;
-//     position: absolute;
-//     bottom: 0px;
-//     left: 0px;
-//     z-index: -1;
-//     box-sizing: border-box;
-//     img {
-//         width: 100%;
-//         height: 100%;
-//         object-fit: cover;
-//         object-position: left;
-//     }
-
-//     @media screen and (max-width: 1040px) {
-//         height: 650px;
-//     }
-//     @media screen and (max-width: 800px) {
-//         height: 500px;
-//     }
-// }
-// .page__background_footer-winter {
-//     img {
-//         object-position: 40% 0px;
-//     }
-// }
 
 .positive-is__background {
     position: absolute;
@@ -156,29 +74,6 @@ main {
         }
     }
 }
-// .pageContent {
-//     display: flex;
-//     flex-direction: column;
-//     max-width: 1140px;
-//     margin: 0px auto;
-// }
-// @media screen and (max-width: 1280px) {
-//     .page {
-//         box-sizing: border-box;
-//         padding: 0px 80px;
-//     }
-// }
-// @media screen and (max-width: 1040px) {
-//     .page {
-//         padding: 0px 40px;
-//     }
-// }
-
-// @media screen and (max-width: 500px) {
-//     .page {
-//         padding: 0px 20px;
-//     }
-// }
 .trip-info {
     // margin-top: 106px;
     @media screen and (max-width: 450px) {
@@ -186,10 +81,10 @@ main {
     }
 }
 .trip-info__header {
-    margin-top: 40px;
+    margin-top: 0;
     display: flex;
     align-items: center;
-    margin-bottom: 45px;
+    margin-bottom: 30px;
 }
 .trip-info__title {
     @include titleFont;
@@ -220,6 +115,10 @@ main {
 }
 .img-container {
     margin-right: 30px;
+}
+
+.trip-info__button-second {
+    margin-top: 20px;
 }
 
 .trip-info__img-background {
@@ -382,9 +281,10 @@ main {
 }
 
 .travel-plan {
-    margin-top: 100px;
+    margin-top: 60px;
     display: flex;
     margin-bottom: 60px;
+    justify-content: space-between;
 }
 .travel-plan__title {
     @include mainFont;
@@ -417,7 +317,7 @@ main {
     color: #828282;
 }
 .travel-plan__img {
-    width: 60%;
+    width: 50%;
     height: 100%;
     object-fit: cover;
     position: relative;
@@ -456,7 +356,8 @@ main {
     }
     .trip-info__img-background {
         width: 100%;
-        padding-bottom: 100%;
+        padding-bottom: min(100%, 500px);
+
         height: 0;
     }
     .trip-info__discription {
@@ -492,6 +393,12 @@ main {
         margin-right: 5px;
         box-sizing: border-box;
     }
+    .trip-info__img-background {
+        width: 100%;
+        padding-bottom: min(100%, 250px);
+
+        height: 0;
+    }
     .trip-info__icons {
         font-size: 14px;
     }
@@ -513,19 +420,11 @@ main {
 
 @media screen and (max-width: 700px) {
     .trip-info__title {
-        font-size: 32px;
+        font-size: 36px;
     }
     .trip-info__header {
         padding: 0px;
-        margin: 20px 0px;
-    }
-}
-@media screen and (max-width: 450px) {
-    .trip-info__title {
-        font-size: 28px;
-    }
-    .trip-info__header {
-        margin: 20px 0px;
+        margin: 0;
     }
 }
 
@@ -564,131 +463,6 @@ main {
     }
 }
 
-// // СТИЛИ ДЛЯ ПОПАПА РЕГИСТРАЦИИ
-
-// .popup.popup_is-opened {
-//     display: flex;
-// }
-
-// .popup {
-//     position: fixed;
-//     top: 0;
-//     left: 0;
-//     width: 100%;
-//     height: 100%;
-//     overflow: scroll;
-//     background-color: rgba(0, 0, 0, 0.5);
-//     display: flex;
-//     flex-direction: column;
-//     align-items: center;
-//     justify-content: center;
-//     display: none;
-//     z-index: 20;
-// }
-
-// .popup__close {
-//     width: 26px;
-//     position: absolute;
-//     top: 26px;
-//     right: 26px;
-//     cursor: pointer;
-// }
-
-// .popup__content {
-//     width: 430px;
-//     // min-height: 330px;
-//     background-color: #fff;
-//     border-radius: 10px;
-//     position: relative;
-//     box-sizing: border-box;
-//     padding: 34px 36px;
-//     @media screen and (max-width: 540px) {
-//         & {
-//             width: calc(100% - 60px);
-//         }
-//     }
-// }
-
-// .popup__title {
-//     @include mainFont;
-//     font-weight: bold;
-//     font-size: 28px;
-//     line-height: 30px;
-
-//     color: #414141;
-//     @media screen and (max-width: 540px) {
-//         & {
-//             font-size: 22px;
-//             line-height: 24px;
-//         }
-//     }
-// }
-// .popup__text {
-//     @include mainFont;
-//     font-weight: bold;
-//     font-size: 16px;
-//     line-height: 18px;
-//     margin-bottom: 20px;
-//     color: #414141;
-// }
-// .popup__link_active {
-//     @include mainFont;
-//     font-weight: bold;
-//     font-size: 16px;
-//     line-height: 18px;
-//     color: #f1a22c;
-//     text-decoration: none;
-//     margin-right: 10px;
-// }
-// .popup__link {
-//     @include mainFont;
-//     font-weight: bold;
-//     font-size: 16px;
-//     line-height: 18px;
-//     color: #414141;
-//     &:hover {
-//         cursor: pointer;
-//     }
-// }
-// .popup__input {
-//     @include mainFont;
-//     width: 100%;
-//     height: 47px;
-//     border: 0;
-//     border-bottom: 1px solid rgba(0, 0, 0, 0.2);
-//     font-size: 14px;
-//     line-height: 17px;
-//     box-sizing: border-box;
-//     padding: 5px 6px 13px;
-//     margin-bottom: 24px;
-//     color: #414141;
-//     &:focus {
-//         outline: none;
-//     } // убрала рамку при нажатии
-//     &.ng-valid {
-//         border-bottom: 1px solid rgb(241, 162, 44);
-//     }
-//     &.popup__input_number {
-//         width: 45%;
-//         margin-left: 5%;
-//     }
-//     &.popup__input_tel {
-//         width: 50%;
-//     }
-//     @media screen and (max-width: 540px) {
-//         font-size: 12px;
-//         line-height: 16px;
-//         padding: 5px 6px 5px;
-//         margin-bottom: 12px;
-//         &.popup__input_number {
-//             width: 100%;
-//             margin-left: 0%;
-//         }
-//         &.popup__input_tel {
-//             width: 100%;
-//         }
-//     }
-// }
 // убрала стрелки вверх вниз у инпут
 input::-webkit-outer-spin-button,
 input::-webkit-inner-spin-button {
@@ -699,10 +473,6 @@ input::-webkit-inner-spin-button {
 ::placeholder {
     // стиль для плейсхолдера
     color: #414141;
-}
-
-.popup__input:last-of-type {
-    margin-bottom: 0;
 }
 
 .tariffLink {

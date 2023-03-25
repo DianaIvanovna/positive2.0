@@ -56,14 +56,6 @@ export const UserPage = () => {
             <div className={cn("main__contant", style.page)}>
                 <div className="page">
                     <div className={cn("pageContent ", style.page)}>
-                        {/* <button
-                            onClick={() => {
-                                logoutHandler();
-                                navigate("/");
-                            }}
-                        >
-                            Выход
-                        </button> */}
                         <div className={style.page__header}>
                             <h1 className={cn("main-title", "anim__title")} ref={title}>
                                 Мой кабинет

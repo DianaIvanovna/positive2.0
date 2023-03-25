@@ -15,7 +15,7 @@ const initialValuesTourist = order => {
         {
             firstName: "",
             phone: "",
-            emai: "",
+            email: "",
         },
     ];
 };
@@ -32,7 +32,7 @@ const BookingStep2 = props => {
                 return {
                     ...prev,
                     phoneOwner: values.tourists[0].phone,
-                    emailOwner: values.tourists[0].emai,
+                    emailOwner: values.tourists[0].email,
                     firstNameOwner: values.tourists[0].firstName,
                     lastNameOwner: "",
                     data: values.tourists,

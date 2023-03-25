@@ -16,7 +16,23 @@ const initialState = {
     },
     orders__loading: false,
     orders__error: false,
-    orders: null,
+    orders: [
+        {
+            data: [{email: "GDI.1999@yandex.ru", phone: "+79992014525", firstName: "Диана Ивановна Гарбуз"}],
+            dateCreate: "2023-01-31 17:45:54",
+            emailOwner: "GDI.1999@yandex.ru",
+            firstNameOwner: "Диана Ивановна Гарбуз",
+            id: "14",
+            idUserOwner: "6",
+            lastNameOwner: "",
+            messageAdmin: "",
+            messageClient: "",
+            phoneOwner: "+79992014525",
+            status: "created",
+            tourID: "50",
+            tripID: "67",
+        },
+    ],
 };
 export function userReducer(state = initialState, action) {
     switch (action.type) {
@@ -32,7 +48,7 @@ export function userReducer(state = initialState, action) {
                 return {...state, orders__error: action.payload, orders__loading: false};
             }
 
-            return {...state, orders: action.payload};
+            return {...state, orders: action.payload, orders__loading: false};
 
         case USER_RESET:
             return {...initialState};

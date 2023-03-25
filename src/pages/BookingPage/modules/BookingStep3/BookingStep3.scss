@@ -10,24 +10,26 @@
     box-sizing: border-box;
 
     &__button {
-        position: relative;
-        left: -25px;
-        button {
-            @include mainFont;
-            font-weight: 600;
-            font-size: 14.2642px;
-            line-height: 17px;
-            text-align: center;
-            letter-spacing: 0.09em;
-            text-transform: uppercase;
+        // position: relative;
+        // left: -25px;
+        // button {
+        //     @include mainFont;
+        //     font-weight: 600;
+        //     font-size: 14.2642px;
+        //     line-height: 17px;
+        //     text-align: center;
+        //     letter-spacing: 0.09em;
+        //     text-transform: uppercase;
 
-            color: #ffffff;
+        //     color: #ffffff;
 
-            text-shadow: 0px -1.2183px 2.4366px #c17b11;
-        }
-        margin: 0;
+        //     text-shadow: 0px -1.2183px 2.4366px #c17b11;
+        // }
+        // margin: 0;
+        // margin-top: 26px;
+        // float: right;
+        // align-self: flex-end;
         margin-top: 26px;
-        float: right;
         align-self: flex-end;
     }
 

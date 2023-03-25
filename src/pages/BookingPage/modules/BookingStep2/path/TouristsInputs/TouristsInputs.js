@@ -13,7 +13,7 @@ export const TouristsInputs = () => {
                     push({
                         firstName: "",
                         phone: "",
-                        emai: "",
+                        email: "",
                     });
                 };
 

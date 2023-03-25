@@ -1,5 +1,5 @@
-import {ADD_TOURS, ADD_TOUR_PAGE, RESET_TOUR} from "../types/tourTypes";
-//import {tours} from "./data";
+import {ADD_TOURS, ADD_TOUR_PAGE, RESET_TOUR} from "src/store/types/tourTypes";
+import {sortTour} from "./tourUtils";
 
 const initialState = {
     tours: null,
@@ -20,7 +20,7 @@ export function tourReducer(state = initialState, action) {
                 return {...state, tours__error: action.payload};
             }
 
-            return {...state, tours: action.payload};
+            return {...state, tours: sortTour(action.payload)};
         case ADD_TOUR_PAGE:
             if (action.status === "pending") {
                 return {...state, tourPage__loading: action.payload};

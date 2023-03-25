@@ -5,7 +5,7 @@
     border: 1px solid #f0eae0;
     border-radius: 12px;
     width: 100%;
-    max-width: 360px;
+    max-width: 450px;
     height: max-content;
     max-height: 100%;
     margin: 0 auto;
@@ -19,6 +19,20 @@
     @include scroll;
     padding: 35px;
     box-sizing: border-box;
+
+    &--second {
+        @media screen and (max-width: 1040px) {
+            .auth__title {
+                @include mainFontValue(normal, 700, 28px, 120%);
+            }
+        }
+    }
+
+    &__error {
+        margin: 0 0 5px;
+        @include mainFontValue(normal, 500, 14px, 140%);
+        color: #e44f4f;
+    }
 
     &__close {
         right: 6px;

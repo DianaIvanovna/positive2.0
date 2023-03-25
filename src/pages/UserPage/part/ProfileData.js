@@ -15,6 +15,11 @@ export const ProfileData = () => {
             firstName: user?.display_name,
             phone: "",
             email: user?.user_email,
+
+            //             firstName - имя пользователя
+            // lastName - фамилия пользователя
+            // email - почта пользователя
+            // phone - телефон
         },
         onSubmit: values => {
             // добавить изменение данных пользователя

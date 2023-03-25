@@ -29,6 +29,7 @@ const TripContainer = () => {
                     Наши поездки
                 </h2>
             </div>
+
             {tours ? (
                 <div className={styles["our-trip__container"]}>
                     {tours.map((item, index) => (
@@ -36,7 +37,7 @@ const TripContainer = () => {
                     ))}
                 </div>
             ) : (
-                <p>Ошибка загрузки</p>
+                <p className={styles["our-trip__error"]}>Ошибка загрузки</p>
             )}
         </section>
     );

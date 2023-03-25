@@ -5,7 +5,11 @@ export const useSeasonNavigate = () => {
     const season = useLocationSeason();
     const navigate = useNavigate();
 
-    return link => {
-        navigate(`/${season}/${link}`);
+    return (link, noSeason = false) => {
+        if (noSeason) {
+            navigate(`/${link}`);
+        } else {
+            navigate(`/${season}/${link}`);
+        }
     };
 };

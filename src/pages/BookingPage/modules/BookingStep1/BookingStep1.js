@@ -6,13 +6,13 @@ import {MainButton} from "../../../../components/MainButton/MainButton";
 import {MONTHS, WEEKDAYS_SHORT, WEEKDAYS_LONG} from "../../../../constants/calendarData";
 
 const BookingStep1 = ({bookingTour, ...props}) => {
-    const [active, setActive] = useState(props.order.id);
+    const [active, setActive] = useState(props.order.trip);
 
     const nextStep = useCallback(() => {
         props.setOrder(prev => {
             return {
                 ...prev,
-                id: active,
+                trip: active,
             };
         });
 
@@ -41,13 +41,13 @@ const BookingStep1 = ({bookingTour, ...props}) => {
                 />
                 {bookingTour.trips.map((item, index) => (
                     <div
-                        className={`booking-step-1__line ${active === item.id ? "booking-step-1__line--active" : ""}`}
+                        className={`booking-step-1__line ${active.id === item.id ? "booking-step-1__line--active" : ""}`}
                         key={index}
                         onClick={() => {
-                            setActive(item.id);
+                            setActive(item);
                         }}
                     >
-                        <div className="booking-step-1__icon">{funcIcon(active === item.id ? "#ffffff" : "#F1A22C")}</div>
+                        <div className="booking-step-1__icon">{funcIcon(active.id === item.id ? "#ffffff" : "#F1A22C")}</div>
                         <p className="booking-step-1__date">
                             {item.dateStart} - {item.dateEnd}
                         </p>
@@ -55,7 +55,7 @@ const BookingStep1 = ({bookingTour, ...props}) => {
                     </div>
                 ))}
 
-                <MainButton text="ПРОДОЛЖИТЬ" className="booking-step-1__button" disabled={!active} onClick={nextStep} />
+                <MainButton text="ПРОДОЛЖИТЬ" className="booking-step-1__button" disabled={!active.id} onClick={nextStep} />
             </div>
         </section>
     );
