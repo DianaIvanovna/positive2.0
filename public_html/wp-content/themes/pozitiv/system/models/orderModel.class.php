@@ -109,4 +109,16 @@ class OrderModel extends PozitivModel {
             'OBJECT'
         );
     }
+
+
+    public function GetByTripID(int $tripID) {
+        if ($tripID <= 0) { throw new ErrorException(); }
+
+        global $wpdb;
+
+        return $wpdb->get_results(
+            "SELECT * FROM `pozitiv_orders` WHERE tripID={$tripID} ORDER BY id ASC",
+            'OBJECT'
+        );
+    }
 }

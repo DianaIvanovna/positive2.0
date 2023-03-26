@@ -1,7 +1,6 @@
-.pozitiv {
-    $clrBlue: #2271b1;
-    $clrBorder: #e2e2e3;
+@import 'vars';
 
+.pozitiv {
     &__order-edit-form {
 
         &__control-block {
@@ -12,34 +11,6 @@
 
             button {
                 margin-left: 10px;
-            }
-        }
-
-        &__section {
-            background-color: white;
-            padding: 38px 14px 14px;
-            border-radius: 8px;
-            border: 1px solid $clrBorder;
-            margin-bottom: 20px;
-            position: relative;
-            overflow: hidden;
-            box-sizing: border-box;
-            width: calc(100% - 20px);
-
-            & > h2 {
-                font-size: 12px;
-                font-weight: 600;
-                color: $clrBlue;
-                display: block;
-                position: absolute;
-                top: -1px;
-                left: 0;
-                border: 1px solid $clrBorder;
-                height: 24px;
-                line-height: 24px;
-                padding: 0 20px;
-                margin: 0;
-                background-color: #fafafb;
             }
         }
 

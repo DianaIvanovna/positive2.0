@@ -292,8 +292,17 @@ function PozitivTripControl() {
     $tripModel = new TripModel(); 
 
     switch ($_REQUEST['action']) {
-        case 'show': break;
-        case 'update': break;
+        case 'show': 
+            $trip = $tripModel->GetByID($_REQUEST['id']);
+
+            $tripControlPageAdmin = new TripControlPageAdmin();
+            $tripControlPageAdmin->Display($trip);
+
+            break;
+
+        case 'update': 
+            break;
+
         default: 
             echo '<div class="pozitiv__admin-page pozitiv__admin-page--list">';
             echo '<h1>Управление поездками</h1>';

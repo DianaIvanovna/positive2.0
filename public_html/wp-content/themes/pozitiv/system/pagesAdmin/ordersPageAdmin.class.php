@@ -302,7 +302,7 @@ class OrderEditPageAdmin extends PagesAdmin {
                     <button type=\"button\" id=\"orderBtnPrint\" class=\"pos-ui__button pos-ui__button--gray pos-ui__button--big\" title=\"Распечатать заказ\">🖨</button>
                 </div>
 
-                <section class=\"pozitiv__order-edit-form__section\">
+                <section class=\"pozitiv__admin-page__section\">
                     <input type=\"hidden\" name=\"tourID\" value=\"{$order->tourID}\">
                     <input type=\"hidden\" name=\"tripID\" value=\"{$order->tripID}\">
                     <input type=\"hidden\" name=\"data\" value=\"\">
@@ -325,7 +325,7 @@ class OrderEditPageAdmin extends PagesAdmin {
                     </div>
                 </section>
                     
-                <section class=\"pozitiv__order-edit-form__section\">
+                <section class=\"pozitiv__admin-page__section\">
                     <input type=\"hidden\" name=\"idUserOwner\" value=\"{$order->idUserOwner}\">
                     <h2>Заказчик</h2>
 
@@ -362,7 +362,7 @@ class OrderEditPageAdmin extends PagesAdmin {
                     </div>
                 </section>
 
-                <section class=\"pozitiv__order-edit-form__section\" id=\"section-tourists\">
+                <section class=\"pozitiv__admin-page__section\" id=\"section-tourists\">
                     <h2>Туристы и услуги</h2>
 
                     <div class=\"pozitiv__order-edit-form__row\">
@@ -391,13 +391,13 @@ class OrderEditPageAdmin extends PagesAdmin {
                     </div>
                 </section>
 
-                <section class=\"pozitiv__order-edit-form__section\" id=\"section-payments\">
+                <section class=\"pozitiv__admin-page__section\" id=\"section-payments\">
                     <h2>Платежи</h2>
                     <div id=\"orderListPayments\"></div>
                     <button type=\"button\" id=\"orderBtnPaymentAdd\" class=\"pos-ui__button pos-ui__button--blue\" title=\"Добавить платеж\">Добавить платеж</button>
                 </section>
 
-                <section class=\"pozitiv__order-edit-form__section\">
+                <section class=\"pozitiv__admin-page__section\">
                     <h2>Комментарий администратора</h2>
                     <div class=\"form-field\">
                         <textarea class=\"\" name=\"messageAdmin\" placeholder=\"Комментарий администратора\">{$order->messageAdmin}</textarea>
@@ -410,6 +410,7 @@ class OrderEditPageAdmin extends PagesAdmin {
             </script>
         ";
     }
+    
 
     function Change() {
 
