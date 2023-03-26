@@ -50,8 +50,6 @@ class OrdersTablePageAdmin extends WP_List_Table {
         $hidden = array();
         $sortable = $this->get_sortable_columns();
         $this->_column_headers = array($columns, $hidden, $sortable);
-
-
         
         $out = [];
         foreach ($this->orders as $order) {

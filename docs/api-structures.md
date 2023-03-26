@@ -32,6 +32,7 @@
 
 ## Поездка (trip)
 - id                - ID поездки
+- name              - Название поездки
 - dateStart         - timestamp начала поездки
 - dateEnd           - timestamp завершения поездки
 - touristLimit      - общее количество туристов в поездке

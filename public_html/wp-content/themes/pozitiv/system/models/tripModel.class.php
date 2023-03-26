@@ -30,4 +30,29 @@ class TripModel extends PozitivModel {
 
         return $out;
     }
+
+
+    public function GetAll() {
+
+        $res = new WP_Query([
+            'post_type'      => 'trip',
+        ]);
+
+        while ($res->have_posts()) {
+            $res->the_post();
+
+            $out[] = [
+                'id'            => get_the_ID(),
+                'name'          => get_the_title(),
+                'dateStart'     => get_field('dateStart'),
+                'dateEnd'       => get_field('dateEnd'),
+                'touristLimit'  => get_field('touristLimit'),
+                'cost'          => get_field('cost'),
+                'services'      => get_field('services'),
+            ];
+        }
+        wp_reset_postdata();
+
+        return $out;
+    }
 }

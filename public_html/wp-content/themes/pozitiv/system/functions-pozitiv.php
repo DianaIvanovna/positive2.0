@@ -286,11 +286,24 @@ function PozitivOrderPage(){
  * Функция обрабатывает страницу управления поездками
 */
 function PozitivTripControl() {
+    require_once __DIR__ . '/models/tripModel.class.php';
+    require_once __DIR__ . '/pagesAdmin/tripsPageAdmin.class.php';
+
+    $tripModel = new TripModel(); 
 
     switch ($_REQUEST['action']) {
         case 'show': break;
         case 'update': break;
         default: 
+            echo '<div class="pozitiv__admin-page pozitiv__admin-page--list">';
+            echo '<h1>Управление поездками</h1>';
+        
+            $trips = $tripModel->GetAll();
+            
+            $objTripsTable = new TripsTablePageAdmin($trips);
+            $objTripsTable->display();
+
+            echo '</div>';
             break; 
     }
 }
