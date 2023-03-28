@@ -91,40 +91,72 @@ class TripControlPageAdmin extends PagesAdmin {
     function __construct() {
         parent::__construct();
 
-        // wp_enqueue_script( 'js', get_template_directory_uri() . '/assets/scripts/tripPageAdmin.min.js');
+        wp_enqueue_script( 'js', get_template_directory_uri() . '/assets/scripts/tripPageAdmin.min.js');
+        wp_enqueue_style( 'pozitiv-admin', get_template_directory_uri() . '/assets/styles/pozitiv-admin.min.css' );
     }
 
     function Display($trip) {
 
         require_once __DIR__ . '/../models/orderModel.class.php';
 
-        
         $orderModel = new OrderModel();
         $ordersTrip = $orderModel->GetByTripID($trip['id']);
         
+        $ordersHTML = '';
         $tripNumberTourists = 0;
         foreach ($ordersTrip as $order) {
             // Пропустим не подтвержденные заказы
             if ($order->status != 'confirmed') { continue; }
 
             $orderData = json_decode(stripslashes($order->data), true);
-
             $tripNumberTourists += count($orderData['tourists']);
+
+            $touristsHTML = '<ol class="order-item__tourists">';
+            foreach ($orderData['tourists'] as $tourist) {
+                $touristsHTML .= '<li>' . $tourist['lastName'] . ' ' . $tourist['firstName'] . ' ' . $tourist['middleName'] . '</li>';
+            }
+            $touristsHTML .= '</ol>';
+
+            switch ($order->status) {
+                case 'confirmed':  $statusLabel = 'Подтвержден'; break;
+                case 'canceled':   $statusLabel = 'Отменен'; break;
+                case 'created':    $statusLabel = 'Новый'; break;
+                case 'payed':      $statusLabel = 'Оплачен'; break;
+                case 'completed':  $statusLabel = 'Завершен'; break;
+            }
+            
+            $ordersHTML .= "
+                <div class=\"order-item\">
+                    <a class=\"order-item__id\" target=\"_blank\" href=\"/wp-admin/admin.php?page=pozitiv_orders&action=edit&id={$order->id}\">{$order->id}</a>
+                    {$touristsHTML}
+                    <span class=\"order-item__amount\">Сумма:<br/>{$order->amount}</span>
+                    <span class=\"order-item__status\">Статус:<br/>{$statusLabel}</span>
+                </div>
+            ";
         }
+
+        if (empty($ordersHTML)) { $ordersHTML = 'нет заказов'; }
         
 
         echo "
             <div class=\"pozitiv__trip-control-form\">
+                <h1>Управление поездкой \"{$trip['name']}\"</h1>
+
                 <section class=\"pozitiv__admin-page__section pozitiv__admin-page__section--trip-info\">
                     <h2>Поездка</h2>
-                    <span> Всего туристов: {$tripNumberTourists} </span>
+                    <span>
+                        Всего туристов / Лимит туристов:<br/>
+                        {$tripNumberTourists} / {$trip['touristLimit']}
+                    </span>
                     <button>Сформировать отчет по поездке</button>
                     <button>Завершить поездку</button>
                 </section>
 
                 <section class=\"pozitiv__admin-page__section pozitiv__admin-page__section--orders\">
                     <h2>Заказы</h2>
-
+                    <div class=\"orders-list\">
+                        {$ordersHTML}
+                    </div>
                 </section>
             </div>
         ";

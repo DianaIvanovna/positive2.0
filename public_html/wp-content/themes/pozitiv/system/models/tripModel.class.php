@@ -21,6 +21,7 @@ class TripModel extends PozitivModel {
 
             $out = [
                 'id'            => get_the_ID(),
+                'name'          => get_the_title(),
                 'dateStart'     => get_field('dateStart'),
                 'dateEnd'       => get_field('dateEnd'),
                 'touristLimit'  => get_field('touristLimit'),

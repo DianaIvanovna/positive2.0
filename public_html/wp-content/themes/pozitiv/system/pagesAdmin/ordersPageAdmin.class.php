@@ -16,6 +16,9 @@ class OrdersTablePageAdmin extends WP_List_Table {
     function __construct(array $orders) {
         parent::__construct();
 
+        wp_enqueue_style( 'pozitiv-admin', get_template_directory_uri() . '/assets/styles/pozitiv-admin.min.css' );
+        wp_enqueue_style( 'order-page-admin', get_template_directory_uri() . '/assets/styles/orders-page-admin.min.css' );
+
         $this->orders = $orders;
 
         $this->bulk_action_handler();
@@ -33,6 +36,7 @@ class OrdersTablePageAdmin extends WP_List_Table {
     function get_columns() {
         return [
 			'id'            => 'ID',
+            'trip'          => 'Тур:Поездка',
 			'dateCreate'    => 'Дата создания',
 			'client'        => 'Клиент',
 			'tourists'      => 'Туристы',
@@ -44,7 +48,11 @@ class OrdersTablePageAdmin extends WP_List_Table {
     function prepare_items() {
 
         require_once __DIR__ . '/../models/paymentModel.class.php';
+        require_once __DIR__ . '/../models/tripModel.class.php';
+        require_once __DIR__ . '/../models/tourModel.class.php';
         $paymentModel = new PaymentModel();
+        $tripModel = new TripModel();
+        $tourModel = new TourModel();
 
         $columns = $this->get_columns();
         $hidden = array();
@@ -53,7 +61,11 @@ class OrdersTablePageAdmin extends WP_List_Table {
         
         $out = [];
         foreach ($this->orders as $order) {
-            
+
+            //== Определим Тур / Поездку
+            $tour = $tourModel->GetByID($order->tourID);
+            $trip = $tripModel->GetByID($order->tripID);
+
             //== Сформируем список туристов
             $dataOrder = json_decode($order->data);
             $orderTouristsList = '';
@@ -89,6 +101,7 @@ class OrdersTablePageAdmin extends WP_List_Table {
 
             $out[] = [
                 'id'            => $order->id,
+                'trip'          => '<a href="/wp-admin/admin.php?page=pozitiv_trip_control&action=show&id=' . $order->tripID .'" target="_blank">' . $tour['title'] . ':' . $trip['name'] .'</a>',
                 'dateCreate'    => $order->dateCreate,
                 'client'        => $order->lastNameOwner . ' ' . $order->firstNameOwner,
                 'tourists'      => $orderTouristsList,
@@ -137,6 +150,8 @@ class OrderEditPageAdmin extends PagesAdmin {
         parent::__construct();
 
         wp_enqueue_script( 'js', get_template_directory_uri() . '/assets/scripts/orderPageAdmin.min.js');
+        wp_enqueue_style( 'pozitiv-admin', get_template_directory_uri() . '/assets/styles/pozitiv-admin.min.css' );
+        wp_enqueue_style( 'order-page-admin', get_template_directory_uri() . '/assets/styles/orders-page-admin.min.css' );
 
         // получить данные заказа
         $this->order = [];
@@ -296,8 +311,8 @@ class OrderEditPageAdmin extends PagesAdmin {
                 <div class=\"pozitiv__order-edit-form__control-block\">
                     <div class=\"pozitiv__order-edit-form__paystatus\">Оплачено / Общая стоимость:&nbsp;<span>{$paid}&nbsp;/&nbsp;{$order->amount}&nbsp;руб.</span></div>
                     <div class=\"pozitiv__order-edit-form__status\">Статус заказа: <span>{$orderStatus}</span></div>
-                    <button type=\"button\" id=\"orderBtnCancel\" class=\"pos-ui__button pos-ui__button--red pos-ui__button--big\" title=\"Отменить заказ и сохранить\">Отменить</button>
                     <button type=\"submit\" id=\"orderBtnSubmit\" class=\"pos-ui__button pos-ui__button--blue pos-ui__button--big\" title=\"Сохранить заказ без изменения статуса\">Сохранить</button>
+                    <button type=\"button\" id=\"orderBtnCancel\" class=\"pos-ui__button pos-ui__button--red pos-ui__button--big\" title=\"Отменить заказ и сохранить\">Отменить заказ</button>
                     <button type=\"button\" id=\"orderBtnAccepted\" class=\"pos-ui__button pos-ui__button--green pos-ui__button--big\" title=\"Сохранить заказ и подтвердить\">Подтвердить заказ</button>
                     <button type=\"button\" id=\"orderBtnPrint\" class=\"pos-ui__button pos-ui__button--gray pos-ui__button--big\" title=\"Распечатать заказ\">🖨</button>
                 </div>
@@ -374,7 +389,7 @@ class OrderEditPageAdmin extends PagesAdmin {
                         </div>
                         <div class=\"pozitiv__order-edit-form__col-1-3\">
                             <div class=\"tourist-services-block\">
-                                <span class=\"pozitiv__order-edit-form__block-h\">Услуги туриста</span>
+                                <span class=\"pozitiv__order-edit-form__block-h\">Услуги текущего туриста</span>
                                 <div id=\"orderListServices\"></div>
                                 <div class=\"tourist-services-block__footer\">
                                     <button class=\"pos-ui__button pos-ui__button--blue\" id=\"btnTouristServiceAdd\" type=\"button\">Добавить услугу</button>

@@ -219,7 +219,7 @@ add_action(
         );
 
         //= Добавим страницу управления поездками
-        $res = add_submenu_page( 
+        $pageTrip = add_submenu_page( 
             'edit.php?post_type=trip', 
             'Управление поездками', 
             'Отчеты по поездкам', 
@@ -230,10 +230,10 @@ add_action(
         );
 
         //= Подключим скрипты и стили к странице Заказов
-        add_action('load-' . $pageOrder, function(){
-            wp_enqueue_style( 'pozitiv-admin', get_template_directory_uri() . '/assets/styles/pozitiv-admin.min.css' );
-            wp_enqueue_style( 'order-page-admin', get_template_directory_uri() . '/assets/styles/orders-page-admin.min.css' );
-        });
+        // add_action('load-' . $pageOrder, function(){
+        //     wp_enqueue_style( 'pozitiv-admin', get_template_directory_uri() . '/assets/styles/pozitiv-admin.min.css' );
+        //     wp_enqueue_style( 'order-page-admin', get_template_directory_uri() . '/assets/styles/orders-page-admin.min.css' );
+        // });
     },
     25
 );
